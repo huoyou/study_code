@@ -1,6 +1,5 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
     <h2>这件衣服值{{price}}</h2>
     <h1>hello,我是 {{name}} ,我今年 {{age}} 岁</h1>
     <h1>hello,我是 {{name1}} ,我今年 {{age1}} 岁</h1>
@@ -34,7 +33,6 @@ export default {
   },
   data() {
     return {
-      msg: "Welcome to Your Vue.js App"
     };
   }
 };
