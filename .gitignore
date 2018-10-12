@@ -1,9 +1,12 @@
 # General
+*.log 
 .DS_Store
+build/ 
 .AppleDouble
 .LSOverride
 <<<<<<< HEAD
 .svn
+.idea/
 node_modules/
 
 =======
