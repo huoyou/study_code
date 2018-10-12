@@ -3,5 +3,4 @@ const state = {
     age: 22,
     price: 9880
 };
-
 export default state;
