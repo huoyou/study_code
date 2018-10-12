@@ -1,0 +1,7 @@
+*.log 
+.DS_Store
+.svn
+build/ 
+node_modules/ 
+.idea/ 
+my_notes.txt
