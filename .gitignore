@@ -1,7 +1,11 @@
-*.log 
+# General
 .DS_Store
+.AppleDouble
+.LSOverride
+<<<<<<< HEAD
 .svn
-build/ 
-node_modules/ 
-.idea/ 
-my_notes.txt
+node_modules/
+
+=======
+.svn
+node_modules/
