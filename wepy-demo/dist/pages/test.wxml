@@ -1,0 +1,10 @@
+
+    <view class="container _fc709ee">
+        <text class="txt _fc709ee">{{msg}}</text>
+        <text  wx:if="{{condition}}" class="txt _fc709ee">{{msg}}+1</text>
+        <checkbox checked="{{isChecked}}" class="_fc709ee"/>
+        <view hidden="{{flag ? true : false}}" class="_fc709ee">Hidden</view>
+        <view class="_fc709ee">{{"hello" + name}}</view>
+        <view  wx:for="{{list}}" wx:key="index" class="_fc709ee">{{item}}_{{index}}</view>
+        <view id="tapTest" data-hi="WeChat" bindtap="tapName" class="_fc709ee"> Click me! </view>
+    </view>

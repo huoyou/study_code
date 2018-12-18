@@ -1,0 +1,74 @@
+{
+  "_from": "hydrogen-js-sdk",
+  "_id": "hydrogen-js-sdk@1.6.7",
+  "_inBundle": false,
+  "_integrity": "sha512-wCk7pfEZ/mNbm3kwDbdfWhHgY3AmJbZcNTl3Q7Xo6Ozkf8UJ1gYrX+O2Et6heJ9hycG2ozejsmSqJ4DGx4NOZQ==",
+  "_location": "/hydrogen-js-sdk",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "hydrogen-js-sdk",
+    "name": "hydrogen-js-sdk",
+    "escapedName": "hydrogen-js-sdk",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/hydrogen-js-sdk/-/hydrogen-js-sdk-1.6.7.tgz",
+  "_shasum": "f61920cf95ce7a4b3ec87afb11e9af22792c068d",
+  "_spec": "hydrogen-js-sdk",
+  "_where": "F:\\wepy-demo",
+  "author": {
+    "name": "Bmob"
+  },
+  "bugs": {
+    "url": "https://github.com/bmob/hydrogen-js-sdk/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "node.extend": "^2.0.0",
+    "webpack": "^3.12.0"
+  },
+  "deprecated": false,
+  "description": "Bmob SDK",
+  "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-friendly-formatter": "^4.0.1",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.12.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "html-webpack-plugin": "^2.30.1",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack-dev-server": "^2.11.2"
+  },
+  "directories": {
+    "doc": "docs"
+  },
+  "homepage": "https://github.com/bmob/hydrogen-js-sdk#readme",
+  "keywords": [
+    "Bmob"
+  ],
+  "license": "ISC",
+  "main": "./src/lib/app.js",
+  "name": "hydrogen-js-sdk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bmob/hydrogen-js-sdk.git"
+  },
+  "scripts": {
+    "build": "webpack --config config/prod.env.js",
+    "dev": "webpack-dev-server --config config/dev.env.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch --config config/prod.env.js"
+  },
+  "version": "1.6.7"
+}
