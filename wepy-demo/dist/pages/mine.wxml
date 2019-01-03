@@ -1,0 +1,4 @@
+
+    <view class="container _78ffebf">
+        <view class="imgBox _78ffebf" bindtap="uploadImg">+</view>
+    </view>

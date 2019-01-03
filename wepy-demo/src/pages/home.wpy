@@ -1,0 +1,55 @@
+<style lang="less" scoped>
+.container {
+  .imgBox {
+    .img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+</style>
+<template>
+    <view class="container">
+        <view wx:for="{{imgList}}" wx:key="objectId" class="imgBox">
+            <image class="img" src="{{item.url}}" lazy-load="true"/>
+            <p>{{item.filename}}</p>
+        </view>
+    </view>
+</template>
+<script>
+import wepy from 'wepy';
+import Bmob from 'hydrogen-js-sdk';
+export default class Home extends wepy.page {
+  config = {
+    navigationBarTitleText: '首页'
+  };
+  onload() {}
+  onShow() {
+    this.loadImg();
+  }
+  data = {
+    imgList: null
+  };
+  methods = {};
+  loadImg() {
+    let self = this;
+    var query = Bmob.Query('photlList');
+    query.find().then(res => {
+      self.imgList = res;
+      self.$apply();
+    });
+  }
+  onPullDownRefresh() {
+    this.onload();
+    this.onShow();
+    setTimeout(() => {
+      wx.stopPullDownRefresh();
+    }, 2000);
+  }
+  onReachBottom(event) {
+    //请求更多数据
+  }
+}
+</script>
+
+

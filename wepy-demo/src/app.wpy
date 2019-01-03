@@ -1,11 +1,6 @@
 <style lang="less">
 .container {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
 }
 </style>
 
@@ -21,11 +16,13 @@ setStore(store);
 import Bmob from 'hydrogen-js-sdk';
 Bmob.initialize(
   'da40d09276fcc91b75eba34657d81f61',
-  '4e2162a7086839946d7df2f434e41ff0'
+  '4e2162a7086839946d7df2f434e41ff0',
+  'ce5bab7bdcc3bc654344ffc55cc69beb'
 );
+
 export default class extends wepy.app {
   config = {
-    pages: ['pages/test', 'pages/index'],
+    pages: ['pages/home', 'pages/test', 'pages/index', 'pages/mine'],
     window: {
       backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#fff',
@@ -37,7 +34,14 @@ export default class extends wepy.app {
       color: '#ccc',
       selectedColor: '#000',
       list: [
+      
         {
+          pagePath: 'pages/home',
+          text: '首页',
+          iconPath: './imgs/tab_home_nor@2x.png',
+          selectedIconPath: './imgs/tab_home_sel@2x.png'
+        },
+          {
           pagePath: 'pages/test',
           text: '测一',
           iconPath: './imgs/tab_car_nor@2x.png',
@@ -45,18 +49,12 @@ export default class extends wepy.app {
         },
         {
           pagePath: 'pages/index',
-          text: '首页',
-          iconPath: './imgs/tab_home_nor@2x.png',
-          selectedIconPath: './imgs/tab_home_sel@2x.png'
-        },
-        {
-          pagePath: 'pages/index',
-          text: '测二',
+          text: '测2',
           iconPath: './imgs/tab_usedcar_nor@2x.png',
           selectedIconPath: './imgs/tab_usedcar_sel@2x.png'
         },
         {
-          pagePath: 'pages/index',
+          pagePath: 'pages/mine',
           text: '我的',
           iconPath: './imgs/tab_mine_nor@2x.png',
           selectedIconPath: './imgs/tab_mine_sel@2x.png'
@@ -132,17 +130,17 @@ export default class extends wepy.app {
     console.log(data);
   }
 
-  getUserInfo(cb) {
-    const that = this;
-    if (this.globalData.userInfo) {
-      return this.globalData.userInfo;
-    }
-    wepy.getUserInfo({
-      success(res) {
-        that.globalData.userInfo = res.userInfo;
-        cb && cb(res.userInfo);
-      }
-    });
-  }
+  // getUserInfo(cb) {
+  //   const that = this;
+  //   if (this.globalData.userInfo) {
+  //     return this.globalData.userInfo;
+  //   }
+  //   wepy.getUserInfo({
+  //     success(res) {
+  //       that.globalData.userInfo = res.userInfo;
+  //       cb && cb(res.userInfo);
+  //     }
+  //   });
+  // }
 }
 </script>

@@ -1,0 +1,7 @@
+
+    <view class="container _bdaa94b">
+        <view  wx:for="{{imgList}}" wx:key="objectId" class="imgBox _bdaa94b">
+            <image class="img _bdaa94b" src="{{item.url}}" lazy-load="true"/>
+            <p class="_bdaa94b">{{item.filename}}</p>
+        </view>
+    </view>
