@@ -1,40 +1,42 @@
 {
-  "_from": "hydrogen-js-sdk",
+  "_args": [
+    [
+      "hydrogen-js-sdk@1.6.7",
+      "F:\\study_code\\wepy-demo"
+    ]
+  ],
+  "_from": "hydrogen-js-sdk@1.6.7",
   "_id": "hydrogen-js-sdk@1.6.7",
   "_inBundle": false,
   "_integrity": "sha512-wCk7pfEZ/mNbm3kwDbdfWhHgY3AmJbZcNTl3Q7Xo6Ozkf8UJ1gYrX+O2Et6heJ9hycG2ozejsmSqJ4DGx4NOZQ==",
   "_location": "/hydrogen-js-sdk",
   "_phantomChildren": {},
   "_requested": {
-    "type": "tag",
+    "type": "version",
     "registry": true,
-    "raw": "hydrogen-js-sdk",
+    "raw": "hydrogen-js-sdk@1.6.7",
     "name": "hydrogen-js-sdk",
     "escapedName": "hydrogen-js-sdk",
-    "rawSpec": "",
+    "rawSpec": "1.6.7",
     "saveSpec": null,
-    "fetchSpec": "latest"
+    "fetchSpec": "1.6.7"
   },
   "_requiredBy": [
-    "#USER",
     "/"
   ],
   "_resolved": "https://registry.npmjs.org/hydrogen-js-sdk/-/hydrogen-js-sdk-1.6.7.tgz",
-  "_shasum": "f61920cf95ce7a4b3ec87afb11e9af22792c068d",
-  "_spec": "hydrogen-js-sdk",
-  "_where": "F:\\wepy-demo",
+  "_spec": "1.6.7",
+  "_where": "F:\\study_code\\wepy-demo",
   "author": {
     "name": "Bmob"
   },
   "bugs": {
     "url": "https://github.com/bmob/hydrogen-js-sdk/issues"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "node.extend": "^2.0.0",
     "webpack": "^3.12.0"
   },
-  "deprecated": false,
   "description": "Bmob SDK",
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.19",

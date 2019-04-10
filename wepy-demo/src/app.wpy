@@ -22,7 +22,7 @@ Bmob.initialize(
 
 export default class extends wepy.app {
   config = {
-    pages: ['pages/home', 'pages/test', 'pages/index', 'pages/mine'],
+    pages: ['pages/test', 'pages/index','pages/home',  'pages/mine'],
     window: {
       backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#fff',
@@ -36,7 +36,7 @@ export default class extends wepy.app {
       list: [
       
         {
-          pagePath: 'pages/home',
+          pagePath: 'pages/index',
           text: '首页',
           iconPath: './imgs/tab_home_nor@2x.png',
           selectedIconPath: './imgs/tab_home_sel@2x.png'
@@ -48,8 +48,8 @@ export default class extends wepy.app {
           selectedIconPath: './imgs/tab_car_sel@2x.png'
         },
         {
-          pagePath: 'pages/index',
-          text: '测2',
+          pagePath: 'pages/home',
+          text: '照片',
           iconPath: './imgs/tab_usedcar_nor@2x.png',
           selectedIconPath: './imgs/tab_usedcar_sel@2x.png'
         },

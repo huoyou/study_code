@@ -1,21 +1,10 @@
-<style lang="less" scoped>
-.container {
-  height: 100%;
-  .imgBox {
-    width: 100px;
-    height: 100px;
-    background-color: #eee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 48px;
-  }
-}
-</style>
 <template>
   <view class="container">
     <view class="imgBox" @tap="uploadImg">+</view>
+    <p>{{userInfo.nickName}}</p>
+    <p>{{userInfo.gender == 1 ? '男':'女'}}</p>
+    <p>{{userInfo.province}}{{userInfo.city}}</p>
+    <image src="{{userInfo.avatarUrl}}" alt="">
   </view>
 </template>
 <script>
@@ -30,15 +19,19 @@ export default class MyPage extends wepy.page {
   customData = {}; // 自定义数据
 
   customFunction() {} //自定义方法
-
-  onLoad() {} // 在Page和Component共用的生命周期函数
-
-  onShow() {} // 只在Page中存在的页面生命周期函数
+  async onLoad() {
+    // 在Page和Component共用的生命周期函数
+    await wepy.login();
+    let userInfo = await wepy.getUserInfo();
+    this.userInfo = userInfo.userInfo;
+    console.log(111,this.userInfo);
+  }
 
   config = {}; // 只在Page实例中存在的配置数据，对应于原生的page.json文件
 
   data = {
     msg: 'hello wepy',
+    userInfo: null,
     condition: true,
     isChecked: true,
     flag: false,
@@ -67,7 +60,7 @@ export default class MyPage extends wepy.page {
         sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
         sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
         success: function(res) {
-           console.log(1111);
+          console.log(1111);
           var tempFilePaths = res.tempFilePaths;
           if (tempFilePaths.length > 0) {
             let date = that.methods.formdata();
@@ -95,7 +88,7 @@ export default class MyPage extends wepy.page {
           }
         },
         errer: function(err) {
-          console.log(err)
+          console.log(err);
         }
       });
     },
@@ -113,6 +106,21 @@ export default class MyPage extends wepy.page {
   }
 }
 </script>
+<style lang="less" scoped>
+.container {
+  height: 100%;
+  .imgBox {
+    width: 100px;
+    height: 100px;
+    background-color: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 48px;
+  }
+}
+</style>
 
 
 

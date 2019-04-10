@@ -1,13 +1,3 @@
-<style lang="less" scoped>
-.container {
-  .imgBox {
-    .img {
-      width: 100px;
-      height: 100px;
-    }
-  }
-}
-</style>
 <template>
     <view class="container">
         <view wx:for="{{imgList}}" wx:key="objectId" class="imgBox">
@@ -23,12 +13,14 @@ export default class Home extends wepy.page {
   config = {
     navigationBarTitleText: '首页'
   };
-  onload() {}
+ onLoad() {
+}
   onShow() {
     this.loadImg();
   }
   data = {
-    imgList: null
+    imgList: null,
+    userInfo: null,
   };
   methods = {};
   loadImg() {
@@ -51,5 +43,14 @@ export default class Home extends wepy.page {
   }
 }
 </script>
+<style lang="less" scoped>
+.container {
+  .imgBox {
+    .img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
 
 
