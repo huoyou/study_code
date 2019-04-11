@@ -1,9 +1,19 @@
+import wepy from 'wepy';
+var url = 'document.domain';
+var baseUrl;
+if (url == "http://192.168.1.115") {
+    baseUrl = "http://192.168.1.115:8087"
+}
+else {
+    baseUrl = "https://api.apiopen.top"
+}
+//====封装post请求
 const post = (url, data) => {
     return new Promise((resolve, reject) => {
         wepy.request({
-            url: url,
+            url: baseUrl+url,
             data: data,
-            header: { 'content-type': 'applicction/x-www-form-urlencoded' },  // header{ 'content-type': 'application/json' },
+            header: { 'content-type': 'applicction/x-www-form-urlencoded;charset=UTF-8' },  // header{ 'content-type': 'application/json' },
             success: res => {
                 if (res.statusCode == 200) {
                     resolve(res)
@@ -23,7 +33,6 @@ const get = (url, data) => {
         wepy.request({
             url: url,
             data: data,
-            header: { 'content-type': 'application/x-www-form-urlencoded' }, //  header: { 'content-type': 'application/json' },
             success: res => {
                 if (res.statusCode == 200) {
                     resolve(res)
