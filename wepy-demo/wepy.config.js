@@ -1,20 +1,18 @@
 const path = require('path');
 var prod = process.env.NODE_ENV === 'production';
+var debug = process.env.NODE_ENV === 'debug';
+
+// 【config】配置Less自动添加浏览器前缀-1  需要安装less-plugin-autoprefix
+const LessPluginAutoPrefix = require('less-plugin-autoprefix')
 
 module.exports = {
   wpyExt: '.wpy',
-  eslint: false,
+  eslint: true,
   cliLogs: !prod,
   build: {
-    web: {
-      htmlTemplate: path.join('src', 'index.template.html'),
-      htmlOutput: path.join('web', 'index.html'),
-      jsOutput: path.join('web', 'index.js')
-    }
   },
   resolve: {
     alias: {
-      counter: path.join(__dirname, 'src/components/counter'),
       '@': path.join(__dirname, 'src')
     },
     aliasFields: ['wepy', 'weapp'],
@@ -22,7 +20,9 @@ module.exports = {
   },
   compilers: {
     less: {
-      compress: prod
+      compress: prod,
+      // 【config】配置Less自动添加浏览器前缀-2
+      plugins: [new LessPluginAutoPrefix({browsers: ['Android >= 2.3', 'Chrome > 20', 'iOS >= 6']})]
     },
     /*sass: {
       outputStyle: 'compressed'
@@ -43,7 +43,9 @@ module.exports = {
   plugins: {
   },
   appConfig: {
-    noPromiseAPI: ['createSelectorQuery']
+    noPromiseAPI: ['createSelectorQuery'],
+    // 【config】配置启动地址
+    rootURL: prod ? 'http://192.168.1.1234:8012' : debug ? 'http://192.168.1.1235:8012' : 'http://192.168.1.123:8012'
   }
 }
 
@@ -57,6 +59,11 @@ if (prod) {
     uglifyjs: {
       filter: /\.js$/,
       config: {
+        compress: {
+          // 打包后自动去除所有log debugger
+          drop_console: true,
+          drop_debugger: true
+        }
       }
     },
     imagemin: {

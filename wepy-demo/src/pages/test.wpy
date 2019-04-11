@@ -25,20 +25,17 @@ export default class MyPage extends wepy.page {
     await wepy.login();
     let userInfo = await wepy.getUserInfo();
     this.userInfo = userInfo.userInfo;
-    console.log(111,this.userInfo);
+    console.log(111,wepy.$appConfig.rootURL);
      let param = {
-        page: 1,
-        count: 20
       };
-      post(`/getSongPoetry`, param).then(res => {
-        console.log('res',res)
-        // if (res.code == 200) {
-        //   this.imgSrc = url;
-        //   this.msg = "活体验证成功!";
-        // } else {
-        //   this.imgSrc = url1;
-        //   this.msg = "活体验证失败!";
-        // }
+     let param1 = {
+        accessReportNo: 'ZR190411015'
+      };
+      post(`/api/rmAccessTemplate/selectAll`, param).then(res => {
+        console.log(1111,res)
+      });
+      get(`/api/rmAccessReportFeeDetail/getFeeDetailList`, param1).then(res => {
+        console.log(2222,res)
       });
   }
 
