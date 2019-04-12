@@ -1,100 +1,138 @@
 <template>
-  <view class="container">
-    <view class="imgBox" @tap="uploadImg">+</view>
+  <view class="mine">
+    <view class="input_box">
+      <view class="title">身份认证</view>
+      <view class="item border_top">
+        <view class="small-title">
+          姓名：
+        </view>
+        <input type="text"
+               class="input"
+               placeholder="请输入姓名"
+               bindinput="getName">
+      </view>
+      <view class="item ">
+        <view class="small-title">
+          身份证号：
+        </view>
+        <input type="text"
+               class="input"
+               placeholder="请输入身份证号"
+               bindinput="getId">
+      </view>
+    </view>
+    <view class="txt_box">
+      <text class="error">{{errMsg}}</text>
+    </view>
+    <view class="btn"
+          @tap="commit">提交</view>
   </view>
 </template>
 <script>
-import wepy from 'wepy';
-import Bmob from 'hydrogen-js-sdk';
-export default class Mine extends wepy.page {
-  config = {
-    navigationBarTitleText: '我的'
-  };
-  customData = {};
-  onLoad() {}
-  onShow() {}
-  config = {};
-  data = {
-    msg: 'hello wepy',
-    condition: true,
-    isChecked: true,
-    flag: false,
-    name: 'MINA',
-    list: [0, 1, 2, 3, 4]
-  };
+  import wepy from 'wepy';
+  import { get, post } from '../api/api.js'
+  export default class Mine extends wepy.page {
+    config = {
+      navigationBarTitleText: '我的'
+    };
+    customData = {};
+    onLoad() { }
+    onShow() { }
+    config = {};
+    data = {
+      username: '',
+      identifyId: '',
+      errMsg: '',
+    };
 
-  methods = {
-    tapName() {
-      console.log('tapName');
-      //    wx.navigateTo
-      wepy.switchTab({ url: 'index' });
-    },
-    uploadImg() {
-      var that = this;
-      wx.chooseImage({
-        count: 1, // 默认9
-        sizeType: ['compressed'], // 可以指定是原图还是压缩图，默认二者都有
-        sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
-        success: function(res) {
-          console.log(1111);
-          var tempFilePaths = res.tempFilePaths;
-          if (tempFilePaths.length > 0) {
-            let date = that.methods.formdata();
-            var name = `${date}.jpg`; //上传的图片的别名，建议可以用日期命名
-            var file = Bmob.File(name, tempFilePaths[0]);
-            file.save().then(
-              function(res) {
-                console.log(res);
-                const query = Bmob.Query('photlList');
-                query.set('url', res[0].url);
-                query.set('filename', res[0].filename);
-                query
-                  .save()
-                  .then(res => {
-                    console.log(res);
-                  })
-                  .catch(err => {
-                    console.log(err);
-                  });
-              },
-              function(error) {
-                console.log(error);
-              }
-            );
-          }
-        },
-        errer: function(err) {
-          console.log(err);
-        }
-      });
-    },
-    formdata() {
-      var date = new Date();
-      var time = Date.parse(date);
-      let time1 = time / 1000;
-      return time1;
+    methods = {
+    };
+    getName(e) {
+      var val = e.detail.value;
+      this.username = val;
     }
-  }; // 声明页面wxml中标签的事件处理函数。注意，此处只用于声明页面wxml中标签的bind、catch事件，自定义方法需以自定义方法的方式声明
-
-  onPullDownRefresh() {
-    console.log('下拉刷新');
+    getId(e) {
+      var val = e.detail.value;
+      this.identifyId = val;
+    }
+    commit() {
+      let param = {
+        realName: this.username,
+        idCard: this.identifyId,
+        token: "bf2593fa-6e7b-47b3-b9f8-e9cdd99d1bf9"
+      };
+      post(`/api/identify/identifyidcard`, param).then(res => {
+        console.log(1111, res)
+      });
+    }
+    onPullDownRefresh() {
+      console.log('下拉刷新');
+      setTimeout(() => {
+        wx.stopPullDownRefresh(); //停止下拉刷新
+      }, 2000);
+    }
+    onReachBottom() {
+      console.log('上拉加载');
+      setTimeout(() => {
+        wx.hideNavigationBarLoading(); //停止上拉加载
+      }, 2000);
+    }
   }
-}
 </script>
-<style lang="less" scoped>
-.container {
-  height: 100%;
-  .imgBox {
-    width: 100px;
-    height: 100px;
-    background-color: #eee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 48px;
+<style lang="less">
+  .mine {
+    height: 100%;
+    .input_box {
+      margin-top: 200rpx;
+      padding: 0 30rpx;
+      .title {
+        text-align: center;
+        font-size: 36rpx;
+        font-weight: 700;
+        letter-spacing: 5px;
+        margin-bottom: 100rpx;
+      }
+      .item {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 84rpx;
+        border-bottom: 1px solid #eee;
+        .small-title {
+          width: 200rpx;
+        }
+        .input {
+        }
+      }
+      .border_top {
+        border-top: 1px solid #eee;
+      }
+    }
+    .txt_box {
+      width: 100%;
+      .error {
+        display: block;
+        padding-left: 200rpx;
+        height: 40rpx;
+        line-height: 40rpx;
+        font-size: 28rpx;
+        color: #ff8814;
+        margin-top: 20rpx;
+      }
+    }
+    .btn {
+      margin-top: 100rpx;
+      width: 690rpx;
+      height: 96rpx;
+      margin-left: 30rpx;
+      line-height: 96rpx;
+      text-align: center;
+      color: #fff;
+      background-color: rgb(38, 159, 239);
+      box-sizing: border-box;
+      border-radius: 80rpx;
+    }
   }
-}
 </style>
 
 

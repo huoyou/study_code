@@ -14,9 +14,9 @@ export default class Home extends wepy.page {
     navigationBarTitleText: '首页'
   };
  onLoad() {
+    this.loadImg();
 }
   onShow() {
-    this.loadImg();
   }
   data = {
     imgList: null,
@@ -43,14 +43,15 @@ export default class Home extends wepy.page {
   }
 }
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .container {
   .imgBox {
     .img {
-      width: 100px;
-      height: 100px;
+      width: 375rpx;
+      height: 320rpx;
+      display: inline-block;
     }
   }
 }
-
+</style>
 

@@ -1,13 +1,56 @@
-.container._78ffebf {
+.mine {
   height: 100%;
 }
-.container .imgBox._78ffebf {
-  width: 100px;
-  height: 100px;
-  background-color: #eee;
+.mine .input_box {
+  margin-top: 200rpx;
+  padding: 0 30rpx;
+}
+.mine .input_box .title {
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: 700;
+  letter-spacing: 5px;
+  margin-bottom: 100rpx;
+}
+.mine .input_box .item {
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  width: 100%;
+  height: 84rpx;
+  border-bottom: 1px solid #eee;
+}
+.mine .input_box .item .small-title {
+  width: 200rpx;
+}
+.mine .input_box .border_top {
+  border-top: 1px solid #eee;
+}
+.mine .txt_box {
+  width: 100%;
+}
+.mine .txt_box .error {
+  display: block;
+  padding-left: 200rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #ff8814;
+  margin-top: 20rpx;
+}
+.mine .btn {
+  margin-top: 100rpx;
+  width: 690rpx;
+  height: 96rpx;
+  margin-left: 30rpx;
+  line-height: 96rpx;
+  text-align: center;
   color: #fff;
-  font-size: 48px;
+  background-color: #269fef;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 80rpx;
 }

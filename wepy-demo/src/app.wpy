@@ -1,146 +1,144 @@
 <style lang="less">
-.container {
-  height: 100%;
-}
+  .container {
+    height: 100%;
+  }
 </style>
 
 <script>
-import wepy from 'wepy';
-import 'wepy-async-function';
+  import wepy from 'wepy';
+  import 'wepy-async-function';
 
-import { setStore } from 'wepy-redux';
-import configStore from './store';
+  import { setStore } from 'wepy-redux';
+  import configStore from './store';
 
-const store = configStore();
-setStore(store);
-import Bmob from 'hydrogen-js-sdk';
-Bmob.initialize(
-  'da40d09276fcc91b75eba34657d81f61',
-  '4e2162a7086839946d7df2f434e41ff0',
-  'ce5bab7bdcc3bc654344ffc55cc69beb'
-);
+  const store = configStore();
+  setStore(store);
+  import Bmob from 'hydrogen-js-sdk';
+  Bmob.initialize(
+    'da40d09276fcc91b75eba34657d81f61',
+    '4e2162a7086839946d7df2f434e41ff0',
+    'ce5bab7bdcc3bc654344ffc55cc69beb'
+  );
 
-export default class extends wepy.app {
-  config = {
-    pages: ['pages/test', 'pages/index','pages/home',  'pages/mine'],
-    window: {
-      backgroundTextStyle: 'dark',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat1',
-      navigationBarTextStyle: 'black',
-      enablePullDownRefresh: true
-    },
-    tabBar: {
-      color: '#ccc',
-      selectedColor: '#000',
-      list: [
-      
-        {
-          pagePath: 'pages/index',
-          text: '首页',
-          iconPath: './imgs/tab_home_nor@2x.png',
-          selectedIconPath: './imgs/tab_home_sel@2x.png'
-        },
+  export default class extends wepy.app {
+    config = {
+      pages: ['pages/mine', 'pages/test', 'pages/index', 'pages/home'],
+      window: {
+        backgroundTextStyle: 'dark',
+        // navigationStyle: 'custom',
+        navigationBarBackgroundColor: '#fff',
+        navigationBarTitleText: 'WeChat1',
+        navigationBarTextStyle: 'black',
+        enablePullDownRefresh: true
+      },
+      tabBar: {
+        color: '#ccc',
+        selectedColor: '#000',
+        list: [
+
           {
-          pagePath: 'pages/test',
-          text: '测一',
-          iconPath: './imgs/tab_car_nor@2x.png',
-          selectedIconPath: './imgs/tab_car_sel@2x.png'
+            pagePath: 'pages/index',
+            text: '首页',
+            iconPath: './imgs/tab_home_nor@2x.png',
+            selectedIconPath: './imgs/tab_home_sel@2x.png'
+          },
+          {
+            pagePath: 'pages/test',
+            text: '测一',
+            iconPath: './imgs/tab_car_nor@2x.png',
+            selectedIconPath: './imgs/tab_car_sel@2x.png'
+          },
+          {
+            pagePath: 'pages/home',
+            text: '照片',
+            iconPath: './imgs/tab_usedcar_nor@2x.png',
+            selectedIconPath: './imgs/tab_usedcar_sel@2x.png'
+          },
+          {
+            pagePath: 'pages/mine',
+            text: '我的',
+            iconPath: './imgs/tab_mine_nor@2x.png',
+            selectedIconPath: './imgs/tab_mine_sel@2x.png'
+          }
+        ]
+      },
+      networkTimeout: {
+        request: 10000,
+        downloadFile: 10000
+      },
+      debug: true
+    };
+
+    globalData = {
+      userInfo: null
+    };
+
+    constructor() {
+      super();
+      this.use('requestfix');
+      this.use('promisify');
+      this.intercept('request', {
+        // 发出请求时的回调函数
+        config(p) {
+          // 对所有request请求中的OBJECT参数对象统一附加时间戳属性
+          p.timestamp = +new Date();
+          console.log('config request: ', p);
+          // 必须返回OBJECT参数对象，否则无法发送请求到服务端
+          return p;
         },
-        {
-          pagePath: 'pages/home',
-          text: '照片',
-          iconPath: './imgs/tab_usedcar_nor@2x.png',
-          selectedIconPath: './imgs/tab_usedcar_sel@2x.png'
+
+        // 请求成功后的回调函数
+        success(p) {
+          // 可以在这里对收到的响应数据对象进行加工处理
+          console.log('request success: ', p);
+          // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+          return p;
         },
-        {
-          pagePath: 'pages/mine',
-          text: '我的',
-          iconPath: './imgs/tab_mine_nor@2x.png',
-          selectedIconPath: './imgs/tab_mine_sel@2x.png'
+
+        //请求失败后的回调函数
+        fail(p) {
+          console.log('request fail: ', p);
+          // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+          return p;
+        },
+
+        // 请求完成时的回调函数(请求成功或失败都会被执行)
+        complete(p) {
+          console.log('request complete: ', p);
         }
-      ]
-    },
-    networkTimeout: {
-      request: 10000,
-      downloadFile: 10000
-    },
-    debug: true
-  };
+      });
+    }
 
-  globalData = {
-    userInfo: null
-  };
+    onLaunch() {
+      this.testAsync();
+    }
+    onPageNotFound(res) {
+      wx.redirectTo({
+        url: 'pages/err'
+      }); // 如果是 tabbar 页面，请使用 wx.switchTab
+    }
 
-  constructor() {
-    super();
-    this.use('requestfix');
-    this.use('promisify');
-    this.intercept('request', {
-      // 发出请求时的回调函数
-      config(p) {
-        // 对所有request请求中的OBJECT参数对象统一附加时间戳属性
-        p.timestamp = +new Date();
-        console.log('config request: ', p);
-        // 必须返回OBJECT参数对象，否则无法发送请求到服务端
-        return p;
-      },
+    sleep(s) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve('promise resolved');
+        }, s * 1000);
+      });
+    }
 
-      // 请求成功后的回调函数
-      success(p) {
-        // 可以在这里对收到的响应数据对象进行加工处理
-        console.log('request success: ', p);
-        // 必须返回响应数据对象，否则后续无法对响应数据进行处理
-        return p;
-      },
+    async testAsync() {
+      const data = await this.sleep(3);
+      console.log(data);
+    }
 
-      //请求失败后的回调函数
-      fail(p) {
-        console.log('request fail: ', p);
-        // 必须返回响应数据对象，否则后续无法对响应数据进行处理
-        return p;
-      },
-
-      // 请求完成时的回调函数(请求成功或失败都会被执行)
-      complete(p) {
-        console.log('request complete: ', p);
+    async getUserInfo() {
+      if (this.globalData.userInfo) {
+        return this.globalData.userInfo;
       }
-    });
+      await wepy.login();
+      let res = await wepy.getUserInfo();
+      this.globalData.userInfo = res.userInfo;
+      return res.userInfo;
+    }
   }
-
-  onLaunch() {
-    this.testAsync();
-  }
-  onPageNotFound(res) {
-    wx.redirectTo({
-      url: 'pages/err'
-    }); // 如果是 tabbar 页面，请使用 wx.switchTab
-  }
-
-  sleep(s) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve('promise resolved');
-      }, s * 1000);
-    });
-  }
-
-  async testAsync() {
-    const data = await this.sleep(3);
-    console.log(data);
-  }
-
-  // getUserInfo(cb) {
-  //   const that = this;
-  //   if (this.globalData.userInfo) {
-  //     return this.globalData.userInfo;
-  //   }
-  //   wepy.getUserInfo({
-  //     success(res) {
-  //       that.globalData.userInfo = res.userInfo;
-  //       cb && cb(res.userInfo);
-  //     }
-  //   });
-  // }
-}
 </script>

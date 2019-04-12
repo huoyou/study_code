@@ -37,13 +37,13 @@
 
       <text class="testcounter">计数组件1: </text>
       <view class="counterview">
-        <counter1 @index-emit.user="counterEmit" />
+        <!-- <counter1 @index-emit.user="counterEmit" /> -->
       </view>
 
       <text class="testcounter">计数组件2: </text>
 
       <view class="counterview">
-        <counter2 :num.sync="mynum"></counter2>
+        <!-- <counter2 :num.sync="mynum"></counter2> -->
       </view>
     </panel>
 
@@ -67,7 +67,7 @@
   import wepy from 'wepy'
   import { connect } from 'wepy-redux'
   import Panel from '@/components/panel' // alias example
-  import Counter from 'counter' // alias example
+  import Counter from '../components/counter' // alias example
   import List from '../components/list' // aliasFields example
   import moduleA from 'module-a' // aliasFields ignore module example
   import Group from '../components/group'

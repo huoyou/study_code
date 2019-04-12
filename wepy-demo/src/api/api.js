@@ -1,13 +1,6 @@
 import wepy from 'wepy'
 
-// var baseUrl, url;
-// if (url == "http://192.168.1.115") {
-//     baseUrl = "http://192.168.1.115:8087"
-// }
-// else {
-//     baseUrl = "http://192.168.1.123:8012"
-// }
-let token = '267f9533-826d-4222-a763-083f9180c47f';
+let token = '694d1241-ab9d-4f4d-af4f-d20ccb4e704a';
 
 const sessionType = {
     'json': { 'content-type': 'application/json', 'token': token },
@@ -16,7 +9,7 @@ const sessionType = {
 
 function HttpRequest(url, params = {}, method = 'GET', sessionChoose = 'json') {
     return new Promise((resolve, reject) => {
-        url = wepy.$appConfig.rootURL + '/sentence' + url
+        url = wepy.$appConfig.rootURL  + url
         const session = sessionType[sessionChoose]
         // const {token} = wx.getStorageSync('user') || ''
         // if (token) {
@@ -30,6 +23,7 @@ function HttpRequest(url, params = {}, method = 'GET', sessionChoose = 'json') {
             dataType: 'json',
         }).then(res => {
             let data = JSON.parse(res.data);
+            // let data = (res.data);
             if (res.statusCode == 200 && data.code == 200) {
                 // 请求成功 后台code为1 正常
                 resolve(JSON.parse(res.data).data)

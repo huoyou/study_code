@@ -7,7 +7,7 @@ const LessPluginAutoPrefix = require('less-plugin-autoprefix')
 
 module.exports = {
   wpyExt: '.wpy',
-  eslint: true,
+  eslint: false,
   cliLogs: !prod,
   build: {
   },
@@ -45,7 +45,7 @@ module.exports = {
   appConfig: {
     noPromiseAPI: ['createSelectorQuery'],
     // 【config】配置启动地址
-    rootURL: prod ? 'http://192.168.1.1234:8012' : debug ? 'http://192.168.1.1235:8012' : 'http://192.168.1.123:8012'
+    rootURL: prod ? 'http://192.168.1.1234:8012'  : 'http://faceid.ufscs.com:8087'
   }
 }
 
