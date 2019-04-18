@@ -1,0 +1,112 @@
+<template>
+  <view class="first_page">
+    <view class="banner">
+      <swiper indicator-dots="{{indicatorDots}}"
+              autoplay="{{autoplay}}"
+              interval="{{interval}}"
+              indicator-color="#fff"
+              circular=true
+              indicator-active-color="#aaa"
+              duration="{{duration}}">
+        <block wx:for="{{imgUrls}}">
+          <swiper-item>
+            <image src="{{item}}"
+                   class="slide-image"
+                   width="355"
+                   height="150" />
+          </swiper-item>
+        </block>
+      </swiper>
+    </view>
+    <view class="ceil_box">
+      <view class="ceil"
+            wx:for="{{ceilList}}"
+            wx:key="{{item.id}}"
+            @tap="toJump({{item}})">
+        <image class="img"
+               src={{item.icon}}></image>
+        <text class="txt">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+  import { connect } from 'wepy-redux'
+  import Toast from 'wepy-com-toast'
+
+
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: '首页'
+    }
+    data = {
+      imgUrls: [
+        'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
+        'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
+        'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
+      ],
+      indicatorDots: true,
+      autoplay: true,
+      interval: 5000,
+      duration: 1000,
+      ceilList: [
+        { name: '本周推荐', icon: '../imgs/1.jpg', id: '1' },
+        { name: '本周推荐1', icon: '../imgs/1.jpg', id: '2' },
+        { name: '本周推荐2', icon: '../imgs/1.jpg', id: '3' },
+        { name: '本周推荐3', icon: '../imgs/1.jpg', id: '4' },
+        { name: '本周推荐4', icon: '../imgs/1.jpg', id: '5' },
+        { name: '本周推荐5', icon: '../imgs/1.jpg', id: '6' },
+        { name: '本周推荐6', icon: '../imgs/1.jpg', id: '7' },
+        { name: '本周推荐7', icon: '../imgs/1.jpg', id: '8' },
+      ]
+    }
+
+    computed = {
+      now() {
+        return +new Date()
+      }
+    }
+
+    methods = {
+      toJump(val) {
+        console.log('val', val)
+      }
+    }
+
+    onLoad() {
+    }
+  }
+</script>
+<style lang="less">
+  .first_page {
+    padding: 0 30rpx;
+    .banner {
+      .slide-image {
+        width: 690rpx;
+        border-radius: 10rpx;
+      }
+    }
+    .ceil_box {
+      display: flex;
+      flex-wrap: wrap;
+      .ceil {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        align-items: center;
+        .img {
+          width: 100%;
+          height: 150rpx;
+        }
+        .txt {
+          font-size: 28rpx;
+          margin-top: 10rpx;
+        }
+      }
+    }
+  }
+</style>

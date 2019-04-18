@@ -1,0 +1,6 @@
+
+    <view class="course">
+        <image class="img" src="{{url}}"/>
+        <text class="txt">{{msg}}</text>
+        <button class="btn btn1" bindtap="next">继续认证</button>
+    </view>

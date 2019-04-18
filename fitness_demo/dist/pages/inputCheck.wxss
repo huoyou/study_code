@@ -1,0 +1,56 @@
+.input_check {
+  height: 100%;
+}
+.input_check .input_box {
+  margin-top: 200rpx;
+  padding: 0 30rpx;
+}
+.input_check .input_box .title {
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: 700;
+  letter-spacing: 5px;
+  margin-bottom: 100rpx;
+}
+.input_check .input_box .item {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  width: 100%;
+  height: 84rpx;
+  border-bottom: 1px solid #eee;
+}
+.input_check .input_box .item .small-title {
+  width: 200rpx;
+}
+.input_check .input_box .border_top {
+  border-top: 1px solid #eee;
+}
+.input_check .txt_box {
+  width: 100%;
+}
+.input_check .txt_box .error {
+  display: block;
+  padding-left: 200rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 28rpx;
+  color: #ff8814;
+  margin-top: 20rpx;
+}
+.input_check .btn {
+  margin-top: 100rpx;
+  width: 690rpx;
+  height: 96rpx;
+  margin-left: 30rpx;
+  line-height: 96rpx;
+  text-align: center;
+  color: #fff;
+  background-color: #269fef;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 80rpx;
+}

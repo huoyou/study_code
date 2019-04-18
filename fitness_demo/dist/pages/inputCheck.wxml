@@ -1,0 +1,23 @@
+
+  <view class="input_check">
+    <view class="input_box">
+      <view class="title">身份认证</view>
+      <view class="item border_top">
+        <view class="small-title">
+          姓名：
+        </view>
+        <input type="text" class="input" placeholder="请输入姓名" bindinput="getName"/>
+      </view>
+      <view class="item ">
+        <view class="small-title">
+          身份证号：
+        </view>
+        <input type="text" class="input" placeholder="请输入身份证号" bindinput="getId"/>
+      </view>
+    </view>
+    <view class="txt_box">
+      <text class="error">{{errMsg}}</text>
+    </view>
+    <view class="btn" bindtap="commit">提交</view>
+  </view>
+  <van-button type="primary">主要按钮</van-button>

@@ -1,0 +1,5 @@
+.container .imgBox .img {
+  width: 375rpx;
+  height: 320rpx;
+  display: inline-block;
+}

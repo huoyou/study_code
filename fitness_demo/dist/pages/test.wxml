@@ -1,0 +1,9 @@
+
+  <view class="container _aec599a">
+    <button open-type="openSetting" bindopensetting="handler" class="_aec599a">打开授权</button>
+    <view class="imgBox _aec599a" bindtap="uploadImg">+</view>
+    <p class="_aec599a">{{userInfo.nickName}}</p>
+    <p class="_aec599a">{{userInfo.gender == 1 ? '男':'女'}}</p>
+    <p class="_aec599a">{{userInfo.province}}{{userInfo.city}}</p>
+    <image src="{{userInfo.avatarUrl}}" alt="" class="_aec599a"/>
+  </view>

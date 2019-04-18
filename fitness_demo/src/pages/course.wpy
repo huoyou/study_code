@@ -1,0 +1,93 @@
+<template>
+    <view class="course">
+        <image class="img"
+               src="{{url}}"></image>
+        <text class="txt">{{msg}}</text>
+        <button class="btn btn1"
+                @tap="next">继续认证</button>
+    </view>
+</template>
+<script>
+    import wepy from 'wepy';
+    import { get, post } from '../api/api.js'
+    export default class inputCheck extends wepy.page {
+        config = {
+            navigationBarTitleText: '认证结果'
+        };
+        data = {
+            biz_no: '',
+            url: '',
+            msg: '认证成功',
+            url1: '../imgs/success.png',
+            url2: '../imgs/fail.png'
+        };
+        customData = {};
+        onLoad(options) {
+            this.biz_no = options.biz_no;
+            this.url = this.url1;
+            console.log(options.biz_no)
+        }
+        onShow() {
+        }
+
+        methods = {
+        };
+        next() {
+            let param = {
+                token: "bf2593fa-6e7b-47b3-b9f8-e9cdd99d1bf9",
+                biz_no: this.biz_no
+            };
+            post(`/api/identify/getToken`, param).then(res => {
+                this.$navigate({ url: `out?message=${res.message}` })
+            });
+        }
+        onPullDownRefresh() {
+            console.log('下拉刷新');
+            setTimeout(() => {
+                wx.stopPullDownRefresh(); //停止下拉刷新
+            }, 2000);
+        }
+        onReachBottom() {
+            console.log('上拉加载');
+            setTimeout(() => {
+                wx.hideNavigationBarLoading(); //停止上拉加载
+            }, 2000);
+        }
+    }
+</script>
+<style lang="less">
+    .course {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      flex-direction: column;
+      .img {
+        width: 300rpx;
+        height: 300rpx;
+        margin-top: 200rpx;
+      }
+      .txt {
+        font-size: 32rpx;
+        color: #333;
+        margin-top: 20rpx;
+      }
+      .btn {
+        margin-top: 20rpx;
+        width: 200rpx;
+        height: 64rpx;
+        line-height: 64rpx;
+        text-align: center;
+        color: #fff;
+        background-color: #ff5656;
+        box-sizing: border-box;
+        border-radius: 10rpx;
+      }
+      .btn1 {
+        background-color: #10b418;
+      }
+    }
+</style>
+
+
+

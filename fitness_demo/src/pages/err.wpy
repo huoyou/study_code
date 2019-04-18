@@ -1,0 +1,13 @@
+<style lang="less" scoped>
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
+<template>
+    <view class="container">
+        500,找不到该页面
+    </view>
+</template>
+

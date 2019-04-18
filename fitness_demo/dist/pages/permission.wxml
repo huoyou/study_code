@@ -1,0 +1,20 @@
+
+    <view class="permission _e4573d7">
+        <view  wx:if="{{canIUse}}" class="_e4573d7">
+            <view class="header _e4573d7">
+                <image src="{{userInfo.avatarUrl}}" alt="" class="_e4573d7"/>
+                    <text class="name _e4573d7">{{userInfo.nickName}}</text>
+            </view>
+
+            <view class="content _e4573d7">
+                <view class="_e4573d7">申请获取以下权限</view>
+                <text class="_e4573d7">获得你的公开信息(昵称，头像等)</text>
+            </view>
+
+            <button class="bottom _e4573d7" type="primary" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="bindGetUserInfo">
+                授权登录
+            </button>
+        </view>
+
+        <view  wx:else class="_e4573d7">请升级微信版本</view>
+    </view>

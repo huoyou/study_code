@@ -1,0 +1,143 @@
+<template>
+  <view class="input_check">
+    <view class="input_box">
+      <view class="title">身份认证</view>
+      <view class="item border_top">
+        <view class="small-title">
+          姓名：
+        </view>
+        <input type="text"
+               class="input"
+               placeholder="请输入姓名"
+               bindinput="getName">
+      </view>
+      <view class="item ">
+        <view class="small-title">
+          身份证号：
+        </view>
+        <input type="text"
+               class="input"
+               placeholder="请输入身份证号"
+               bindinput="getId">
+      </view>
+    </view>
+    <view class="txt_box">
+      <text class="error">{{errMsg}}</text>
+    </view>
+    <view class="btn"
+          @tap="commit">提交</view>
+  </view>
+  <van-button type="primary">主要按钮</van-button>
+</template>
+<script>
+  import wepy from 'wepy';
+  import { get, post } from '../api/api.js'
+  export default class inputCheck extends wepy.page {
+    config = {
+      navigationBarTitleText: '身份认证'
+    };
+
+    data = {
+      username: '',
+      identifyId: '',
+      errMsg: '',
+      latitude: '',
+      longitude: '',
+      ldata: '',
+    };
+    customData = {};
+   
+    onShow() { }
+    methods = {
+    };
+    getName(e) {
+      var val = e.detail.value;
+      this.username = val;
+    }
+    getId(e) {
+      var val = e.detail.value;
+      this.identifyId = val;
+    }
+    commit() {
+      // this.$navigate({url:`out`})
+      let param = {
+        realName: this.username,
+        idCard: this.identifyId,
+        token: "bf2593fa-6e7b-47b3-b9f8-e9cdd99d1bf9"
+      };
+      post(`/api/identify/identifyidcard`, param).then(res => {
+        this.$navigate({ url: `checkResult?biz_no=${res.data.biz_no}` })
+      });
+    }
+    onPullDownRefresh() {
+      console.log('下拉刷新');
+      setTimeout(() => {
+        wx.stopPullDownRefresh(); //停止下拉刷新
+      }, 2000);
+    }
+    onReachBottom() {
+      console.log('上拉加载');
+      setTimeout(() => {
+        wx.hideNavigationBarLoading(); //停止上拉加载
+      }, 2000);
+    }
+  }
+</script>
+<style lang="less">
+  .input_check {
+    height: 100%;
+    .input_box {
+      margin-top: 200rpx;
+      padding: 0 30rpx;
+      .title {
+        text-align: center;
+        font-size: 36rpx;
+        font-weight: 700;
+        letter-spacing: 5px;
+        margin-bottom: 100rpx;
+      }
+      .item {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 84rpx;
+        border-bottom: 1px solid #eee;
+        .small-title {
+          width: 200rpx;
+        }
+        .input {
+        }
+      }
+      .border_top {
+        border-top: 1px solid #eee;
+      }
+    }
+    .txt_box {
+      width: 100%;
+      .error {
+        display: block;
+        padding-left: 200rpx;
+        height: 40rpx;
+        line-height: 40rpx;
+        font-size: 28rpx;
+        color: #ff8814;
+        margin-top: 20rpx;
+      }
+    }
+    .btn {
+      margin-top: 100rpx;
+      width: 690rpx;
+      height: 96rpx;
+      margin-left: 30rpx;
+      line-height: 96rpx;
+      text-align: center;
+      color: #fff;
+      background-color: rgb(38, 159, 239);
+      box-sizing: border-box;
+      border-radius: 80rpx;
+    }
+  }
+</style>
+
+
+
