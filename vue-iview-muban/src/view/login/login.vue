@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import LoginForm from '_c/login-form'
+  import LoginForm from '_c/login-form.vue'
   import { mapActions } from 'vuex'
   export default {
     components: {

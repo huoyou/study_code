@@ -1,5 +1,4 @@
-import Main from '@/components/main'
-import parentView from '@/components/parent-view'
+import Main from '@/view/main/main.vue'
 
 /**
  * iview-admin中meta除了原生参数外可配置的参数:
@@ -59,6 +58,25 @@ export default [
       icon: 'ios-book'
     }
   },
+  {
+    path: '/error_store',
+    name: 'error_store',
+    meta: {
+      hideInBread: true
+    },
+    component: Main,
+    children: [
+      {
+        path: 'error_store_page',
+        name: 'error_store_page',
+        meta: {
+          icon: 'ios-bug',
+          title: '错误收集'
+        },
+        component: () => import('@/view/error-store/error-store.vue')
+      }
+    ]
+  },
   // {
   //   path: '/message',
   //   name: 'message',
@@ -79,26 +97,26 @@ export default [
   //     }
   //   ]
   // },
-  // {
-  //   path: '/error_logger',
-  //   name: 'error_logger',
-  //   meta: {
-  //     hideInBread: true,
-  //     hideInMenu: false
-  //   },
-  //   component: Main,
-  //   children: [
-  //     {
-  //       path: 'error_logger_page',
-  //       name: 'error_logger_page',
-  //       meta: {
-  //         icon: 'ios-bug',
-  //         title: '错误收集'
-  //       },
-  //       component: () => import('@/view/single-page/error-logger.vue')
-  //     }
-  //   ]
-  // },
+  {
+    path: '/error_logger',
+    name: 'error_logger',
+    meta: {
+      hideInBread: true,
+      hideInMenu: true
+    },
+    component: Main,
+    children: [
+      {
+        path: 'error_logger_page',
+        name: 'error_logger_page',
+        meta: {
+          icon: 'ios-bug',
+          title: '错误收集'
+        },
+        component: () => import('@/view/single-page/error-logger.vue')
+      }
+    ]
+  },
   // {
   //   path: '/argu',
   //   name: 'argu',
