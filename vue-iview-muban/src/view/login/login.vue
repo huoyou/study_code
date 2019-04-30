@@ -16,6 +16,8 @@
 <script>
   import LoginForm from '_c/login-form.vue'
   import { mapActions } from 'vuex'
+  import { login, logout, queryUser } from '@/api/user'
+  import { setToken, getToken } from '@/libs/util'
   export default {
     components: {
       LoginForm
@@ -25,13 +27,61 @@
         'handleLogin',
         'getUserInfo'
       ]),
-      handleSubmit({ userName, password }) {
-        this.handleLogin({ userName, password }).then(res => {
-          this.getUserInfo().then(res => {
+      // handleSubmit({ userName, password }) {
+      //   this.handleLogin({ userName, password }).then(res => {
+      //     let data = JSON.parse(res)
+      //     if (data.code == 200) {
+      //       this.$Message.success(data.message);
+      //       localStorage.tagNaveList = [];
+      //       setToken(data.data.token);
+      //       this.$router.push({
+      //         name: this.$config.homeName
+      //       })
+      //     } else {
+      //       this.$Notice.error({
+      //         title: '温馨提示',
+      //         desc: data.message
+      //       })
+      //     }
+      //   }).catch((error) => {
+      //     var time = error.toString().indexOf('timeout')
+      //     if (time > 0) {
+      //       this.$Notice.error({
+      //         title: '温馨提示',
+      //         desc: '请求超时'
+      //       })
+      //     }
+      //   })
+      // },
+      handleSubmit ({ userName, password }) {
+        setToken('') // 每次登录之前清空token
+        var params = {}
+        params.username = userName
+        params.password = password
+        login(params).then((res) => {
+          var data = JSON.parse(res.data)
+          if (data.state) {
+            this.$Message.success(data.message)
+            localStorage.tagNaveList = []
+            setToken(data.data.token)
+            window.location.href = 'www.baidu.com'
             this.$router.push({
-              name: this.$config.homeName
+              name: 'home'
             })
-          })
+          } else {
+            this.$Notice.error({
+              title: '温馨提示',
+              desc: data.message
+            })
+          }
+        }).catch((error) => {
+          var time = error.toString().indexOf('timeout')
+          if (time > 0) {
+            this.$Notice.error({
+              title: '温馨提示',
+              desc: '请求超时'
+            })
+          }
         })
       }
     }

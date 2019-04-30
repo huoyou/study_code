@@ -1,5 +1,7 @@
 import axios from 'axios'
 import store from '@/store'
+import { getToken } from '@/libs/util'
+
 // import { Spin } from 'iview'
 const addErrorLog = errorInfo => {
   const { statusText, status, request: { responseURL } } = errorInfo
@@ -22,7 +24,8 @@ class HttpRequest {
       baseURL: this.baseUrl,
       headers: {
         //
-      }
+      },
+      timeout: 1000 * 60 * 10
     }
     return config
   }
@@ -40,6 +43,10 @@ class HttpRequest {
         // Spin.show() // 不建议开启，因为界面不友好
       }
       this.queue[url] = true
+      let token = getToken()
+      if (token) {
+        config['headers']['common']['token'] = token
+      }
       return config
     }, error => {
       return Promise.reject(error)

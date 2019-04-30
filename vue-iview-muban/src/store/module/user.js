@@ -76,14 +76,14 @@ export default {
     // 登录
     handleLogin ({ commit }, { userName, password }) {
       userName = userName.trim()
+      var params = {}
+      params.username = userName
+      params.password = password
       return new Promise((resolve, reject) => {
-        login({
-          userName,
-          password
-        }).then(res => {
+        login(params).then(res => {
           const data = res.data
           commit('setToken', data.token)
-          resolve()
+          resolve(data)
         }).catch(err => {
           reject(err)
         })

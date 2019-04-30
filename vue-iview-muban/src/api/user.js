@@ -1,84 +1,68 @@
 import axios from '@/libs/api.request'
 
-export const login = ({ userName, password }) => {
-  const data = {
-    userName,
-    password
-  }
+/**
+ * 查询用户信息
+ */
+export const queryUser = params => {
   return axios.request({
-    url: 'login',
-    data,
-    method: 'post'
-  })
-}
-
-export const getUserInfo = (token) => {
-  return axios.request({
-    url: 'get_info',
-    params: {
-      token
-    },
-    method: 'get'
-  })
-}
-
-export const logout = (token) => {
-  return axios.request({
-    url: 'logout',
-    method: 'post'
-  })
-}
-
-export const getUnreadCount = () => {
-  return axios.request({
-    url: 'message/count',
-    method: 'get'
-  })
-}
-
-export const getMessage = () => {
-  return axios.request({
-    url: 'message/init',
-    method: 'get'
-  })
-}
-
-export const getContentByMsgId = msg_id => {
-  return axios.request({
-    url: 'message/content',
+    url: '/user/getInterUser',
+    //url: '/user/getuser',
     method: 'get',
-    params: {
-      msg_id
+    params: params
+  })
+}
+
+/**
+ * 查询系统所有用户
+ */
+export const queryAllUser = params => {
+  return axios.request({
+    method: 'post',
+    url: '/user/queryAllUser',
+    data: params, // 参数
+    headers: {
+      'Content-Type': 'application/json'
     }
   })
 }
 
-export const hasRead = msg_id => {
+// 登录
+export const login = params => {
   return axios.request({
-    url: 'message/has_read',
+    // url: '/sys/checkLogin',
+    url: '/sys/userLogin',
     method: 'post',
-    data: {
-      msg_id
-    }
+    params: params
+  })
+}
+// 登出
+export const logout = params => {
+  return axios.request({
+    url: 'sys/logout',
+    method: 'get',
+    params: params
+  })
+}
+/**
+ * 查询用户对应的菜单
+ */
+export const getMenu = params => {
+  return axios.request({
+    url: '/user/getMenu',
+    method: 'get',
+    params: params
   })
 }
 
-export const removeReaded = msg_id => {
+/**
+ * 获取权限信息
+ */
+export const testPessiom = params => {
   return axios.request({
-    url: 'message/remove_readed',
-    method: 'post',
-    data: {
-      msg_id
-    }
+    url: '/sys/testPessiom',
+    method: 'get',
+    params: params
   })
 }
 
-export const restoreTrash = msg_id => {
-  return axios.request({
-    url: 'message/restore',
-    method: 'post',
-    data: {
-      msg_id
-    }
-  })
-}
+
