@@ -2,12 +2,12 @@ import Cookies from 'js-cookie'
 // cookie保存的天数
 import config from '@/config'
 import { forEach, hasOneOf, objEqual } from '@/libs/tools'
-const { title, cookieExpires, useI18n } = config
 
 export const TOKEN_KEY = 'token'
 
 export const setToken = (token) => {
-  Cookies.set(TOKEN_KEY, token, { expires: cookieExpires || 1 })
+  // Cookies.set(TOKEN_KEY, token, {expires: config.cookieExpires || 1})
+  Cookies.set(TOKEN_KEY, token, {expires: 8 / 24})
 }
 
 export const getToken = () => {
@@ -53,56 +53,24 @@ export const getMenuByRouter = (list, access) => {
  * @param {Array} routeMetched 当前路由metched
  * @returns {Array}
  */
-export const getBreadCrumbList = (route, homeRoute) => {
-  let homeItem = { ...homeRoute, icon: homeRoute.meta.icon }
-  let routeMetched = route.matched
-  if (routeMetched.some(item => item.name === homeRoute.name)) return [homeItem]
+export const getBreadCrumbList = (routeMetched, homeRoute) => {
   let res = routeMetched.filter(item => {
-    return item.meta === undefined || !item.meta.hideInBread
+    return item.meta === undefined || !item.meta.hide
   }).map(item => {
-    let meta = { ...item.meta }
-    if (meta.title && typeof meta.title === 'function') {
-      meta.__titleIsFunction__ = true
-      meta.title = meta.title(route)
-    }
     let obj = {
       icon: (item.meta && item.meta.icon) || '',
       name: item.name,
-      meta: meta
+      meta: item.meta
     }
     return obj
   })
   res = res.filter(item => {
     return !item.meta.hideInMenu
   })
-  return [{ ...homeItem, to: homeRoute.path }, ...res]
+  return [Object.assign(homeRoute, { to: homeRoute.path }), ...res]
 }
 
-export const getRouteTitleHandled = (route) => {
-  let router = { ...route }
-  let meta = { ...route.meta }
-  let title = ''
-  if (meta.title) {
-    if (typeof meta.title === 'function') {
-      meta.__titleIsFunction__ = true
-      title = meta.title(router)
-    } else title = meta.title
-  }
-  meta.title = title
-  router.meta = meta
-  return router
-}
-
-export const showTitle = (item, vm) => {
-  let { title, __titleIsFunction__ } = item.meta
-  if (!title) return
-  if (useI18n) {
-    if (title.includes('{{') && title.includes('}}') && useI18n) title = title.replace(/({{[\s\S]+?}})/, (m, str) => str.replace(/{{([\s\S]*)}}/, (m, _) => vm.$t(_.trim())))
-    else if (__titleIsFunction__) title = item.meta.title
-    else title = vm.$t(item.name)
-  } else title = (item.meta && item.meta.title) || item.name
-  return title
-}
+export const showTitle = (item, vm) => vm.$config.useI18n ? vm.$t(item.name) : ((item.meta && item.meta.title) || item.name)
 
 /**
  * @description 本地存储和获取标签导航列表
@@ -122,17 +90,17 @@ export const getTagNavListFromLocalstorage = () => {
  * @param {Array} routers 路由列表数组
  * @description 用于找到路由列表中name为home的对象
  */
-export const getHomeRoute = (routers, homeName = 'home') => {
+export const getHomeRoute = routers => {
   let i = -1
   let len = routers.length
   let homeRoute = {}
   while (++i < len) {
     let item = routers[i]
     if (item.children && item.children.length) {
-      let res = getHomeRoute(item.children, homeName)
+      let res = getHomeRoute(item.children)
       if (res.name) return res
     } else {
-      if (item.name === homeName) homeRoute = item
+      if (item.name === 'home') homeRoute = item
     }
   }
   return homeRoute
@@ -327,7 +295,8 @@ export const routeEqual = (route1, route2) => {
   const params2 = route2.params || {}
   const query1 = route1.query || {}
   const query2 = route2.query || {}
-  return (route1.name === route2.name) && objEqual(params1, params2) && objEqual(query1, query2)
+  // return (route1.name === route2.name) && objEqual(params1, params2) && objEqual(query1, query2)
+  return (route1.name === route2.name) 
 }
 
 /**
@@ -341,59 +310,424 @@ export const routeHasExist = (tagNavList, routeItem) => {
   })
   return res
 }
-
-export const localSave = (key, value) => {
-  localStorage.setItem(key, value)
+/**
+ * 时间格式化
+ */
+export const formatDate = (val) => {
+  var value = new Date(val)
+  var year = value.getFullYear()
+  var month = padDate(value.getMonth() + 1)
+  var day = padDate(value.getDate())
+  var hour = padDate(value.getHours())
+  var minutes = padDate(value.getMinutes())
+  var seconds = padDate(value.getSeconds())
+  return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes + ':' + seconds
 }
 
-export const localRead = (key) => {
-  return localStorage.getItem(key) || ''
+export const formatDateYMD = (val) => {
+  if (!val) {
+    return ''
+  }
+  var value = new Date(val)
+  var year = value.getFullYear()
+  var month = padDate(value.getMonth() + 1)
+  var day = padDate(value.getDate())
+  return year + '-' + month + '-' + day
 }
 
-// scrollTop animation
-export const scrollTop = (el, from = 0, to, duration = 500, endCallback) => {
-  if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = (
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      window.msRequestAnimationFrame ||
-      function (callback) {
-        return window.setTimeout(callback, 1000 / 60)
-      }
-    )
+// 和当前日期比较大小 比当前时间大，返回true 比当前时间小，返回false
+export const greaterCurrentDate = (date) => {
+  var date = new Date(date)
+  var currentDate = new Date()
+  if (date.getTime() > currentDate.getTime()) {
+    return true
+  } else {
+    return false
   }
-  const difference = Math.abs(from - to)
-  const step = Math.ceil(difference / duration * 50)
+}
 
-  const scroll = (start, end, step) => {
-    if (start === end) {
-      endCallback && endCallback()
-      return
-    }
+export const diffDate = (date1, date2) => {
+  var date1 = new Date(date1)
+  var date2 = new Date(date2)
+  var time = date1.getTime() - date2.getTime()
+  var days = time / (1000 * 24 * 3600)
+  return days
+}
 
-    let d = (start + step > end) ? end : start + step
-    if (start > end) {
-      d = (start - step < end) ? end : start - step
-    }
-
-    if (el === window) {
-      window.scrollTo(d, d)
-    } else {
-      el.scrollTop = d
-    }
-    window.requestAnimationFrame(() => scroll(d, end, step))
-  }
-  scroll(from, to, step)
+function padDate (va) {
+  va = va < 10 ? '0' + va : va
+  return va
 }
 
 /**
- * @description 根据当前跳转的路由设置显示在浏览器标签的title
- * @param {Object} routeItem 路由对象
- * @param {Object} vm Vue实例
+ * 解决转json自动四舍五入问题
+ * @param res
+ * @returns {*}
  */
-export const setTitle = (routeItem, vm) => {
-  const handledRoute = getRouteTitleHandled(routeItem)
-  const pageTitle = showTitle(handledRoute, vm)
-  const resTitle = pageTitle ? `${title} - ${pageTitle}` : title
-  window.document.title = resTitle
+export const replaceRes = (res) => {
+  var formatStr = res.replace(/\:\ *(\d*?)\ *(\,|\})/g, (a, b, c, d, e) => {
+    if (e.substr(0, d).split('"').length % 2 === 0) return a
+    return `:"${b}"${c}`
+  })
+  return formatStr
+}
+
+/**
+ * 加法
+ * @param arg1
+ * @param arg2
+ * @returns
+ */
+export const accAdd = (arg1, arg2) => {
+  var r1, r2, m
+  try { r1 = arg1.toString().split('.')[1].length } catch (e) { r1 = 0 };
+  try { r2 = arg2.toString().split('.')[1].length } catch (e) { r2 = 0 };
+  m = Math.pow(10, Math.max(r1, r2))
+  return (arg1 * m + arg2 * m) / m
+}
+
+/**
+ *  货币转为千分位格式
+ * @param arg
+ * @returns
+ */
+export const currencyThousandth = (arg) => {
+  var prefix = ''
+  if (arg * 1 < 0) {
+    prefix = '-'
+    arg = arg * (-1)
+  }
+  arg = arg + ''
+  if (/[^0-9\.]/.test(arg)) {
+    return ''
+  }
+  arg = arg.replace(/^(\d*)$/, '$1.')
+  arg = (arg + '00').replace(/(\d*\.\d\d)\d*/, '$1')
+  arg = arg.replace('.', ',')
+  var re = /(\d)(\d{3},)/
+  while (re.test(arg)) {
+    arg = arg.replace(re, '$1,$2')
+  }
+  arg = arg.replace(/,(\d\d)$/, '.$1')
+  return prefix + arg.replace(/^\./, '0.')
+}
+
+/**
+ *  额度以10万为单位，向上取整
+ */
+export const lakhRoundUp = (arg) => {
+  return Math.ceil(arg / 100000) * 100000
+}
+
+/**
+ *  额度以1万为单位，向上取整
+ */
+export const tenThousandRoundUp = (arg) => {
+  return Math.ceil(arg / 10000) * 10000
+}
+
+/**
+ * 减法
+ * @param arg1
+ * @param arg2
+ * @returns
+ */
+export const accSubtr = (arg1, arg2) => {
+  var r1, r2, m, n
+  try { r1 = arg1.toString().split('.')[1].length } catch (e) { r1 = 0 }
+  try { r2 = arg2.toString().split('.')[1].length } catch (e) { r2 = 0 }
+  m = Math.pow(10, Math.max(r1, r2))
+  // 动态控制精度长度
+  n = (r1 >= r2) ? r1 : r2
+  return ((arg1 * m - arg2 * m) / m).toFixed(n)
+}
+
+/***
+ * 乘法，获取精确乘法的结果值
+ * @param arg1
+ * @param arg2
+ * @returns
+ */
+export const accMul = (arg1, arg2) => {
+  var m = 0, s1 = arg1.toString(), s2 = arg2.toString()
+  try { m += s1.split('.')[1].length } catch (e) {};
+  try { m += s2.split('.')[1].length } catch (e) {};
+  return Number(s1.replace('.', '')) * Number(s2.replace('.', '')) / Math.pow(10, m)
+}
+
+/***
+ * 除法，获取精确乘法的结果值
+ * @param arg1
+ * @param arg2
+ * @returns
+ */
+export const accDivCoupon = (arg1, arg2) => {
+  var t1 = 0, t2 = 0
+  let r1 = 0, r2 = 0
+  try { t1 = arg1.toString().split('.')[1].length } catch (e) {}
+  try { t2 = arg2.toString().split('.')[1].length } catch (e) {}
+  r1 = Number(arg1.toString().replace('.', ''))
+  r2 = Number(arg2.toString().replace('.', ''))
+  return (r1 / r2) * Math.pow(10, t2 - t1)
+}
+
+/**
+ * 格式化金额
+ * number：要格式化的数字number_format
+ * decimals：保留几位小数
+ * dec_point：小数点符号
+ * thousands_sep：千分位符号
+ * roundtag:舍入参数，默认 "ceil" 向上取,"floor"向下取,"round" 四舍五入
+ */
+export const numberFormat = (number, decimals, decPoint, thousandsSep, roundtag) => {
+  number = (number + '').replace(/[^0-9+-Ee.]/g, '')
+  roundtag = roundtag || 'ceil' // "ceil","floor","round"
+  var n = !isFinite(+number) ? 0 : +number,
+    prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+    sep = (typeof thousandsSep === 'undefined') ? ',' : thousandsSep,
+    dec = (typeof decPoint === 'undefined') ? '.' : decPoint,
+    s = '',
+    toFixedFix = function (n, prec) {
+      var k = Math.pow(10, prec)
+      console.log()
+      return '' + parseFloat(Math[roundtag](parseFloat((n * k).toFixed(prec * 2))).toFixed(prec * 2)) / k
+    }
+  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.')
+  var re = /(-?\d+)(\d{3})/
+  while (re.test(s[0])) {
+    s[0] = s[0].replace(re, '$1' + sep + '$2')
+  }
+  if ((s[1] || '').length < prec) {
+    s[1] = s[1] || ''
+    s[1] += new Array(prec - s[1].length + 1).join('0')
+  }
+  return s.join(dec)
+}
+
+/*
+对象数组排序
+ */
+export const getSortFun = (order, sortBy) => {
+  var ordAlpah = (order == 'asc') ? '>' : '<'
+  var sortFun = new Function('a', 'b', 'return a.' + sortBy + ordAlpah + 'b.' + sortBy + '?1:-1')
+  return sortFun
+}
+
+export const sortNumber = (a, b) => {
+  return a - b
+}
+
+export const getTree = (tree = []) => {
+  let arr = []
+  if (!!tree && tree.length !== 0) {
+    tree.forEach(item => {
+      let obj = {}
+      obj.id = item.id
+      obj.title = item.name
+      obj.expand = false
+      obj.selected = false
+      obj.children = getTree(item.children) // 递归调用
+      arr.push(obj)
+    })
+  }
+  return arr
+}
+
+export const getMenuTree = (tree = []) => {
+  let arr = []
+  if (!!tree && tree.length !== 0) {
+    tree.forEach(item => {
+      let obj = {}
+      obj.value = item.id
+      obj.label = item.title
+      obj.children = getMenuTree(item.children) // 递归调用
+      arr.push(obj)
+    })
+  }
+  return arr
+}
+export const getModuleTree = (tree = []) => {
+  let arr = []
+  if (!!tree && tree.length !== 0) {
+    tree.forEach(item => {
+      let obj = {}
+      obj.value = item.id
+      obj.label = item.name
+      obj.children = getModuleTree(item.children) // 递归调用
+      arr.push(obj)
+    })
+  }
+  return arr
+}
+
+export const getTreePermission = (tree = []) => {
+  let arr = []
+  if (!!tree && tree.length !== 0) {
+    tree.forEach(item => {
+      let obj = {}
+      obj.id = item.id
+      if (item.children && item.children.length > 0) {
+        getTreePermission(item.children) // 递归调用
+      }
+      arr.push(obj)
+    })
+  }
+  return arr
+}
+
+/**
+ * 角色分配权限，实现checkbox反选
+ * @param tree 所有角色
+ * @param roleRole 当前用户的角色
+ * @returns {Array}
+ */
+export const getRolePermissionTree = (tree = [], roleRole = []) => {
+  let arr = []
+  if (!!tree && tree.length !== 0) {
+    tree.forEach(item => {
+      let obj = {}
+      obj.id = item.id
+      obj.title = item.title
+      obj.expand = true
+      obj.selected = false
+      for (let i = 0; i < roleRole.length; i++) {
+        if (roleRole[i].permissionId === item.id && !item.children) {
+          obj.checked = true
+        }
+      }
+      obj.children = getRolePermissionTree(item.children, roleRole) // 递归调用
+      arr.push(obj)
+    })
+  }
+  return arr
+}
+// 模板tree回显
+export const getTemplatePermissionTree = (tree = [], currentModule = []) => {
+  let arr = []
+  if (!!tree && tree.length !== 0) {
+    tree.forEach(item => {
+      let obj = {}
+      obj.id = item.id
+      obj.name = item.name
+      obj.price = item.price
+      obj.expand = true
+      obj.selected = false
+      for (let i = 0; i < currentModule.length; i++) {
+        // console.log(8888,currentModule[i],item.id)
+        if (currentModule[i].id === item.id && !item.children) {
+          obj.checked = true
+        }
+      }
+      obj.children = getTemplatePermissionTree(item.children, currentModule) // 递归调用
+      arr.push(obj)
+    })
+  }
+  return arr
+}
+
+// 时间戳转换为日期格式
+function add0 (m) { return m < 10 ? '0' + m : m }
+export const formdataTime = (shijianchuo) => {
+  // shijianchuo是整数，否则要parseInt转换
+  var time = new Date(Number(shijianchuo))
+  var y = time.getFullYear()
+  var m = time.getMonth() + 1
+  var d = time.getDate()
+  var h = time.getHours()
+  var mm = time.getMinutes()
+  var s = time.getSeconds()
+  // return  add0(m) + '月' + add0(d) + '日';
+  return y + '.' + add0(m) + '.' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s)
+}
+
+/**
+ * 解析当前用户菜单
+ * @param tree
+ * @returns {Array}
+ */
+export const getUserMenu = (tree = []) => {
+  let arr = []
+  if (!!tree && tree.length !== 0) {
+    tree.forEach(item => {
+      let obj = {}
+      obj.path = item.url
+      obj.component = item.path
+      obj.name = item.name
+      var meta = {}
+      meta.title = item.title
+      meta.icon = item.icon
+      if (item.hideInMenu === '0') {
+        meta.hideInMenu = false
+      } else {
+        meta.hideInMenu = true
+      }
+      obj.meta = meta
+      obj.children = getUserMenu(item.children) // 递归调用
+      arr.push(obj)
+    })
+  }
+  return arr
+}
+
+/**
+ * @description 将后端菜单树转换为路由树
+ * @param {Array} menus
+ * @returns {Array}
+ */
+export const backendMenusToRouters = (menus) => {
+  let routers = []
+  forEach(menus, (menu) => {
+    // 将后端数据转换成路由数据
+    let route = backendMenuToRoute(menu)
+    // 如果后端数据有下级，则递归处理下级
+    if (menu.children && menu.children.length !== 0) {
+      route.children = backendMenusToRouters(menu.children)
+    }
+    routers.push(route)
+  })
+  return routers
+}
+
+/**
+ * @description 将后端菜单转换为路由
+ * @param {Object} menu
+ * @returns {Object}
+ */
+const backendMenuToRoute = (menu) => {
+  let route = Object.assign({}, menu)
+  /* route.component = () => import(`@/${menu.component}`) */ // 使用这个方法，热加载很慢
+  route.component = resolve => require([`@/${menu.component}`], resolve)
+  return route
+}
+
+export const getJsonUrl = (url, jsonStr) => {
+  var urlJSON = ''
+  if (!jsonStr) {
+    return url
+  }
+  for (var i in jsonStr) {
+    if (jsonStr[i]) {
+      if (!urlJSON) {
+        urlJSON += '?' + i + '=' + jsonStr[i]
+      } else {
+        urlJSON += '&' + i + '=' + jsonStr[i]
+      }
+    }
+  }
+  return url + urlJSON
+}
+
+//时间戳转换为日期格式
+const add =(m)=> { return m < 10 ? '0' + m : m }
+export const formdata =(shijianchuo)=> {
+  //shijianchuo是整数，否则要parseInt转换
+  var time = new Date(Number(shijianchuo));
+  var y = time.getFullYear();
+  var m = time.getMonth() + 1;
+  var d = time.getDate();
+  var h = time.getHours();
+  var mm = time.getMinutes();
+  var s = time.getSeconds();
+  // return  add0(m) + '月' + add0(d) + '日';
+  return y + '-' + add(m) + '-' + add(d);
 }

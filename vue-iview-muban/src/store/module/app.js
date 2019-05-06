@@ -1,49 +1,24 @@
-import {
-  getBreadCrumbList,
-  setTagNavListInLocalstorage,
-  getMenuByRouter,
-  getTagNavListFromLocalstorage,
-  getHomeRoute,
-  getNextRoute,
-  routeHasExist,
-  routeEqual,
-  getRouteTitleHandled,
-  localSave,
-  localRead
-} from '@/libs/util'
-import { saveErrorLogger } from '@/api/data'
-import router from '@/router'
+import { getBreadCrumbList, setTagNavListInLocalstorage, getMenuByRouter, getTagNavListFromLocalstorage, getHomeRoute, routeHasExist,backendMenusToRouters } from '@/libs/util'
+import { testPessiom } from '@/api/user'
+import { getMenu } from '@/api/user'
 import routers from '@/router/routers'
 import config from '@/config'
+import {getUserMenu} from "../../libs/util";
 const { homeName } = config
-
-const closePage = (state, route) => {
-  const nextRoute = getNextRoute(state.tagNavList, route)
-  state.tagNavList = state.tagNavList.filter(item => {
-    return !routeEqual(item, route)
-  })
-  router.push(nextRoute)
-}
-
 export default {
   state: {
-    breadCrumbList: [],
     tagNavList: [],
-    homeRoute: {},
-    local: localRead('local'),
-    errorList: [],
-    hasReadErrorPage: false
+    homeRoute: getHomeRoute(routers, homeName),
+    local: '',
+    routers: [],
+    hasGetRouter: false
   },
   getters: {
-    menuList: (state, getters, rootState) => getMenuByRouter(routers, rootState.user.access),
-    errorCount: state => state.errorList.length
+    menuList: (state, getters, rootState) => getMenuByRouter(state.routers, rootState.user.access),
   },
   mutations: {
     setBreadCrumb (state, route) {
       state.breadCrumbList = getBreadCrumbList(route, state.homeRoute)
-    },
-    setHomeRoute (state, routes) {
-      state.homeRoute = getHomeRoute(routes, homeName)
     },
     setTagNavList (state, list) {
       let tagList = []
@@ -59,47 +34,45 @@ export default {
       state.tagNavList = tagList
       setTagNavListInLocalstorage([...tagList])
     },
-    closeTag (state, route) {
-      let tag = state.tagNavList.filter(item => routeEqual(item, route))
-      route = tag[0] ? tag[0] : null
-      if (!route) return
-      closePage(state, route)
-    },
     addTag (state, { route, type = 'unshift' }) {
-      let router = getRouteTitleHandled(route)
-      if (!routeHasExist(state.tagNavList, router)) {
-        if (type === 'push') state.tagNavList.push(router)
+      if (!routeHasExist(state.tagNavList, route)) {
+        if (type === 'push') state.tagNavList.push(route)
         else {
-          if (router.name === homeName) state.tagNavList.unshift(router)
-          else state.tagNavList.splice(1, 0, router)
+          if (route.name === 'home') state.tagNavList.unshift(route)
+          else state.tagNavList.splice(1, 0, route)
         }
         setTagNavListInLocalstorage([...state.tagNavList])
       }
     },
     setLocal (state, lang) {
-      localSave('local', lang)
       state.local = lang
     },
-    addError (state, error) {
-      state.errorList.push(error)
+    setRouters (state, routers) {
+      state.routers = routers
     },
-    setHasReadErrorLoggerStatus (state, status = true) {
-      state.hasReadErrorPage = status
+    setHasGetRouter (state, status) {
+      state.hasGetRouter = status
     }
   },
   actions: {
-    addErrorLog ({ commit, rootState }, info) {
-      if (!window.location.href.includes('error_logger_page')) commit('setHasReadErrorLoggerStatus', false)
-      const { user: { token, userId, userName } } = rootState
-      let data = {
-        ...info,
-        time: Date.parse(new Date()),
-        token,
-        userId,
-        userName
-      }
-      saveErrorLogger(info).then(() => {
-        commit('addError', data)
+    getRouters ({ commit }) {
+      return new Promise((resolve, reject) => {
+        try {
+          getMenu().then(res => {
+            var data1 = JSON.parse(res.data)
+            console.log("后台路由数据")
+            console.log(getUserMenu(data1.data))
+            let routers = backendMenusToRouters(getUserMenu(data1.data))
+            console.log(routers)
+            commit('setRouters', routers)
+            commit('setHasGetRouter', true)
+            resolve(routers)
+          }).catch(err => {
+            reject(err)
+          })
+        } catch (error) {
+          reject(error)
+        }
       })
     }
   }

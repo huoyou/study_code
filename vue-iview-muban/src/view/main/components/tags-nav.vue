@@ -1,6 +1,6 @@
 <template>
   <div class="tags-nav">
-    <div class="close-con">
+     <div class="close-con" v-if="showClose">
       <Dropdown transfer @on-click="handleTagsOption" style="margin-top:7px;">
         <Button size="small" type="text">
           <Icon :size="18" type="ios-close-circle-outline" />
@@ -33,11 +33,10 @@
             ref="tagsPageOpened"
             :key="`tag-nav-${index}`"
             :name="item.name"
-            :data-route-item="item"
             @on-close="handleClose(item)"
             @click.native="handleClick(item)"
-            :closable="item.name !== $config.homeName"
-            :color="isCurrentTag(item) ? 'primary' : 'default'"
+            :closable="item.name !== 'home'"
+            :color="isCurrentTag(item) ? '#ED4014' : 'default'"
             @contextmenu.prevent.native="contextMenu(item, $event)"
           >{{ showTitleInside(item) }}</Tag>
         </transition-group>
@@ -48,7 +47,6 @@
 
 <script>
 import { showTitle, routeEqual } from '@/libs/util'
-import beforeClose from '@/router/before-close'
 export default {
   name: 'TagsNav',
   props: {
@@ -58,6 +56,10 @@ export default {
       default () {
         return []
       }
+    },
+    showClose: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -107,33 +109,23 @@ export default {
       }
     },
     handleTagsOption (type) {
-      if (type.includes('all')) {
+      console.log('type',type)
+      if (type === 'close-all') {
         // 关闭所有，除了home
-        let res = this.list.filter(item => item.name === this.$config.homeName)
+        let res = this.list.filter(item => item.name === 'home')
         this.$emit('on-close', res, 'all')
-      } else if (type.includes('others')) {
+      } else if (type === 'close-others') {
         // 关闭除当前页和home页的其他页
-        let res = this.list.filter(item => routeEqual(this.currentRouteObj, item) || item.name === this.$config.homeName)
+        let res = this.list.filter(item => routeEqual(this.currentRouteObj, item) || item.name === 'home')
         this.$emit('on-close', res, 'others', this.currentRouteObj)
         setTimeout(() => {
-          this.getTagElementByRoute(this.currentRouteObj)
+          this.getTagElementByName(this.currentRouteObj.name)
         }, 100)
       }
     },
     handleClose (current) {
-      if (current.meta && current.meta.beforeCloseName && current.meta.beforeCloseName in beforeClose) {
-        new Promise(beforeClose[current.meta.beforeCloseName]).then(close => {
-          if (close) {
-            this.close(current)
-          }
-        })
-      } else {
-        this.close(current)
-      }
-    },
-    close (route) {
-      let res = this.list.filter(item => !routeEqual(route, item))
-      this.$emit('on-close', res, undefined, route)
+      let res = this.list.filter(item => !routeEqual(current, item))
+      this.$emit('on-close', res, undefined, current)
     },
     handleClick (item) {
       this.$emit('input', item)
@@ -160,11 +152,11 @@ export default {
         this.tagBodyLeft = -(tag.offsetLeft - (outerWidth - this.outerPadding - tag.offsetWidth))
       }
     },
-    getTagElementByRoute (route) {
+    getTagElementByName (name) {
       this.$nextTick(() => {
         this.refsTag = this.$refs.tagsPageOpened
         this.refsTag.forEach((item, index) => {
-          if (routeEqual(route, item.$attrs['data-route-item'])) {
+          if (name === item.name) {
             let tag = this.refsTag[index].$el
             this.moveToView(tag)
           }
@@ -172,7 +164,7 @@ export default {
       })
     },
     contextMenu (item, e) {
-      if (item.name === this.$config.homeName) {
+      if (item.name === 'home') {
         return
       }
       this.visible = true
@@ -186,7 +178,7 @@ export default {
   },
   watch: {
     '$route' (to) {
-      this.getTagElementByRoute(to)
+      this.getTagElementByName(to.name)
     },
     visible (value) {
       if (value) {
@@ -198,12 +190,99 @@ export default {
   },
   mounted () {
     setTimeout(() => {
-      this.getTagElementByRoute(this.$route)
+      this.getTagElementByName(this.$route.name)
     }, 200)
   }
 }
 </script>
 
 <style lang="less">
-@import './tags-nav.less';
+.no-select{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.size{
+  width: 100%;
+  height: 100%;
+}
+.tags-nav{
+  position: relative;
+  border-top: 1px solid #F0F0F0;
+  border-bottom: 1px solid #F0F0F0;
+  .no-select;
+  .size;
+  .close-con{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 32px;
+    background: #fff;
+    text-align: center;
+    z-index: 10;
+  }
+  .btn-con{
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    background: #fff;
+    padding-top: 3px;
+    z-index: 10;
+    button{
+      padding: 6px 4px;
+      line-height: 14px;
+      text-align: center;
+    }
+    &.left-btn{
+      left: 0px;
+    }
+    &.right-btn{
+      right: 32px;
+      border-right: 1px solid #F0F0F0;
+    }
+  }
+  .scroll-outer{
+    position: absolute;
+    left: 28px;
+    right: 61px;
+    top: 0;
+    bottom: 0;
+    box-shadow: 0px 0 3px 2px rgba(100,100,100,.1) inset;
+    .scroll-body{
+      height: ~"calc(100% - 1px)";
+      display: inline-block;
+      padding: 1px 4px 0;
+      position: absolute;
+      overflow: visible;
+      white-space: nowrap;
+      transition: left .3s ease;
+      .ivu-tag-dot-inner{
+        transition: background .2s ease;
+      }
+    }
+  }
+  .contextmenu {
+    position: absolute;
+    margin: 0;
+    padding: 5px 0;
+    background: #fff;
+    z-index: 1000;
+    list-style-type: none;
+    border-radius: 4px;
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .1);
+    li {
+      margin: 0;
+      padding: 5px 15px;
+      cursor: pointer;
+      &:hover {
+        background: #eee;
+      }
+    }
+  }
+}
+
 </style>

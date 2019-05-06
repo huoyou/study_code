@@ -7,36 +7,40 @@ import echarts from 'echarts'
 import tdTheme from './theme.json'
 echarts.registerTheme('tdTheme', tdTheme)
 export default {
-  name: 'ChartBar',
+  name: 'ChartRadar',
   props: {
-    value: Object,
+    value: Array,
     text: String,
-    subtext: String
+    subtext: String,
+    legend: Array,
+    xdata: Array
+  },
+  data () {
+    return {
+      dom: {},
+    }
   },
   mounted () {
     this.$nextTick(() => {
-      let xAxisData = Object.keys(this.value)
-      let seriesData = Object.values(this.value)
+      let seriesData = this.value
+      let legend = this.legend
+      let xdata = this.xdata
       let option = {
-        title: {
-          text: this.text,
-          subtext: this.subtext,
-          x: 'center'
+        legend: {
+          data: legend
         },
         xAxis: {
           type: 'category',
-          data: xAxisData
+          data: xdata
         },
         yAxis: {
           type: 'value'
         },
-        series: [{
-          data: seriesData,
-          type: 'bar'
-        }]
+        series: seriesData
       }
-      let dom = echarts.init(this.$refs.dom, 'tdTheme')
-      dom.setOption(option)
+      this.dom = echarts.init(this.$refs.dom, 'tdTheme')
+      this.dom.setOption(option)
+
     })
   }
 }

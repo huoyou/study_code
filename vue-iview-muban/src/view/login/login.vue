@@ -1,9 +1,7 @@
 <template>
   <div class="login">
     <div class="login-con">
-      <Card icon="log-in"
-            title="欢迎登录"
-            :bordered="false">
+      <Card icon="log-in" title="欢迎登录" :bordered="false">
         <div class="form-con">
           <login-form @on-success-valid="handleSubmit"></login-form>
           <p class="login-tip">输入任意用户名和密码即可</p>
@@ -59,12 +57,13 @@
         params.username = userName
         params.password = password
         login(params).then((res) => {
+          console.log('res',res)
           var data = JSON.parse(res.data)
           if (data.state) {
             this.$Message.success(data.message)
             localStorage.tagNaveList = []
             setToken(data.data.token)
-            window.location.href = 'www.baidu.com'
+            // window.location.href = 'www.baidu.com'
             this.$router.push({
               name: 'home'
             })
