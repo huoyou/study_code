@@ -11,6 +11,7 @@ import './index.less'
 import '@/assets/icons/iconfont.css'
 import hasPermission from '@/libs/hasPermission'
 import htmlToPdf from '@/libs/htmlToPdf'
+import '@babel/polyfill';
 
 // 实际打包时应该不引入mock
 /* eslint-disable */
