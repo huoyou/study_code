@@ -25,33 +25,8 @@
         'handleLogin',
         'getUserInfo'
       ]),
-      // handleSubmit({ userName, password }) {
-      //   this.handleLogin({ userName, password }).then(res => {
-      //     let data = JSON.parse(res)
-      //     if (data.code == 200) {
-      //       this.$Message.success(data.message);
-      //       localStorage.tagNaveList = [];
-      //       setToken(data.data.token);
-      //       this.$router.push({
-      //         name: this.$config.homeName
-      //       })
-      //     } else {
-      //       this.$Notice.error({
-      //         title: '温馨提示',
-      //         desc: data.message
-      //       })
-      //     }
-      //   }).catch((error) => {
-      //     var time = error.toString().indexOf('timeout')
-      //     if (time > 0) {
-      //       this.$Notice.error({
-      //         title: '温馨提示',
-      //         desc: '请求超时'
-      //       })
-      //     }
-      //   })
-      // },
       handleSubmit ({ userName, password }) {
+        console.log('----hahah-------')
         setToken('') // 每次登录之前清空token
         var params = {}
         params.username = userName

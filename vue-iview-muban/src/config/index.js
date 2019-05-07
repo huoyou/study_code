@@ -1,13 +1,9 @@
 import apiUrl from './setBaseUrl'
 export default {
   /**
-   * @description 配置显示在浏览器标签的title
-   */
-  title: 'iview模板',
-  /**
    * @description token在Cookie中存储的天数，默认1天
    */
-  cookieExpires: 1,
+  cookieExpires: 8/24,
 
   // 菜单栏主题颜色
   theme: 'light',
