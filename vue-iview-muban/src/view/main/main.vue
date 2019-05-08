@@ -55,6 +55,7 @@
   </Layout>
 </template>
 <script>
+  import config from '@/config'
   import SideMenu from './components/side-menu'
   import HeaderBar from './components/header-bar'
   import TagsNav from './components/tags-nav.vue'
@@ -79,7 +80,7 @@
         minLogo,
         maxLogo,
         isFullscreen: false,
-        theme: this.$config.theme,
+        theme: config.theme,
         showClose: true
       }
     },
@@ -97,7 +98,6 @@
         return this.tagNavList.length ? this.tagNavList.filter(item => !(item.meta && item.meta.notCache)).map(item => item.name) : []
       },
       menuList() {
-        console.log(' this.$store.getters.menuList', this.$store.getters.menuList)
         return this.$store.getters.menuList
       },
       local() {

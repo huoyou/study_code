@@ -49,4 +49,59 @@ export default [
       }
     ]
   },
+  {
+    path: '',
+    name: 'doc',
+    meta: {
+      title: '文档',
+      href: 'https://lison16.github.io/iview-admin-doc/#/',
+      icon: 'ios-book'
+    }
+  },
+  {
+    path: 'error_page',
+    name: 'error_page',
+    meta: {
+      hideInMenu: false,
+      title: 'error_page',
+      icon: 'md-home'
+    },
+    component: Main,
+    children: [
+      {
+        path: '/401',
+        name: 'error_401',
+        meta: {
+          hideInMenu: false,
+          title: 'error_401',
+          notCache: true,
+          icon: 'md-home'
+        },
+        component: () => import('@/view/error-page/401.vue')
+      },
+      {
+        path: '/500',
+        name: 'error_500',
+        meta: {
+          hideInMenu: false,
+          title: 'error_500',
+          notCache: true,
+          icon: 'md-home'
+        },
+        component: () => import('@/view/error-page/500.vue')
+      },
+      {
+        path: '*',
+        name: 'error_404',
+        meta: {
+          hideInMenu: false,
+          title: 'error_404',
+          notCache: true,
+          icon: 'md-home'
+        },
+        component: () => import('@/view/error-page/404.vue')
+      }
+    ]
+  }
+
 ]
