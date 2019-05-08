@@ -2,7 +2,7 @@
     <div style="height: 100%">
         <Card style="height: 100%">
         <upload></upload>
-        <upload-img></upload-img>
+        <upload-img  :src="'/api/imgs'"></upload-img>
         </Card>
     </div>
 </template>

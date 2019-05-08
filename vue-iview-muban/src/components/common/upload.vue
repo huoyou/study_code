@@ -193,7 +193,7 @@
             FilesAdded: (up, files) => {
               plupload.each(files, (file) => {
                 console.log('file_name: ', file.name, ',    ', 'file_size:  ', file.size);
-                document.getElementById('ossfile').innerHTML += `<div id="${file.id}">${file.name} (${plupload.formatSize(file.size)})<b></b><div class="progress"><div class="progress-bar" style="width: 0"></div></div></div>`;
+                document.getElementById('ossfile').innerHTML += `<div id="${file.id}">${file.name} (${plupload.formatSize(file.size)})<b></b><div class="progress"><div class="progress-bar" style="width: 0"></div></div><image/></image></div>`;
                 that.message = '';
               });
             },
