@@ -17,7 +17,7 @@ Es6Promise.polyfill()
 
 // 实际打包时应该不引入mock
 /* eslint-disable */
-if (process.env.NODE_ENV !== 'production') require('@/mock')
+// if (process.env.NODE_ENV !== 'production') require('@/mock')
 
 Vue.use(iView, {
   i18n: (key, value) => i18n.t(key, value)

@@ -1,23 +1,36 @@
 /*jshint -W065 */
 <template lang="html">
-  <div>
+  <div class="upload">
     <form style="display: none" name=theform>
       <a type="radio" name="myradio" ></a> 上传文件名字保持本地文件名字
       <a type="radio" name="myradio" ></a> 上传文件名字是随机文件名, 后缀保留
     </form>
 
     <h4>您所选择的文件列表：</h4>
-    <div id="ossfile"></div>
+    <div id="ossfile">
+       <div class="upload-pic-item" :id="item.id" v-for="(item,index) in fileList" :key="index">
+            <b></b>
+            <div class="progress">
+                <div class="progress-bar" style="width: 0">
+                </div>
+            </div>
+            <image/>
+            <div class="upload-delete">
+                删除1
+            </div>
+        </div>
+    </div>
 
     <br/>
 
     <div id="container">
       <a id="selectfiles" href="javascript:void(0);" class='btn'>选择文件</a>
-      <a id="postfiles" href="javascript:void(0);" class='btn'>开始上传</a>
+      <a id="postfiles" href="javascript:void(0);" class='btn' style="margin-left: 10px;">开始上传</a>
     </div>
 
     <pre id="console">{{message}}</pre>
-
+    <div>
+    </div>
     <p>&nbsp;</p>
   </div>
 </template>
@@ -43,6 +56,7 @@
         g_object_name_type: '',
         now: Date.parse(new Date()) / 1000,
         message: '',
+        fileList: [],
       };
     },
     props: {
@@ -65,9 +79,9 @@
         const xmlhttp = new XMLHttpRequest();
         // 你的服务端接口地址:  参考demo:http://oss-demo.aliyuncs.com/oss-h5-upload-js-php/
         // 服务端签名后直传文档:  https://help.aliyun.com/document_detail/31926.html
-        const serverUrl = 'http://192.168.7.64:8081/sys/getOSSPolicy'
-        xmlhttp.open( "GET", serverUrl, false );
-        xmlhttp.send( null );
+        const serverUrl = 'http://192.168.1.115:8087/sys/getOSSPolicy'
+        xmlhttp.open("GET", serverUrl, false);
+        xmlhttp.send(null);
         return xmlhttp.responseText;
       },
       getSignature() {
@@ -75,11 +89,11 @@
         this.now = Date.parse(new Date()) / 1000;
         if (this.expire < this.now + 3) {
           const body = this.sendRequest();
-          console.log(body)
+          console.log('this.sendRequest', body)
           const data = JSON.parse(body);
           var obj = JSON.parse(data)
           if (obj.state) {
-            console.log(obj.data)
+            console.log('obj.data', obj.data)
             this.host = obj.data.host;
             this.policyBase64 = obj.data.policy;
             this.accessid = obj.data.accessid;
@@ -137,6 +151,17 @@
         }
         return '';
       },
+      //删除图片（上传前移除以及上传后传给后台前的删除）
+      deleteImg(fileid) {
+        var toremove = '';
+        var id = fileid;
+        for (var i in uploaded.files) {
+          if (uploader.files[i].id === id) {
+            toremove = i;
+          }
+        }
+        uploaded.files.splice(toremove, 1);
+      },
       setUploadParam(up, filename, ret) {
         if (ret === false) {
           this.getSignature();
@@ -154,12 +179,20 @@
           signature: this.signature,
           callback: this.callbackbody,
         };
-        console.log("newMultipartParams参数",newMultipartParams)
+        console.log("newMultipartParams参数", newMultipartParams)
         up.setOption({
           url: this.host,
           multipart_params: newMultipartParams,
         });
         up.start();
+      },
+      dodel(files) {
+          console.log(9000,files);
+          //文件数组删除
+          // uploader.removeFile(files);
+          //标签删除
+          // $("#"+files).remove();
+
       },
       upload() {
         const that = this;
@@ -184,16 +217,45 @@
           init: {
             PostInit: () => {
               this.ossFile = '';
+              document.getElementById('ossfile').innerHTML = '';
               document.getElementById('postfiles').onclick = () => {
                 that.setUploadParam(uploader, '', false);
-                // console.log('...');
                 return false;
               };
+              //删除
+              var elements = document.getElementsByClassName("upload-delete");
+              console.log('elements',elements)
+              for (var i = 0; i < elements.length; i++) {
+                elements[i].addEventListener('click',function () {
+                    var _fileid = this.parentNode.id
+                  var parent = document.getElementById("ossfile");
+                  var child = document.getElementById(_fileid);
+                  parent.removeChild(child);
+                  this.deleteImg(_fileid);
+                })
+                // elements[i].onclick = function () {
+                //   console.log(this.parentNode.id)
+                //   var _fileid = this.parentNode.id
+                //   var parent = document.getElementById("ossfile");
+                //   var child = document.getElementById(_fileid);
+                //   parent.removeChild(child);
+                //   this.deleteImg(_fileid);
+                // };
+              }
+              // $(document).on('click','.upload-delete',function () {
+              //     console.log(uploaded.files)
+              //     var _fileid=$(this).parents('.upload-pic-item').attr('id');
+              //     $(this).parents('.upload-pic-item').remove();
+              //     deleteImg(_fileid);
+              // });
             },
+
             FilesAdded: (up, files) => {
+              console.log('FilesAdded', up, files)
+              console.log('plupload', plupload)
               plupload.each(files, (file) => {
                 console.log('file_name: ', file.name, ',    ', 'file_size:  ', file.size);
-                document.getElementById('ossfile').innerHTML += `<div id="${file.id}">${file.name} (${plupload.formatSize(file.size)})<b></b><div class="progress"><div class="progress-bar" style="width: 0"></div></div><image/></image></div>`;
+                document.getElementById('ossfile').innerHTML += `<div class="upload-pic-item" id="${file.id}">${file.name} (${plupload.formatSize(file.size)})<b></b><div class="progress"><div class="progress-bar" style="width: 0"></div></div><image/></image><div class="upload-delete" @click="dodel(${file.id})"><Icon type="md-close-circle" />删除</div></div>`;
                 that.message = '';
               });
             },
@@ -211,11 +273,12 @@
               progBar.setAttribute('aria-valuenow', file.percent);
             },
             FileUploaded: (up, file, info) => {
+              console.log(info)
               if (info.status === 200) {
                 document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML
-                  = `upload to oss success, object name:${this.getUploadedObjectName(file.name)}`;
+                  = `<span style="color:green">上传成功</span>`;
               } else {
-                document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = info.response;
+                document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = `<span style="color:red">上传失败</span>`;
               }
             },
             Error: (up, err) => {
@@ -241,69 +304,90 @@
   };
 </script>
 <style lang="less">
-.btn {
-  color: #fff;
-  background-color: #54b9f9;
-  border-color: #54b9f9;
-  display: inline-block;
-  padding: 6px 12px;
-  margin-bottom: 0;
-  font-size: 14px;
-  font-weight: 400;
-  line-height: 1.42857143;
-  text-align: center;
-  white-space: nowrap;
-  text-decoration: none;
-  vertical-align: middle;
-  -ms-touch-action: manipulation;
-  touch-action: manipulation;
-  cursor: pointer;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  background-image: none;
-  /*border: 1px solid transparent;*/
-  border-radius: 4px;
-}
+  .upload {
+    #ossfile {
+      .upload-pic-item {
+        display: flex;
+        align-items: center;
+        b {
+          margin-left: 5px;
+        }
+        .progress {
+          width: 200px;
+          height: 14px;
+          margin-left: 10px;
+          display: inline-block;
+          margin-bottom: 0;
+          overflow: hidden;
+          background-color: #f5f5f5;
+          border-radius: 4px;
+          -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+          box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        .upload-delete {
+          display: inline-block;
+          color: blue;
+          margin-left: 5px;
+        }
+        .progress-bar {
+          background-color: rgb(84, 185, 249);
+          background-image: linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.14902) 25%,
+            transparent 25%,
+            transparent 50%,
+            rgba(255, 255, 255, 0.14902) 50%,
+            rgba(255, 255, 255, 0.14902) 75%,
+            transparent 75%,
+            transparent
+          );
+          background-size: 40px 40px;
+          box-shadow: rgba(0, 0, 0, 0.14902) 0 -1px 0 0 inset;
+          box-sizing: border-box;
+          color: rgb(255, 255, 255);
+          display: block;
+          float: none;
+          font-size: 12px;
+          height: 20px;
+          text-align: center;
+          transition-delay: 0s;
+          transition-duration: 0.6s;
+          transition-property: width;
+          transition-timing-function: ease;
+          width: 266px;
+        }
+      }
+    }
+    #container {
+      .btn {
+        color: #fff;
+        background-color: #54b9f9;
+        border-color: #54b9f9;
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        text-decoration: none;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        /*border: 1px solid transparent;*/
+        border-radius: 4px;
+      }
 
-a.btn:hover {
-  background-color: #29e0f9;
-}
-
-.progress {
-  margin-top: 2px;
-  width: 200px;
-  height: 14px;
-  margin-left: 10px;
-  display: inline-block;
-  margin-bottom: 0;
-  overflow: hidden;
-  background-color: #f5f5f5;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
-  box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1);
-}
-
-.progress-bar {
-  background-color: rgb(84, 185, 249);
-  background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.14902) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.14902) 50%, rgba(255, 255, 255, 0.14902) 75%, transparent 75%, transparent);
-  background-size: 40px 40px;
-  box-shadow: rgba(0, 0, 0, 0.14902) 0 -1px 0 0 inset;
-  box-sizing: border-box;
-  color: rgb(255, 255, 255);
-  display: block;
-  float: none;
-  font-size: 12px;
-  height: 20px;
-  line-height: 20px;
-  text-align: center;
-  transition-delay: 0s;
-  transition-duration: 0.6s;
-  transition-property: width;
-  transition-timing-function: ease;
-  width: 266px;
-}
-
+      a.btn:hover {
+        background-color: #29e0f9;
+      }
+    }
+  }
 </style>
 
