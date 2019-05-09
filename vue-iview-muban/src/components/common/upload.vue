@@ -9,14 +9,15 @@
     <h4>您所选择的文件列表：</h4>
     <div id="ossfile">
        <div class="upload-pic-item" :id="item.id" v-for="(item,index) in fileList" :key="index">
-            <b></b>
+            {{item.name}} {{item.size}}
+            <b>{{status}}</b>
             <div class="progress">
                 <div class="progress-bar" style="width: 0">
                 </div>
             </div>
             <image/>
-            <div class="upload-delete">
-                删除1
+            <div class="upload-delete" @click="dodel(item)">
+                删除
             </div>
         </div>
     </div>
@@ -56,6 +57,7 @@
         g_object_name_type: '',
         now: Date.parse(new Date()) / 1000,
         message: '',
+        status: '',
         fileList: [],
       };
     },
@@ -186,8 +188,9 @@
         });
         up.start();
       },
-      dodel(files) {
-          console.log(9000,files);
+      dodel(file) {
+        this.fileList = this.fileList.filter(el=>el != file.id);
+          console.log(9000,file);
           //文件数组删除
           // uploader.removeFile(files);
           //标签删除
@@ -254,8 +257,9 @@
               console.log('FilesAdded', up, files)
               console.log('plupload', plupload)
               plupload.each(files, (file) => {
-                console.log('file_name: ', file.name, ',    ', 'file_size:  ', file.size);
-                document.getElementById('ossfile').innerHTML += `<div class="upload-pic-item" id="${file.id}">${file.name} (${plupload.formatSize(file.size)})<b></b><div class="progress"><div class="progress-bar" style="width: 0"></div></div><image/></image><div class="upload-delete" @click="dodel(${file.id})"><Icon type="md-close-circle" />删除</div></div>`;
+                this.fileList.push(file)
+                // console.log('file_name: ', file.name, ',    ', 'file_size:  ', file.size);
+                // document.getElementById('ossfile').innerHTML += `<div class="upload-pic-item" id="${file.id}">${file.name} (${plupload.formatSize(file.size)})<b></b><div class="progress"><div class="progress-bar" style="width: 0"></div></div><image/></image><div class="upload-delete" @click="dodel(${file.id})"><Icon type="md-close-circle" />删除</div></div>`;
                 that.message = '';
               });
             },
