@@ -1,72 +1,44 @@
 <template>
-  <Select
-    ref="select"
-    class="tree-select"
-    v-bind="$attrs"
-    @on-change="handleChange"
-    multiple
-  >
-    <tree-select-tree-item
-      :selectedArray="value"
-      :data="data"
-      @on-clear="handleClear"
-      :load-data="loadData"
-      @on-check="handleTreeCheck"
-    ></tree-select-tree-item>
-  </Select>
-</template>
+    <div style="height: 100%">
+        <Card style="height: 100%">
+        <upload></upload>
 
+
+
+         <upload-img
+        browse_button="browse_button"
+        :url="serverUrl"
+        @inputUploader="inputUploader"
+      />
+      <div v-for="file in files">{{file.name}}</div>
+      <button id="browse_button" type="primary">选择文件</button>
+      <button type="danger" @click="up.start()">开始上传</button>
+        </Card>
+    </div>
+</template>
 <script>
-import Emitter from 'iview/src/mixins/emitter'
-import TreeSelectTreeItem from './tree-select-tree.vue'
+import upload from '_c/common/upload'
+import uploadImg from '_c/common/uploadImg'
 export default {
-  name: 'TreeSelect',
-  mixins: [Emitter],
-  components: {
-    TreeSelectTreeItem
-  },
-  props: {
-    value: {
-      type: Array,
-      default: () => []
+    components: {
+        upload,
+        uploadImg
     },
-    data: {
-      type: Array,
-      default: () => []
+    name: "FileUpload",
+    data() {
+      return {
+        // server_config: this.global.server_config,
+        files:[],
+        up: {},
+        serverUrl: 'http://192.168.1.115:8087/sys/getOSSPolicy'
+      }
     },
-    loadData: Function
-  },
-  data () {
-    return {
-      isChangedByTree: true,
-      isInit: true
-    }
-  },
-  provide () {
-    return {
-      parent: this
-    }
-  },
-  methods: {
-    handleChange (selected) {
-      if (!this.isChangedByTree) this.$emit('input', selected)
-      this.isChangedByTree = false
+    methods: {
+      inputUploader(up) {
+          console.log('---up---',up)
+        this.up = up;
+        this.files = up.files;
+      }
     },
-    handleTreeCheck (selectedArray) {
-      this.isChangedByTree = true
-      this.$emit('input', selectedArray.map(item => item.id))
-    },
-    handleClear () {
-      this.$refs.select.reset()
-    }
-  }
 }
 </script>
-
-<style lang="less">
-.tree-select {
-  .ivu-select-dropdown {
-    padding: 0 6px;
-  }
-}
-</style>
