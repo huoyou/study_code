@@ -2,7 +2,7 @@
     <div style="height: 100%">
         <Card style="height: 100%">
         <upload></upload>
-
+<!-- 
 
 
          <upload-img
@@ -12,7 +12,7 @@
       />
       <div v-for="file in files">{{file.name}}</div>
       <button id="browse_button" type="primary">选择文件</button>
-      <button type="danger" @click="up.start()">开始上传</button>
+      <button type="danger" @click="up.start()">开始上传</button> -->
         </Card>
     </div>
 </template>

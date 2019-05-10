@@ -1,4 +1,12 @@
-<template></template>
+<template>
+    <div>
+        <button type="primary"
+                id="browse_button">选择多个文件</button>
+        <button type="danger"
+                @click="up.start()">开始上传</button>
+    </div>
+
+</template>
 <script>
     import plupload from 'plupload';
     import Cookies from 'js-cookie'
@@ -13,10 +21,23 @@
                 type: String
             },
             url: {
-                type: String
+                type: String,
+                default: 'http://oss.aliyuncs.com'
             },
             filters: {
-                type: Object
+                type: Object,
+                default() {
+                    return {
+                        mime_types: [{
+                            title: '允许上传文件类型',
+                            extensions: 'jpg,gif,png,bmp',
+                        }],
+                        // 最大只能上传200mb的文件
+                        max_file_size: '200mb',
+                        // 不允许队列中存在重复文件
+                        prevent_duplicates: true,
+                    }
+                }
             },
             headers: {
                 type: Object
@@ -149,7 +170,7 @@
         },
         watch: {
             up(val) {
-                console.log('val',val)
+                console.log('val', val)
                 this.$emit('inputUploader', val);
             }
         },
