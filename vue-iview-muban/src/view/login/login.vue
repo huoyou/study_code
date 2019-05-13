@@ -1,10 +1,17 @@
 <template>
   <div class="login">
+    <p class="title">欢迎登录联合利丰客户门户</p>
     <div class="login-con">
-      <Card icon="log-in" title="欢迎登录" :bordered="false">
+      <img src="../../assets/images/login.jpg"
+           alt=""
+           class="img">
+      <Card icon="log-in"
+            title="欢迎登录"
+            :bordered="false"
+            class="card"
+            style="text-align:center;width: 325px">
         <div class="form-con">
           <login-form @on-success-valid="handleSubmit"></login-form>
-          <p class="login-tip">输入任意用户名和密码即可</p>
         </div>
       </Card>
     </div>
@@ -25,14 +32,14 @@
         'handleLogin',
         'getUserInfo'
       ]),
-      handleSubmit ({ userName, password }) {
+      handleSubmit({ userName, password }) {
         console.log('----hahah-------')
         setToken('') // 每次登录之前清空token
         var params = {}
         params.username = userName
         params.password = password
         login(params).then((res) => {
-          console.log('res',res)
+          console.log('res', res)
           var data = JSON.parse(res.data)
           if (data.state) {
             this.$Message.success(data.message)
@@ -69,13 +76,26 @@
     background-image: url("../../assets/images/login-bg.jpg");
     background-size: cover;
     background-position: center;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .title {
+      font-size: 36px;
+      color: #fff;
+      margin: 60px 0;
+    }
     &-con {
-      position: absolute;
-      right: 160px;
-      top: 50%;
-      transform: translateY(-60%);
-      width: 300px;
+      display: flex;
+      .img {
+        width: 325px;
+        height: 300px;
+      }
+      .card {
+        border-radius: 0;
+        // background-color: rgba(0, 0, 0, 0.7);
+        color: #00deff;
+        font-size: 20px;
+      }
       &-header {
         font-size: 16px;
         font-weight: 300;

@@ -1,78 +1,116 @@
 <template>
-  <div>
-    <Row :gutter="20">
-      <i-col :xs="12" :md="8" :lg="4" v-for="(infor, i) in inforCardData" :key="`infor-${i}`" style="height: 120px;padding-bottom: 10px;">
-        <infor-card shadow :color="infor.color" :icon="infor.icon" :icon-size="36">
-          <count-to :end="infor.count" count-class="count-style"/>
-          <p>{{ infor.title }}</p>
-        </infor-card>
-      </i-col>
-    </Row>
-    <Row :gutter="20" style="margin-top: 10px;">
-      <i-col :md="24" :lg="8" style="margin-bottom: 20px;">
-        <Card shadow>
-          <chart-pie style="height: 300px;" :value="pieData" text="用户访问来源"></chart-pie>
-        </Card>
-      </i-col>
-      <i-col :md="24" :lg="16" style="margin-bottom: 20px;">
-        <Card shadow>
-          <chart-bar style="height: 300px;" :value="barData" text="每周用户活跃量"/>
-        </Card>
-      </i-col>
-    </Row>
-    <Row>
-    </Row>
+  <div class="home">
+    <div class="content">
+      <p class="title">业务类型选择</p>
+      <p class="sub_title">请选择所办理业务类型</p>
+      <div class="input_box">
+        <CheckboxGroup v-model="changeArray"
+                       @on-change="handle">
+          <Row>
+            <Col span="12"
+                 v-for="(item,index) in typeList"
+                 :key="index">
+            <Checkbox :label="item.name"></Checkbox>
+            </Col>
+          </Row>
+        </CheckboxGroup>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import InforCard from '_c/infor-card.vue'
-import CountTo from '_c/common/count-to.vue'
-import { ChartPie, ChartBar } from '_c/charts'
-export default {
-  name: 'home',
-  components: {
-    InforCard,
-    CountTo,
-    ChartPie,
-    ChartBar,
-  },
-  data () {
-    return {
-      inforCardData: [
-        { title: '新增用户', icon: 'md-person-add', count: 803, color: '#2d8cf0' },
-        { title: '累计点击', icon: 'md-locate', count: 232, color: '#19be6b' },
-        { title: '新增问答', icon: 'md-help-circle', count: 142, color: '#ff9900' },
-        { title: '分享统计', icon: 'md-share', count: 657, color: '#ed3f14' },
-        { title: '新增互动', icon: 'md-chatbubbles', count: 12, color: '#E46CBB' },
-        { title: '新增页面', icon: 'md-map', count: 14, color: '#9A66E4' }
-      ],
-      pieData: [
-        { value: 335, name: '直接访问' },
-        { value: 310, name: '邮件营销' },
-        { value: 234, name: '联盟广告' },
-        { value: 135, name: '视频广告' },
-        { value: 1548, name: '搜索引擎' }
-      ],
-      barData: {
-        Mon: 13253,
-        Tue: 34235,
-        Wed: 26321,
-        Thu: 12340,
-        Fri: 24643,
-        Sat: 1322,
-        Sun: 1324
+  export default {
+    name: 'home',
+    components: {
+    },
+    data() {
+      return {
+        typeList: [
+          { name: "供应链金融", id: 1 },
+          { name: "待办退税", id: 2 },
+          { name: "进口（预付或控票垫付税款50万以内）", id: 3 },
+          { name: "进口（控票、垫付税款>50万且<=200万）", id: 4 },
+          { name: "进口（不控票或控票但垫付税款>200万）", id: 5 },
+          { name: "高端制造只垫税款", id: 6 },
+          { name: "高端制造垫货款", id: 7 },
+          { name: "纯物流", id: 8 },
+          { name: "代理报关", id: 9 },
+          { name: "自营出口（自产）", id: 10 },
+          { name: "自用出口（委外加工）", id: 11 },
+        ],
+        vertical: 'apple',
+        changeArray: [],
+      }
+    },
+    mounted() {
+      //
+    },
+    methods: {
+      handle(data) {
+        console.log('data', data)
       }
     }
-  },
-  mounted () {
-    //
   }
-}
 </script>
 
 <style lang="less">
-.count-style{
-  font-size: 50px;
-}
+  .home {
+    .content {
+      margin: 0 auto;
+      background-color: #fff;
+      width: 600px;
+      border-radius: 10px;
+      padding: 0 5px;
+      height: 800px;
+      .title {
+        text-align: center;
+        font-size: 20px;
+        font-weight: 700;
+        letter-spacing: 2px;
+      }
+      .sub_title {
+        border-bottom: 1px solid #aaa;
+        font-size: 16px;
+      }
+      .input_box {
+        .radio_item {
+          position: relative;
+          display: flex;
+          align-items: center;
+          height: 30px;
+          line-height: 30px;
+          .input {
+            width: 0;
+            height: 0;
+            right: 0;
+          }
+          .input::after {
+            position: absolute;
+            content: "";
+            width: 16px;
+            height: 16px;
+            top: 7px;
+            left: 0;
+            background: url("../../assets/images/log1.png") no-repeat;
+            background-size: cover;
+          }
+          .input:checked::after {
+            position: absolute;
+            content: "";
+            width: 16px;
+            height: 16px;
+            top: 7px;
+            left: 0;
+            background: url("../../assets/images/logo-min.jpg") no-repeat;
+            background-size: cover;
+          }
+          .txt {
+            font-size: 12px;
+            margin-left: 19px;
+          }
+        }
+      }
+    }
+  }
 </style>

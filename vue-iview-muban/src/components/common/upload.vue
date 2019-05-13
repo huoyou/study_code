@@ -26,11 +26,11 @@
     </div>
   <Table :data="fileList"
                :columns="columns1"
-               style="margin: 10px 10px">
+               style="margin: 10px 0px">
         </Table>
     <div id="container">
-      <div id="selectfiles"  class='btn'>选择文件</div>
-      <div id="postfiles" href="javascript:void(0);" class='btn' style="margin-left: 40px;"><Icon style="border-radius:50%;border:1px solid #eee;margin-right: 5px;" type="md-arrow-round-up" />开始上传</div>
+      <div id="selectfiles"  class='btn'><Icon style="font-size: 14px;margin-right: 5px;margin-top: -3px;" type="ios-add-circle-outline" />点击上传附件</div>
+      <!-- <div id="postfiles" href="javascript:void(0);" class='btn' style="margin-left: 40px;"><Icon style="border-radius:50%;border:1px solid #eee;margin-right: 5px;" type="md-arrow-round-up" />开始上传</div> -->
     </div>
 
     <p style="text-align:center;color:red;margin-top: 5px;" v-if="message != ''" id="console">{{message}}</p>
@@ -47,6 +47,7 @@
     data() {
       return {
         ossFile: '',
+        buttonSize: 'small',
         uploadMethod: '',
         accessid: '',
         accesskey: '',
@@ -63,7 +64,12 @@
         message: '',
         status: 'normal',
         fileList: [],
-        tableData: [],
+        volumeTypes: [
+          { value: '11' },
+          { value: '22' },
+          { value: '33' },
+          { value: '44' },
+        ],
         columns1: [
           {
             title: '文件名',
@@ -72,6 +78,7 @@
           {
             title: '大小',
             key: 'size',
+            wdith: '100',
             render: (h, params) => {
               let res = this.renderSize(params.row.size);
               return h('div', res)
@@ -117,6 +124,34 @@
                 return h("span", progress);
               }
             }
+          },
+          {
+            title: '类型',
+            key: 'size',
+            wdith: '100',
+            render: (h, params) => {
+              console.log('params', params)
+              return h('Select', {
+                on: {
+                  'on-change': (event) => {
+                    console.log('onChange', this.fileList)
+
+                    this.fileList[params.index].volumeTypes = event;
+                    console.log('onChange', this.fileList)
+                  }
+                },
+              },
+                this.volumeTypes.map((item) => {
+                  //这个数组需要在data中定义,里面是一个个对象,每个对象里面应当包含value属性(因为要用到)
+                  return h('Option', {
+                    props: {
+                      value: item.value,
+                      placement: 'top-start'
+                    }
+                  });
+                })
+              )
+            },
           },
           {
             title: '操作',
@@ -179,6 +214,10 @@
       // }
     },
     methods: {
+      update() {
+        console.log('this.fileList', this.fileList);
+        this.setUploadParam(this.up, '', false);
+      },
       renderSize(value) {
         if (null == value || value == '') {
           return "0 B";
@@ -321,11 +360,12 @@
           init: {
             PostInit: () => {
               this.ossFile = '';
-              document.getElementById('ossfile').innerHTML = '';
-              document.getElementById('postfiles').onclick = () => {
-                that.setUploadParam(uploader, '', false);
-                return false;
-              };
+              this.fileList = [];
+              // document.getElementById('ossfile').innerHTML = '';
+              // document.getElementById('postfiles').onclick = () => {
+              //   that.setUploadParam(uploader, '', false);
+              //   return false;
+              // };
               //删除
               // $(document).on('click','.upload-delete',function () {
               //     console.log(uploaded.files)
@@ -373,12 +413,12 @@
 
             },
             FileUploaded: (up, file, info) => {
+              console.log('info', info)
               this.info = info;
               if (info.status === 200) {
                 var index = this.fileList.findIndex(el => el.id == file.id);
                 console.log('index', index)
                 this.fileList[index].status1 = 7;
-
                 document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML
                   = `<span style="color:green">上传成功</span>`;
                 document.getElementById(file.id).getElementsByClassName('progress')[0].getElementsByTagName('div')[0].className = ''
@@ -421,7 +461,6 @@
 </script>
 <style lang="less">
   .upload {
-    background-color: #eee;
     padding: 5px;
     border-radius: 10px;
     #ossfile {
@@ -518,6 +557,8 @@
     #container {
       display: flex;
       justify-content: center;
+      background-color: #eee;
+      padding: 20px 0;
       .btn {
         color: #fff;
         background-color: #54b9f9;

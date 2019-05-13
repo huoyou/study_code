@@ -1,220 +1,176 @@
 <template>
-    <div>
-        <div>
-            <div class="upload-pic-item"
-                 :id="item.id"
-                 v-for="(item,index) in tableData"
-                 :key="index">
-                {{item.name}} {{item.size}}
-                <div class="progress">
-                    <div class="progress-bar"
-                         style="width: 0">
-                    </div>
-                </div>
-                <!-- <Progress  :percent="item.percent">
-                    <Icon type="checkmark-circled"></Icon>
-                    <span>成功</span>
-                </Progress> -->
-                <b v-if="item.status === 1">准备上传</b>
-                <b v-if="item.status === 4"
-                   style="color: brown">上传失败</b>
-                <b v-if="item.status === 5"
-                   style="color: chartreuse">已上传</b>
-                <image />
-                <div class="upload-delete"
-                     @click="dteFile(item.id)">
-                    删除
-                </div>
-            </div>
+  <div class="container">
+    <div class="item_box">
+      <!-- <div class="title">请您对本酒店服务进行评价，我们会根据您的意见和建议不断改进，为您提供更加满意的服务。</div> -->
+      <div class="item" v-for="(item,index) in questionList" :key="index">
+        <p class="question">{{index+1}}、{{item.name}}</p>
+        <div class="answer_box">
+          <div
+            class="radio_item"
+            :class="index1 == 4 ? 'radio_item1' : null"
+            v-for="(item1,index1) in answerList"
+            :key="index1"
+          >
+            <input type="radio" :name="index+1" v-model="item.id" :value="index1+1" :id="`${index}_${index1}`">
+            <label class="txt" :for="`${index}_${index1}`">{{item1.name}}</label>
+          </div>
         </div>
-        <Table :data="tableData"
-               :columns="columns1"
-               style="width: 100%; margin: 10px 10px;">
-        </Table>
-        <br />
-        <uploader ref="uploader"
-                  browse_button="browse_button"
-                  :filters="{prevent_duplicates:true}"
-                  @inputUploader="inputUploader" />
+      </div>
+      <div class="advice">
+        <p class="advice_title">8、您对物业服务的期望和建议：</p>
+        <div class="advice_box">
+          <textarea class="textarea" v-model="adviceMsg" placeholder="请输入您对物业服务的期望和建议"></textarea>
+        </div>
+      </div>
+      <div class="footer" style="height:0.6px;"></div>
     </div>
+  </div>
 </template>
-
 <script>
-    import Uploader from '_c/common/uploadImg'
-    export default {
-        name: "MultiFileUpload",
-        data() {
-            return {
-                files: [],
-                up: {},
-                tableData: [],
-                columns1: [
-                    {
-                        title: '文件名',
-                        key: 'name'
-                    },
-                    {
-                        title: '大小',
-                        key: 'size'
-                    },
-                    {
-                        title: '状态',
-                        key: 'status',
-                        render: (h, params) => {
-                            let res = params.row.status;
-                            if (res == 1) {
-                                return h("span", '准备上传');
-                            } else if (res == 4) {
-                                return h("span", '上传失败');
-                            } else if (res == 5) {
-                                return h("span", '已上传');
-                            } else if (res == 2) {
-                                return h("progress :percentage='res.percent'");
-                            }
-                        }
-                    },
-                    {
-                        title: '操作',
-                        key: 'status',
-                        render: (h, params) => {
-                            let res = params.row;
-                            return h('button', {
-                                props: {
-                                    type: "text",
-                                    size: "small"
-                                },
-                                style: {
-                                    color: "#5cadff"
-                                },
-                                on: {
-                                    click: () => {
-                                        this.dteFile(res.id)
-                                    }
-                                }
-                            }, '删除')
-                        }
-
-                    }
-                ],
-                serverUrl: 'http://192.168.1.115:8087/sys/getOSSPolicy',
-
-            }
-        },
-        watch: {
-            files: {
-                handler() {
-                    this.tableData = [];
-                    this.files.forEach((e) => {
-                        this.tableData.push({
-                            name: e.name,
-                            size: e.size,
-                            status: e.status,
-                            id: e.id,
-                            percent: e.percent
-                        });
-                    });
-                    console.log('this.tableData', this.tableData)
-                },
-                deep: true
-            }
-        },
-        methods: {
-            inputUploader(up) {
-                this.up = up;
-                this.files = up.files;
-            },
-            dteFile(id) {
-                let file = this.up.getFile(id);
-                this.up.removeFile(file);
-            }
-        },
-        components: {
-            'uploader': Uploader
-        }
-    }
+export default {
+  data() {
+    return {
+      adviceMsg: null,
+      question1: null,
+      question2: null,
+      question3: null,
+      question4: null,
+      question5: null,
+      question6: null,
+      question7: null,
+      question8: null,
+      question9: null,
+      question10: null,
+      questionnaire_no: 111,
+      access_token: null,
+      type: null,
+      questionList: [
+        { name: "您对物业服务人员统一着装、佩戴工牌是否满意？", id: null },
+        { name: "您对物业服务人员行为规范、热情服务是否满意？", id: null },
+        { name: "您对物业服务中心24小时服务电话和人员值班情况是否满意？", id: null },
+        { name: "您对公寓楼灯光是否满意？", id: null },
+        { name: "您对公寓环境是否满意？", id: null },
+        { name: "您对公寓安全保卫是否满意？", id: null },
+        { name: "您对公寓公共设施设备的正常运行是否满意？", id: null },
+      ],
+      answerList: [
+        { name: "很满意", id: 1 },
+        { name: "满意", id: 2 },
+        { name: "一般", id: 3 },
+        { name: "不满意", id: 4 },
+        { name: "很不满意", id: 5 }
+      ],
+      answerArr: []
+    };
+  },
+  watch: {},
+  created() {
+  },
+  mounted() {
+  },
+  methods: {
+  }
+};
 </script>
-
 <style lang="less">
-    .upload-pic-item {
-      display: flex;
-      align-items: center;
-      b {
-        margin-left: 5px;
-      }
-      .progress {
-        width: 200px;
-        height: 14px;
-        margin-left: 10px;
-        display: inline-block;
-        margin-bottom: 0;
-        overflow: hidden;
-        background-color: #f5f5f5;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-      }
-      .upload-delete {
-        display: inline-block;
-        color: blue;
-        margin-left: 5px;
-      }
-      .progress-bar {
-        background-color: rgb(84, 185, 249);
-        background-image: linear-gradient(
-          45deg,
-          rgba(255, 255, 255, 0.14902) 25%,
-          transparent 25%,
-          transparent 50%,
-          rgba(255, 255, 255, 0.14902) 50%,
-          rgba(255, 255, 255, 0.14902) 75%,
-          transparent 75%,
-          transparent
-        );
-        background-size: 40px 40px;
-        box-shadow: rgba(0, 0, 0, 0.14902) 0 -1px 0 0 inset;
-        box-sizing: border-box;
-        color: rgb(255, 255, 255);
-        display: block;
-        float: none;
-        font-size: 12px;
-        height: 20px;
-        text-align: center;
-        transition-delay: 0s;
-        transition-duration: 0.6s;
-        transition-property: width;
-        transition-timing-function: ease;
-        width: 266px;
-      }
-    }
-    #container {
-      .btn {
-        color: #fff;
-        background-color: #54b9f9;
-        border-color: #54b9f9;
-        display: inline-block;
-        padding: 6px 12px;
-        margin-bottom: 0;
-        font-size: 14px;
-        font-weight: 400;
-        text-align: center;
-        white-space: nowrap;
-        text-decoration: none;
-        vertical-align: middle;
-        -ms-touch-action: manipulation;
-        touch-action: manipulation;
-        cursor: pointer;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        background-image: none;
-        /*border: 1px solid transparent;*/
-        border-radius: 4px;
-      }
+.container {
+  padding: 15px;
+}
+.container .title {
+  font-size: 16px;
+  color: #313131;
+  margin-bottom: 0.27px;
+}
+.container .item_box {
+  margin-top: 15px;
+}
+.box .item {
+  margin-bottom: 10px;
+}
+.item .question {
+  font-size: 14px;
+  color: #313131;
+  font-weight: 700;
+}
+.item .answer_box {
+  margin: 0.1px 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.item .answer_box .radio_item {
+  position: relative;
+  width: 25%;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  line-height: 30px;
+}
+.item .answer_box .radio_item1 {
+  width: 50%;
+}
+.item .answer_box .radio_item input {
+  width: 0;
+  height: 0;
 
-      a.btn:hover {
-        background-color: #29e0f9;
-      }
-    }
+  right: 0;
+}
+.item .answer_box .radio_item input::after {
+  position: absolute;
+  content: "";
+  width: 16px;
+  height: 16px;
+  top: 7px;
+  left: 0;
+  background: url("../../assets/images/log1.png") no-repeat;
+  background-size: cover;
+}
+.item .answer_box .radio_item input:checked::after {
+  position: absolute;
+  content: "";
+  width: 16px;
+  height: 16px;
+  top: 7px;
+  left: 0;
+  background: url("../../assets/images/logo2.png") no-repeat;
+  background-size: cover;
+}
+.item .answer_box .radio_item .txt {
+  font-size: 0.12px;
+  margin-left: 0.19px;
+}
+
+.advice {
+  margin-top: 0.1px;
+}
+.advice .advice_title {
+  font-size: 0.14px;
+  color: #313131;
+  font-weight: 700;
+}
+.advice .advice_box {
+  margin-top: 0.05px;
+}
+.advice .advice_box .textarea {
+  width: 3.45px;
+  height: 1.51px;
+  background-color: #f8f9f9;
+  border-radius: 0.04px;
+  padding: 0.125px 0.15px;
+  font-size: 0.14px;
+  color: #131719;
+  box-sizing: border-box;
+}
+.btn {
+  position: fixed;
+  width: 3.45px;
+  height: 0.44px;
+  line-height: 0.44px;
+  text-align: center;
+  color: #fff;
+  left: 0.15px;
+  bottom: 0.1px;
+  background-color: #c46022;
+  box-sizing: border-box;
+  border-radius: 0.05px;
+}
 </style>
-
