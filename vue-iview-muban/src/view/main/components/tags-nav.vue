@@ -109,7 +109,7 @@ export default {
       }
     },
     handleTagsOption (type) {
-      console.log('type',type)
+      console.log('type', type)
       if (type === 'close-all') {
         // 关闭所有，除了home
         let res = this.list.filter(item => item.name === 'home')

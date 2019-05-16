@@ -26,7 +26,7 @@ export default {
       let option = {
         legend: {
           data: legend,
-          left: 50,
+          left: 50
         },
         radar: [
           {
@@ -39,7 +39,7 @@ export default {
               lineStyle: {
                 color: 'rgba(255, 255, 255, 0.5)'
               }
-            },
+            }
           },
           {
             indicator: [
@@ -51,7 +51,7 @@ export default {
               { text: '行业', max: 100 }
             ],
             center: ['50%', '50%'],
-            radius: 120,
+            radius: 120
           }
         ],
         series: [{

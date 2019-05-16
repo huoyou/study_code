@@ -3,7 +3,7 @@
           class="main">
     <Sider hide-trigger
            collapsible
-           :width="256"
+           :width="180"
            :collapsed-width="64"
            v-model="collapsed"
            class="left-sider"
@@ -12,7 +12,7 @@
                  ref="sideMenu"
                  :active-name="$route.name"
                  :collapsed="collapsed"
-                 :theme = "theme"
+                 :theme="theme"
                  @on-select="turnToPage"
                  :menu-list="menuList">
         <!-- 需要放在菜单上面的内容，如Logo，写在side-menu标签内部，如下 -->
@@ -55,6 +55,7 @@
   </Layout>
 </template>
 <script>
+  import { login, logout, queryUser, queryMessage } from '@/api/user'
   import config from '@/config'
   import SideMenu from './components/side-menu'
   import HeaderBar from './components/header-bar'
@@ -72,7 +73,7 @@
       HeaderBar,
       TagsNav,
       Fullscreen,
-      User,
+      User
     },
     data() {
       return {
@@ -165,8 +166,8 @@
     },
     mounted() {
       /**
-       * @description 初始化设置面包屑导航和标签导航
-       */
+         * @description 初始化设置面包屑导航和标签导航
+         */
       this.setTagNavList()
       this.addTag({
         route: this.$store.state.app.homeRoute
@@ -211,6 +212,7 @@
       padding: 18px;
       height: ~"calc(100% - 80px)";
       overflow: auto;
+      background-color: #eee;
     }
     .left-sider {
       .ivu-layout-sider-children {
@@ -254,4 +256,3 @@
     max-height: 400px;
   }
 </style>
-

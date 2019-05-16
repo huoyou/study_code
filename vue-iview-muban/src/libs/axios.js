@@ -1,5 +1,4 @@
 import axios from 'axios'
-import store from '@/store'
 import { getToken } from '@/libs/util'
 
 // import { Spin } from 'iview'
@@ -48,16 +47,6 @@ class HttpRequest {
       return { data, status }
     }, error => {
       this.destroy(url)
-      let errorInfo = error.response
-      if (!errorInfo) {
-        const { request: { statusText, status }, config } = JSON.parse(JSON.stringify(error))
-        errorInfo = {
-          statusText,
-          status,
-          request: { responseURL: config.url }
-        }
-      }
-      addErrorLog(errorInfo)
       return Promise.reject(error)
     })
   }

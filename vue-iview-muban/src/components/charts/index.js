@@ -5,4 +5,4 @@ import ChartRadar from './radar.vue'
 import ChartLineStock from './lineStock.vue'
 import ChartLineSales from './lineSales.vue'
 import ChartLineChange from './lineChange.vue'
-export { ChartPie, ChartBar,ChartBar1, ChartRadar, ChartLineStock, ChartLineSales,ChartLineChange }
+export { ChartPie, ChartBar, ChartBar1, ChartRadar, ChartLineStock, ChartLineSales, ChartLineChange }

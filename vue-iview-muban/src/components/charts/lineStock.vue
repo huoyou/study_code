@@ -17,7 +17,7 @@ export default {
   },
   data () {
     return {
-      dom: {},
+      dom: {}
     }
   },
   mounted () {
@@ -40,7 +40,6 @@ export default {
       }
       this.dom = echarts.init(this.$refs.dom, 'tdTheme')
       this.dom.setOption(option)
-
     })
   }
 }

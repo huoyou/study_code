@@ -3,57 +3,57 @@
 </template>
 
 <script>
-import echarts from "echarts";
-import tdTheme from "./theme.json";
-echarts.registerTheme("tdTheme", tdTheme);
+import echarts from 'echarts'
+import tdTheme from './theme.json'
+echarts.registerTheme('tdTheme', tdTheme)
 export default {
-  name: "ChartBar",
+  name: 'ChartBar',
   props: {
     value: Object,
     text: String,
-    fw: { type: String, default: "100%" },
-    fh: { type: String, default: "100%" },
+    fw: { type: String, default: '100%' },
+    fh: { type: String, default: '100%' },
     subtext: String
   },
   watch: {
-    value() {
+    value () {
       this.$nextTick(() => {
         if (this.value) {
-          this.init();
+          this.init()
         }
-      });
+      })
     }
   },
-  mounted() {
+  mounted () {
     this.$nextTick(() => {
-      this.init();
-    });
+      this.init()
+    })
   },
   methods: {
-    init() {
-      let xAxisData = Object.keys(this.value);
-      let seriesData = Object.values(this.value);
+    init () {
+      let xAxisData = Object.keys(this.value)
+      let seriesData = Object.values(this.value)
       let option = {
         title: {
           text: this.text,
           subtext: this.subtext,
-          x: "center"
+          x: 'center'
         },
         tooltip: {
-          trigger: "axis",
-          formatter: "{b}:{c} "
+          trigger: 'axis',
+          formatter: '{b}:{c} '
         },
         xAxis: {
-          type: "value",
+          type: 'value',
           splitLine: {
             show: false
           },
           axisLabel: {
-            formatter: ""
+            formatter: ''
           }
         },
         yAxis: {
-          type: "category",
+          type: 'category',
           data: xAxisData,
           splitLine: {
             show: false
@@ -69,82 +69,82 @@ export default {
         series: [
           {
             data: seriesData,
-            type: "bar",
+            type: 'bar',
             barWidth: 20,
             itemStyle: {
-              //通常情况下：
+              // 通常情况下：
               normal: {
-                //每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
-                color: function(params) {
+                // 每个柱子的颜色即为colorList数组里的每一项，如果柱子数目多于colorList的长度，则柱子颜色循环使用该数组
+                color: function (params) {
                   var colorList = [
-                    "#C33531",
-                    "#EFE42A",
-                    "#64BD3D",
-                    "#EE9201",
-                    "#29AAE3",
-                    "#B74AE5",
-                    "#0AAF9F",
-                    "#E89589",
-                    "#16A085",
-                    "#4A235A",
-                    "#C39BD3 ",
-                    "#F9E79F",
-                    "#BA4A00",
-                    "#ECF0F1",
-                    "#616A6B",
-                    "#EAF2F8",
-                    "#4A235A",
-                    "#3498DB"
-                  ];
-                  return colorList[params.dataIndex];
+                    '#C33531',
+                    '#EFE42A',
+                    '#64BD3D',
+                    '#EE9201',
+                    '#29AAE3',
+                    '#B74AE5',
+                    '#0AAF9F',
+                    '#E89589',
+                    '#16A085',
+                    '#4A235A',
+                    '#C39BD3 ',
+                    '#F9E79F',
+                    '#BA4A00',
+                    '#ECF0F1',
+                    '#616A6B',
+                    '#EAF2F8',
+                    '#4A235A',
+                    '#3498DB'
+                  ]
+                  return colorList[params.dataIndex]
                 },
                 label: {
-                  show: true, //开启显示
-                  position: "right", //在上方显示
+                  show: true, // 开启显示
+                  position: 'right', // 在上方显示
                   textStyle: {
-                    //数值样式
-                    color: function(params) {
+                    // 数值样式
+                    color: function (params) {
                       var colorList = [
-                        "#C33531",
-                        "#EFE42A",
-                        "#64BD3D",
-                        "#EE9201",
-                        "#29AAE3",
-                        "#B74AE5",
-                        "#0AAF9F",
-                        "#E89589",
-                        "#16A085",
-                        "#4A235A",
-                        "#C39BD3 ",
-                        "#F9E79F",
-                        "#BA4A00",
-                        "#ECF0F1",
-                        "#616A6B",
-                        "#EAF2F8",
-                        "#4A235A",
-                        "#3498DB"
-                      ];
-                      return colorList[params.dataIndex];
+                        '#C33531',
+                        '#EFE42A',
+                        '#64BD3D',
+                        '#EE9201',
+                        '#29AAE3',
+                        '#B74AE5',
+                        '#0AAF9F',
+                        '#E89589',
+                        '#16A085',
+                        '#4A235A',
+                        '#C39BD3 ',
+                        '#F9E79F',
+                        '#BA4A00',
+                        '#ECF0F1',
+                        '#616A6B',
+                        '#EAF2F8',
+                        '#4A235A',
+                        '#3498DB'
+                      ]
+                      return colorList[params.dataIndex]
                     },
                     fontSize: 16
                   }
                 }
               },
-              //鼠标悬停时：
+              // 鼠标悬停时：
               emphasis: {
                 shadowBlur: 10,
                 shadowOffsetX: 0,
-                shadowColor: "rgba(0, 0, 0, 0.5)"
+                shadowColor: 'rgba(0, 0, 0, 0.5)'
               }
             }
           }
         ]
-      };
-      let dom = echarts.init(this.$refs.dom, "tdTheme");
-      dom.setOption(option,true);
+      }
+      let dom = echarts.init(this.$refs.dom, 'tdTheme')
+      dom.setOption(option, true)
     }
   }
-};
+}
 </script>
 
 <style lang="less">

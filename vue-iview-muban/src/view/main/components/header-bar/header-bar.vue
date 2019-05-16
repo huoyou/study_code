@@ -17,28 +17,28 @@
 
 </template>
 <script>
-  import siderTrigger from './sider-trigger.vue'
-  import customBreadCrumb from './custom-bread-crumb.vue'
-  export default {
-    name: 'HeaderBar',
-    components: {
-      siderTrigger,
-      customBreadCrumb
-    },
-    props: {
-      collapsed: Boolean
-    },
-    computed: {
-      breadCrumbList() {
-        return this.$store.state.app.breadCrumbList
-      }
-    },
-    methods: {
-      handleCollpasedChange(state) {
-        this.$emit('on-coll-change', state)
-      }
+import siderTrigger from './sider-trigger.vue'
+import customBreadCrumb from './custom-bread-crumb.vue'
+export default {
+  name: 'HeaderBar',
+  components: {
+    siderTrigger,
+    customBreadCrumb
+  },
+  props: {
+    collapsed: Boolean
+  },
+  computed: {
+    breadCrumbList () {
+      return this.$store.state.app.breadCrumbList
+    }
+  },
+  methods: {
+    handleCollpasedChange (state) {
+      this.$emit('on-coll-change', state)
     }
   }
+}
 </script>
 <style lang="less">
   .header-bar {
@@ -56,4 +56,3 @@
     }
   }
 </style>
-

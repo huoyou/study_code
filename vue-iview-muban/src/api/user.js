@@ -5,36 +5,33 @@ import axios from '@/libs/api.request'
  */
 export const queryUser = params => {
   return axios.request({
-    url: '/user/getInterUser',
-    //url: '/user/getuser',
+    // url: '/user/getInterUser',
+    url: '/user/getuser',
     method: 'get',
     params: params
   })
 }
 
 /**
- * 查询系统所有用户
+ * 根据当前登录用户查询客户基本信息
  */
-export const queryAllUser = params => {
+export const queryMessage = params => {
   return axios.request({
-    method: 'post',
-    url: '/user/queryAllUser',
-    data: params, // 参数
-    headers: {
-      'Content-Type': 'application/json'
-    }
+    url: '/api/rmEnterpriseAssociated/getByUserIdAssociated',
+    method: 'get',
+    params: params
   })
 }
-
 // 登录
 export const login = params => {
   return axios.request({
-    // url: '/sys/checkLogin',
-    url: '/sys/userLogin',
+    url: '/sys/checkLogin',
+    // url: '/sys/userLogin',
     method: 'post',
     params: params
   })
 }
+
 // 登出
 export const logout = params => {
   return axios.request({
@@ -43,6 +40,19 @@ export const logout = params => {
     params: params
   })
 }
+
+// 修改密码
+export const modifyUser = params => {
+  return axios.request({
+    method: 'post',
+    url: '/user/modifyUser',
+    data: params, // 参数
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+}
+
 /**
  * 查询用户对应的菜单
  */
@@ -53,16 +63,3 @@ export const getMenu = params => {
     params: params
   })
 }
-
-/**
- * 获取权限信息
- */
-export const testPessiom = params => {
-  return axios.request({
-    url: '/sys/testPessiom',
-    method: 'get',
-    params: params
-  })
-}
-
-

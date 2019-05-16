@@ -3,7 +3,7 @@ export default {
   /**
    * @description token在Cookie中存储的天数，默认1天
    */
-  cookieExpires: 8/24,
+  cookieExpires: 8 / 24,
 
   // 菜单栏主题颜色
   theme: 'light',
@@ -22,5 +22,5 @@ export default {
   /**
    * @description 默认打开的首页的路由name值，默认为home
    */
-  homeName: 'home',
+  homeName: 'home'
 }

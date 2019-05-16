@@ -40,7 +40,7 @@ export default {
       }
       this.dom = echarts.init(this.$refs.dom, 'tdTheme')
       this.dom.setOption(option)
-      /*this.lineImg = this.dom.getDataURL()*/
+      /* this.lineImg = this.dom.getDataURL() */
     })
   }
 }

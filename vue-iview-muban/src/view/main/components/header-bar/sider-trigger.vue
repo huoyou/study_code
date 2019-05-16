@@ -6,25 +6,25 @@
           :size="size" /></a>
 </template>
 <script>
-  export default {
-    name: 'siderTrigger',
-    props: {
-      collapsed: Boolean,
-      icon: {
-        type: String,
-        default: 'navicon-round'
-      },
-      size: {
-        type: Number,
-        default: 26
-      }
+export default {
+  name: 'siderTrigger',
+  props: {
+    collapsed: Boolean,
+    icon: {
+      type: String,
+      default: 'navicon-round'
     },
-    methods: {
-      handleChange() {
-        this.$emit('on-change', !this.collapsed)
-      }
+    size: {
+      type: Number,
+      default: 26
+    }
+  },
+  methods: {
+    handleChange () {
+      this.$emit('on-change', !this.collapsed)
     }
   }
+}
 </script>
 <style lang="less">
   .trans {

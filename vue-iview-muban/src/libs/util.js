@@ -6,10 +6,44 @@ import { forEach, hasOneOf, objEqual } from '@/libs/tools'
 export const TOKEN_KEY = 'token'
 
 export const setToken = (token) => {
-  Cookies.set(TOKEN_KEY, token, {expires: config.cookieExpires || 1})
+  Cookies.set(TOKEN_KEY, token, { expires: config.cookieExpires || 1 })
   // Cookies.set(TOKEN_KEY, token, {expires: 8 / 24})
 }
 
+// 存储企业信息
+export const setCompanyinfo = info => {
+  localStorage.Companyinfo = JSON.stringify(info)
+}
+// 获取企业信息
+export const getCompanyinfo = () => {
+  const info = localStorage.Companyinfo
+  return info ? JSON.parse(info) : {}
+}
+// 移除企业信息
+export const removeCompanyinfo = () => {
+  localStorage.Companyinfo = {}
+  return localStorage.Companyinfo
+}
+/**
+ * 权鉴
+ * @param {*} name 即将跳转的路由name
+ * @param {*} access 用户权限数组
+ * @param {*} routes 路由列表
+ * @description 用户是否可跳转到该页
+ */
+export const canTurnTo = (name, access, routes) => {
+  const routePermissionJudge = (list) => {
+    return list.some(item => {
+      if (item.children && item.children.length) {
+        return routePermissionJudge(item.children)
+      } else if (item.name === name) {
+        return hasAccess(access, item)
+      }
+    })
+  }
+
+  return routePermissionJudge(routes)
+}
 export const getToken = () => {
   const token = Cookies.get(TOKEN_KEY)
   if (token) return token
@@ -76,13 +110,13 @@ export const showTitle = (item, vm) => vm.$config.useI18n ? vm.$t(item.name) : (
  * @description 本地存储和获取标签导航列表
  */
 export const setTagNavListInLocalstorage = list => {
-  localStorage.tagNaveList = JSON.stringify(list)
+  localStorage.clientPortalTagNaveList = JSON.stringify(list)
 }
 /**
  * @returns {Array} 其中的每个元素只包含路由原信息中的name, path, meta三项
  */
 export const getTagNavListFromLocalstorage = () => {
-  const list = localStorage.tagNaveList
+  const list = localStorage.clientPortalTagNaveList
   return list ? JSON.parse(list) : []
 }
 
@@ -128,26 +162,6 @@ const hasAccess = (access, route) => {
   else return true
 }
 
-/**
- * 权鉴
- * @param {*} name 即将跳转的路由name
- * @param {*} access 用户权限数组
- * @param {*} routes 路由列表
- * @description 用户是否可跳转到该页
- */
-export const canTurnTo = (name, access, routes) => {
-  const routePermissionJudge = (list) => {
-    return list.some(item => {
-      if (item.children && item.children.length) {
-        return routePermissionJudge(item.children)
-      } else if (item.name === name) {
-        return hasAccess(access, item)
-      }
-    })
-  }
-
-  return routePermissionJudge(routes)
-}
 
 /**
  * @param {String} url
@@ -296,7 +310,7 @@ export const routeEqual = (route1, route2) => {
   const query1 = route1.query || {}
   const query2 = route2.query || {}
   // return (route1.name === route2.name) && objEqual(params1, params2) && objEqual(query1, query2)
-  return (route1.name === route2.name) 
+  return (route1.name === route2.name)
 }
 
 /**
@@ -717,17 +731,17 @@ export const getJsonUrl = (url, jsonStr) => {
   return url + urlJSON
 }
 
-//时间戳转换为日期格式
-const add =(m)=> { return m < 10 ? '0' + m : m }
-export const formdata =(shijianchuo)=> {
-  //shijianchuo是整数，否则要parseInt转换
-  var time = new Date(Number(shijianchuo));
-  var y = time.getFullYear();
-  var m = time.getMonth() + 1;
-  var d = time.getDate();
-  var h = time.getHours();
-  var mm = time.getMinutes();
-  var s = time.getSeconds();
+// 时间戳转换为日期格式
+const add = (m) => { return m < 10 ? '0' + m : m }
+export const formdata = (shijianchuo) => {
+  // shijianchuo是整数，否则要parseInt转换
+  var time = new Date(Number(shijianchuo))
+  var y = time.getFullYear()
+  var m = time.getMonth() + 1
+  var d = time.getDate()
+  var h = time.getHours()
+  var mm = time.getMinutes()
+  var s = time.getSeconds()
   // return  add0(m) + '月' + add0(d) + '日';
-  return y + '-' + add(m) + '-' + add(d);
+  return y + '-' + add0(m) + '-' + add0(d) + ' ' + add0(h) + ':' + add0(mm) + ':' + add0(s);
 }

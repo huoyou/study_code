@@ -11,9 +11,13 @@ import './index.less'
 import '@/assets/icons/iconfont.css'
 import hasPermission from '@/libs/hasPermission'
 import htmlToPdf from '@/libs/htmlToPdf'
-import '@babel/polyfill';
+import '@babel/polyfill'
 import Es6Promise from 'es6-promise'
+import 'vue-easytable/libs/themes-base/index.css'
+import { VTable } from 'vue-easytable'
 Es6Promise.polyfill()
+
+Vue.component(VTable.name, VTable)
 
 // 实际打包时应该不引入mock
 /* eslint-disable */
@@ -30,7 +34,14 @@ Vue.config.productionTip = false
  * @description 全局注册应用配置
  */
 Vue.prototype.$config = config
-
+Vue.prototype.$Message.config({
+  top: 50,
+  duration: 3
+});
+Vue.prototype.$Notice.config({
+  top: 50,
+  duration: 3
+});
 
 Vue.use(hasPermission)
 Vue.use(htmlToPdf)
