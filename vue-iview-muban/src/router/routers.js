@@ -33,7 +33,8 @@ export default [
     component: Main,
     meta: {
       hideInMenu: true,
-      notCache: true
+      notCache: true,
+      icon: 'md-home'
     },
     children: [
       {
@@ -41,23 +42,13 @@ export default [
         name: 'home',
         meta: {
           hideInMenu: true,
-          title: '选择业务模式',
+          title: '首页',
           notCache: true,
           icon: 'md-home'
         },
         component: () => import('@/view/home/home')
       },
-      {
-        path: '/completeMessage',
-        name: 'completeMessage',
-        meta: {
-          hideInMenu: true,
-          title: '完善客户信息',
-          notCache: true,
-          icon: 'md-home'
-        },
-        component: () => import('@/view/monitor/completeMessage')
-      }
+     
     ]
   },
   {
@@ -66,66 +57,75 @@ export default [
     component: Main,
     meta: {
       hideInMenu: false,
-      notCache: true
+      title: '客户',
+      notCache: true,
+      icon: 'md-list'
     },
     children: [
       {
         path: '/list',
         name: 'list',
         meta: {
-          hideInMenu: false,
           title: '客户代办列表',
-          notCache: true,
           icon: 'md-list'
         },
         component: () => import('@/view/monitor/list')
+      },
+      {
+        path: '/completeMessage',
+        name: 'completeMessage',
+        meta: {
+          title: '完善客户信息',
+          icon: 'md-home'
+        },
+        component: () => import('@/view/monitor/completeMessage')
       }
     ]
   },
-  // {
-  //   path: 'error_page',
-  //   name: 'error_page',
-  //   meta: {
-  //     hideInMenu: false,
-  //     title: 'error_page',
-  //     icon: 'md-home'
-  //   },
-  //   component: Main,
-  //   children: [
-  //     {
-  //       path: '/401',
-  //       name: 'error_401',
-  //       meta: {
-  //         hideInMenu: false,
-  //         title: 'error_401',
-  //         notCache: true,
-  //         icon: 'md-home'
-  //       },
-  //       component: () => import('@/view/error-page/401.vue')
-  //     },
-  //     {
-  //       path: '/500',
-  //       name: 'error_500',
-  //       meta: {
-  //         hideInMenu: false,
-  //         title: 'error_500',
-  //         notCache: true,
-  //         icon: 'md-home'
-  //       },
-  //       component: () => import('@/view/error-page/500.vue')
-  //     },
-  //     {
-  //       path: '*',
-  //       name: 'error_404',
-  //       meta: {
-  //         hideInMenu: false,
-  //         title: 'error_404',
-  //         notCache: true,
-  //         icon: 'md-home'
-  //       },
-  //       component: () => import('@/view/error-page/404.vue')
-  //     }
-  //   ]
-  // }
+  {
+    path: 'error_page',
+    name: 'error_page',
+    meta: {
+      hideInMenu: false,
+      title: 'error_page',
+      icon: 'md-home'
+    },
+    component: Main,
+    children: [
+      {
+        path: '/401',
+        name: 'error_401',
+        meta: {
+          hideInMenu: false,
+          title: 'error_401',
+          notCache: true,
+          icon: 'md-home'
+        },
+        component: () => import('@/view/error-page/401.vue')
+      },
+      {
+        path: '/500',
+        name: 'error_500',
+        meta: {
+          hideInMenu: false,
+          title: 'error_500',
+          notCache: true,
+          icon: 'md-home'
+        },
+        component: () => import('@/view/error-page/500.vue')
+      },
+      {
+        path: '*',
+        name: 'error_404',
+        meta: {
+          hideInMenu: false,
+          title: 'error_404',
+          notCache: true,
+          icon: 'md-home'
+        },
+        component: () => import('@/view/error-page/404.vue')
+      }
+    ]
+  }
 
 ]

@@ -70,7 +70,8 @@ export default {
     getUserInfo({ state, commit }) {
       return new Promise((resolve, reject) => {
         queryUser().then(res => {
-          const data = JSON.parse(replaceRes(res.data))
+          // const data = JSON.parse(replaceRes(res.data))
+          const data = ((res.data))
           let param = {};
           param.userId = data.data.userId;
           queryMessage(param).then(res => {

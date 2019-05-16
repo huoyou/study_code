@@ -7,6 +7,7 @@ import { getUserMenu } from '../../libs/util'
 const { homeName } = config
 export default {
   state: {
+    breadCrumbList: [],
     tagNavList: [],
     homeRoute: getHomeRoute(routers),
     local: '',

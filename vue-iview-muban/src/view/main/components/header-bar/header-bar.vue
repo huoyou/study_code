@@ -3,7 +3,7 @@
     <sider-trigger :collapsed="collapsed"
                    icon="md-menu"
                    @on-change="handleCollpasedChange"></sider-trigger>
-    <!-- <custom-bread-crumb show-icon style="margin-left: 30px;" :list="breadCrumbList"></custom-bread-crumb> -->
+    <custom-bread-crumb show-icon style="margin-left: 30px;" :list="breadCrumbList"></custom-bread-crumb>
     <div class="custom-content-con">
       <slot></slot>
     </div>
@@ -30,6 +30,7 @@ export default {
   },
   computed: {
     breadCrumbList () {
+      console.log('this.$store.state.app.breadCrumbList',this.$store.state.app.breadCrumbList)
       return this.$store.state.app.breadCrumbList
     }
   },

@@ -5,8 +5,8 @@ import axios from '@/libs/api.request'
  */
 export const queryUser = params => {
   return axios.request({
-    // url: '/user/getInterUser',
-    url: '/user/getuser',
+    // url: '/user/getuser',
+    url: '/get_info',
     method: 'get',
     params: params
   })

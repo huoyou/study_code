@@ -159,10 +159,16 @@
       }
     },
     watch: {
-      '$route'(newRoute) {
-        this.setBreadCrumb(newRoute.matched)
-        this.setTagNavList(getNewTagList(this.tagNavList, newRoute))
-      }
+      '$route' (newRoute) {
+      const { name, query, params, meta } = newRoute
+      this.addTag({
+        route: { name, query, params, meta },
+        type: 'push'
+      })
+      this.setBreadCrumb(newRoute)
+      this.setTagNavList(getNewTagList(this.tagNavList, newRoute))
+      this.$refs.sideMenu.updateOpenName(newRoute.name)
+    } 
     },
     mounted() {
       /**
@@ -172,7 +178,7 @@
       this.addTag({
         route: this.$store.state.app.homeRoute
       })
-      this.setBreadCrumb(this.$route.matched)
+      this.setBreadCrumb(this.$route)
       // 设置初始语言
       this.setLocal(this.$i18n.locale)
     }
