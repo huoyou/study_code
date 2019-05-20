@@ -159,7 +159,7 @@ export default {
       this.setBreadCrumb(newRoute)
       this.setTagNavList(getNewTagList(this.tagNavList, newRoute))
       this.$refs.sideMenu.updateOpenName(newRoute.name)
-    }
+    } 
   },
   mounted () {
     /**
