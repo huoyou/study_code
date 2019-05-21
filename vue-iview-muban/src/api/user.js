@@ -25,7 +25,8 @@ export const queryMessage = params => {
 // 登录
 export const login = params => {
   return axios.request({
-    url: '/sys/checkLogin',
+    url: '/login',
+    // url: '/sys/checkLogin',
     // url: '/sys/userLogin',
     method: 'post',
     params: params
