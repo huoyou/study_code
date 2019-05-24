@@ -11,6 +11,7 @@ export default {
 </script>
 
 <style lang="less">
+@import './font.css';
 .size{
   width: 100%;
   height: 100%;

@@ -207,6 +207,15 @@ export default [
         component: () => import('@/view/components/editor/editor.vue')
       },
       {
+        path: 'editor_page1',
+        name: 'editor_page1',
+        meta: {
+          icon: 'ios-create',
+          title: '富文本编辑器1'
+        },
+        component: () => import('@/view/components/editor/editor1.vue')
+      },
+      {
         path: 'icons_page',
         name: 'icons_page',
         meta: {

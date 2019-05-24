@@ -1,5 +1,5 @@
 const path = require('path')
-
+var webpack = require('webpack');
 const resolve = dir => {
   return path.join(__dirname, dir)
 }
@@ -33,6 +33,23 @@ module.exports = {
     config.resolve.alias
       .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
       .set('_c', resolve('src/components'))
+  },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        include: [resolve('src'), resolve('test'),resolve('node_modules/quill-image-extend-module')]
+      },
+    ]
+  },
+  configureWebpack: {
+    plugins: [
+      new webpack.ProvidePlugin({
+        'window.Quill': 'quill/dist/quill.js',
+        'Quill': 'quill/dist/quill.js'
+      }),
+    ]
   },
   // 设为false打包时不生成.map文件
   productionSourceMap: false
