@@ -1,25 +1,36 @@
-<template>
-  <div id="father">
-    <wangeditor @catchData="catchData"></wangeditor>
-  </div>
+<template lang="html">
+    <div class="">
+        <v-editor
+        :content="content"
+        :path="path"
+        v-model="result"></v-editor>
+        <input type="button" name="name" value="submit" @click="submit">
+    </div>
 </template>
 
 <script>
-  import wangeditor from './aaa.vue'
-  export default {
-    name: 'VueQuillEditor',
-    components: {
-      wangeditor
-    },
+import Editor from './bbb'
+export default {
     data() {
-      return {
-        content: "",
-        catchData: "",
-      }
+        return {
+            // input content to editor
+            content: 'base on wangeditor',
+            // output content from editor
+            result: '',
+            // set image upload api url
+            path: '/api/v1/help/upload/wangEditorH5File'
+        }
     },
     methods: {
-      catchData(value) {
-        this.content = value      //在这里接受子组件传过来的参数，赋值给data里的参数
-      }
+        submit() {
+            console.log(this.result)
+        }
     },
-  }
+    components: {
+        'v-editor': Editor
+    }
+}
+</script>
+
+<style lang="css">
+</style>
