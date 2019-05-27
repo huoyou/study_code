@@ -1,53 +1,25 @@
 <template>
-  <div class="vue-quill-editor">
-    <quill-editor v-model="editorContent"
-                  :options="editorOption"
-                  @change="onEditorChange($event)">
-    </quill-editor>
+  <div id="father">
+    <wangeditor @catchData="catchData"></wangeditor>
   </div>
 </template>
 
 <script>
-  // require styles
-  import 'quill/dist/quill.core.css'
-  import 'quill/dist/quill.snow.css'
-  import 'quill/dist/quill.bubble.css'
-  import { quillEditor, Quill } from 'vue-quill-editor'
-  // img upload plugin
-  import { container, ImageExtend, QuillWatch } from 'quill-image-extend-module'
-  Quill.register('modules/ImageExtend', ImageExtend)
-
+  import wangeditor from './aaa.vue'
   export default {
     name: 'VueQuillEditor',
     components: {
-      quillEditor
+      wangeditor
     },
     data() {
       return {
-        editorOption: {  // 富文本框参数设置
-          modules: {
-            ImageExtend: {
-              loading: true,
-              name: 'img',
-              action: updateUrl,
-              response: (res) => {
-                return res.info
-              }
-            },
-            toolbar: {
-              container: container,
-              handlers: {
-                'image': function () {
-                  QuillWatch.emit(this.quill.id)
-                }
-              }
-            }
-          }
-        },
-        editorContent: '',
+        content: "",
+        catchData: "",
       }
     },
     methods: {
-      onEditorChange() { },
-    }
+      catchData(value) {
+        this.content = value      //在这里接受子组件传过来的参数，赋值给data里的参数
+      }
+    },
   }

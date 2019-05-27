@@ -33,16 +33,22 @@ module.exports = {
     config.resolve.alias
       .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
       .set('_c', resolve('src/components'))
+    config.module
+      .rule('js')
+      .test(/\.js$/)
+      .use('babel-loader')
+      .loader('babel-loader')
+      .end()
   },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'),resolve('node_modules/quill-image-extend-module')]
-      },
-    ]
-  },
+  // module: {
+  //   rules: [
+  //     {
+  //       test: /\.js$/,
+  //       loader: 'babel-loader',
+  //       include: [resolve('src'), resolve('test'),resolve('node_modules/quill-image-extend-module')]
+  //     },
+  //   ]
+  // },
   configureWebpack: {
     plugins: [
       new webpack.ProvidePlugin({

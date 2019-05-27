@@ -4,7 +4,8 @@
                   theme="snow"
                   v-model="content"
                   :options="editorOption"
-                  @change="onChange">
+                  @change="onChange"
+                  @blur="onEditorBlur($event)">
     </quill-editor>
   </div>
 </template>
@@ -12,20 +13,21 @@
 <script>
   import 'quill/dist/quill.core.css'
   import 'quill/dist/quill.snow.css'
+  import 'quill/dist/quill.bubble.css'
   import { quillEditor, Quill } from 'vue-quill-editor'
-  import { ImageExtend, QuillWatch } from 'quill-image-extend-module'
+  import { ImageExtend, QuillWatch, container } from 'quill-image-extend-module'
   import ImageResize from 'quill-image-resize-module'
   // import { ImageDrop } from 'quill-image-drop-module';
 
- //quill编辑器的字体
-    var fonts = ['SimSun', 'SimHei','Microsoft-YaHei','KaiTi','FangSong','Arial','Times-New-Roman','sans-serif'];  
-    var Font = Quill.import('formats/font');  
-    Font.whitelist = fonts; //将字体加入到白名单 
-    Quill.register(Font, true);
+  //quill编辑器的字体
+  var fonts = ['SimSun', 'SimHei', 'Microsoft-YaHei', 'KaiTi', 'FangSong', 'Arial', 'Times-New-Roman', 'sans-serif'];
+  var Font = Quill.import('formats/font');
+  Font.whitelist = fonts; //将字体加入到白名单 
+  Quill.register(Font, true);
 
   Quill.register('modules/ImageExtend', ImageExtend)
-  // Quill.register('modules/ImageResize', ImageResize)
-  // Quill.register('modules/imageDrop', ImageDrop);
+  Quill.register('modules/ImageResize', ImageResize)
+  // Quill.register('modules/ImageDrop', ImageDrop);
   export default {
     props: {
       value: {
@@ -42,7 +44,7 @@
       },
       height: {
         type: Number,
-        default: 170
+        default: 200
       },
       imagePath: {
         type: String,
@@ -54,21 +56,25 @@
         content: '',
         toolbars: [
           [
-            ['bold', 'italic', 'underline', 'strike'],        //加粗，斜体，下划线，删除线
-            ['blockquote', 'code-block'],         //引用，代码块
-            [{ 'header': 1 }, { 'header': 2 }],               // 标题，键值对的形式；1、2表示字体大小
-            [{ 'list': 'ordered' }, { 'list': 'bullet' }],          //列表
-            [{ 'script': 'sub' }, { 'script': 'super' }],      // 上下标
-            [{ 'indent': '-1' }, { 'indent': '+1' }],          // 缩进
-            [{ 'direction': 'rtl' }],                         // 文本方向
-            [{ 'size': ['small', false, 'large', 'huge'] }],  // 字体大小
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],         //几级标题
-            [{ 'color': [] }, { 'background': [] }],          // 字体颜色，字体背景颜色
-            [{ 'font': [] }],         //字体
-            [{ 'align': [] }],        //对齐方式
-            ['clean'],        //清除字体样式
-            ['image', 'video']        //上传图片、上传视频
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
 
+            [{ 'header': 1 }, { 'header': 2 }],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'script': 'sub' }, { 'script': 'super' }],
+            [{ 'indent': '-1' }, { 'indent': '+1' }],
+            [{ 'direction': 'rtl' }],
+
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'font': fonts }],       //把上面定义的字体数组放进来
+
+            [{ 'align': [] }],
+
+            ['clean'],
+            ['image', 'video']
           ],
           [
             ['bold', 'italic', 'underline'],
@@ -89,29 +95,37 @@
         ],
         editorOption: {
           modules: {
-            // imageDrop: true,
-            // imageResize: {},
+            // ImageDrop: true,
+            ImageResize: {},
             ImageExtend: {
-              loading: true,
-              name: 'image',
-              size: 2,
-              action: ``,
+              loading: true,  // 可选参数 是否显示上传进度和提示语
+              name: 'image',  // 图片参数名
+              size: 2,   // 可选参数 图片大小，单位为M，1M = 1024kb
+              action: ``,  // 服务器地址, 如果action为空，则采用base64插入图片
+              // response 为一个函数用来获取服务器返回的具体图片地址
+              // 例如服务器返回{code: 200; data:{ url: 'baidu.com'}}
+              // 则 return res.data.url
               response: (res) => {
                 return res.data
-              }
+              },
+              headers: (xhr) => { },  // 可选参数 设置请求头部
+              start: () => { },  // 可选参数 自定义开始上传触发事件
+              end: () => { },  // 可选参数 自定义上传结束触发的事件，无论成功或者失败
+              error: () => { },  // 可选参数 自定义网络错误触发的事件
+              change: (xhr, formData) => { } // 可选参数 选择图片触发，也可用来设置头部，但比headers多了一个参数，可设置formData
             },
             toolbar: {
               container: [],
               handlers: {
-                'image': function () {
+                'image': function () {    // 劫持原来的图片点击按钮事件
                   QuillWatch.emit(this.quill.id)
                 }
               }
             }
           },
-          theme:'snow',
+          theme: 'snow',
           placeholder: this.placeholder
-        }
+        },
       }
     },
     computed: {
@@ -186,6 +200,9 @@
         // 告知父组件内容发生变化
         console.log('this.content', this.content)
         this.$emit('input', this.content)
+      },
+      onEditorBlur: function () {
+        console.log(this.content)
       }
     },
     components: {
