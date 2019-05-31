@@ -1,36 +1,41 @@
-<template lang="html">
-    <div class="">
-        <v-editor
-        :content="content"
-        :path="path"
-        v-model="result"></v-editor>
-        <input type="button" name="name" value="submit" @click="submit">
+<template>
+    <div v-html="content" @input="result" id="editor">
     </div>
 </template>
 
 <script>
-import Editor from './bbb'
+import WangEditor from 'wangeditor'
 export default {
+    props: ['content', 'path'],
     data() {
         return {
-            // input content to editor
-            content: 'base on wangeditor',
-            // output content from editor
-            result: '',
-            // set image upload api url
-            path: '/api/v1/help/upload/wangEditorH5File'
+            editor: ''
         }
+    },
+    mounted() {
+        const editor = new WangEditor('editor')
+        editor.config.menus = ['source', '|', 'bold', 'underline', 'italic', 'strikethrough', 'eraser', 'forecolor', 'bgcolor', '|', 'quote', 'fontfamily', 'fontsize', 'head', 'unorderlist', 'orderlist', 'alignleft', 'aligncenter', 'alignright',
+            '|', 'link', 'unlink', 'table', 'img', 'video', 'insertcode', '|', 'undo', 'redo', 'fullscreen'
+        ]
+        editor.config.uploadImgUrl = this.path
+        editor.create()
+        this.editor = editor
     },
     methods: {
-        submit() {
-            console.log(this.result)
+        result() {
+            this.$emit('input', this.editor.$txt.html())
         }
-    },
-    components: {
-        'v-editor': Editor
     }
 }
 </script>
+<style scoped>
+#editor {
+    height: 440px;
+}
 
-<style lang="css">
+.wangEditor-container {
+    border-radius: 2px;
+    overflow: hidden;
+    border: 1px solid #CCC;
+}
 </style>
