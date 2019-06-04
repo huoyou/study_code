@@ -39,10 +39,12 @@ export default {
         .then(res => {
           var data = res.data;
           var that = this;
+          console.log('data',data)
           // var data = JSON.parse(res.data)
           if (data.code == 200) {
-            that.$Message.success(data.message);
-            setToken(data.data.token);
+            console.log(1111)
+            // that.$Message.success(data.message);
+            // setToken(data.data.token);
             // window.location.href = 'www.baidu.com'
             that.$router.push({
               name: that.$config.homeName
