@@ -2,7 +2,8 @@
   <div class="user-avator-dropdown">
     <Dropdown @on-click="handleClick" placement='bottom-end'>
       <span style="font-size: 12px">{{userName}}</span>
-      <Avatar style="color: #f56a00;background-color: #fde3cf">U</Avatar>
+      <Avatar :src="userAvatar"/>
+      <!-- <Avatar style="color: #f56a00;background-color: #fde3cf">U</Avatar> -->
       <Icon :size="18"
             type="md-arrow-dropdown"></Icon>
       <DropdownMenu slot="list">
@@ -66,7 +67,7 @@
   export default {
     name: 'User',
     props: {
-      userAvator: {
+      userAvatar: {
         type: String,
         default: 'https://file.iviewui.com/dist/a0e88e83800f138b94d2414621bd9704.png'
       }
@@ -117,14 +118,15 @@
     },
     methods: {
       ...mapActions([
-        'handleLogOut'
+        'handleLogOut',
+        'getUserInfo'
       ]),
       handleClick(name) {
         switch (name) {
           case 'logout':
             this.handleLogOut().then(() => {
               this.$router.push({
-                name: this.login_page
+                name: 'login'
               })
             })
             break
@@ -206,7 +208,8 @@
       },
     },
     mounted() {
-      this.getUser()
+      // this.getUser()
+      this.getUserInfo();
     },
     created() {
     }

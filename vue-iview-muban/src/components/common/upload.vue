@@ -44,6 +44,7 @@
   import plupload from 'plupload'
   import Cookies from 'js-cookie'
   import { setTimeout } from 'timers'
+  import config from '@/config'
   export default {
     name: 'upload',
     data() {
@@ -223,8 +224,7 @@
         const xmlhttp = new XMLHttpRequest()
         // 你的服务端接口地址:  参考demo:http://oss-demo.aliyuncs.com/oss-h5-upload-js-php/
         // 服务端签名后直传文档:  https://help.aliyun.com/document_detail/31926.html
-        const serverUrl = 'http://192.168.3.30:8085/sys/getOSSPolicy'
-        // const serverUrl = 'http://192.168.1.115:8087/sys/getOSSPolicy'
+        const serverUrl = `${config.baseUrl}/api/sys/getOSSPolicy?userId=111`
         xmlhttp.open('GET', serverUrl, false)
         xmlhttp.send(null)
         return xmlhttp.responseText

@@ -55,7 +55,7 @@
   </Layout>
 </template>
 <script>
-  import { login, logout, queryUser, queryMessage } from '@/api/user'
+  import { login, logout, queryMessage } from '@/api/user'
   import config from '@/config'
   import SideMenu from './components/side-menu'
   import HeaderBar from './components/header-bar'

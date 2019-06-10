@@ -52,7 +52,7 @@ export default {
     // 退出登录
     handleLogOut({ state, commit }) {
       return new Promise((resolve, reject) => {
-        logout().then(() => {
+        logout(state.token).then(() => {
           commit('setToken', '')
           commit('setAccess', [])
           setToken('')
@@ -70,25 +70,29 @@ export default {
     getUserInfo({ state, commit }) {
       return new Promise((resolve, reject) => {
         queryUser().then(res => {
-          // const data = JSON.parse(replaceRes(res.data))
-          const data = ((res.data))
-          let param = {};
-          param.userId = data.data.userId;
-          queryMessage(param).then(res => {
-            let data = JSON.parse(replaceRes(res.data))
-            // 移除企业信息
-            removeCompanyinfo();
-            if(data.code=='200') {
-              // 存储企业信息
-              setCompanyinfo(data.data)
-            }
+          if(res.data.type == String) {
+            var data = JSON.parse(replaceRes(res.data));
+          }else {
+            var data = res.data;
+          }
+          console.log('queryUser',data)
+          // let param = {};
+          // param.userId = data.data.userId;
+          // queryMessage(param).then(res => {
+          //   let data = JSON.parse(replaceRes(res.data))
+          //   // 移除企业信息
+          //   removeCompanyinfo();
+          //   if(data.code=='200') {
+          //     // 存储企业信息
+          //     setCompanyinfo(data.data)
+          //   }
             
-          }).catch(err => {
-            reject(err)
-          })
+          // }).catch(err => {
+          //   reject(err)
+          // })
           commit('setAvator', data.data.avator)
-          commit('setUserName', data.data.userName)
-          commit('setUserId', data.data.userId)
+          commit('setUserName', data.data.user_name)
+          commit('setUserId', data.data.user_id)
           commit('setAccess', 'super_admin')
           commit('setHasGetInfo', true)
           resolve(data)

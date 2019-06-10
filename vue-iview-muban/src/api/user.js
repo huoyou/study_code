@@ -5,8 +5,8 @@ import axios from '@/libs/api.request'
  */
 export const queryUser = params => {
   return axios.request({
-    // url: '/user/getuser',
-    url: '/get_info',
+    url: '/get_info',  //mock
+    // url: '/api/user/getInterUser', //123
     method: 'get',
     params: params
   })
@@ -25,9 +25,8 @@ export const queryMessage = params => {
 // 登录
 export const login = params => {
   return axios.request({
-    url: '/login',
-    // url: '/sys/checkLogin',
-    // url: '/sys/userLogin',
+    url: '/login', // mock
+    // url: '/api/sys/userLogin', // 123
     method: 'post',
     params: params
   })
@@ -36,9 +35,10 @@ export const login = params => {
 // 登出
 export const logout = params => {
   return axios.request({
-    url: 'sys/logout',
-    method: 'get',
-    params: params
+    // url: '/api/sys/logout',
+    url: 'logout',
+    method: 'post',
+    data: params
   })
 }
 
