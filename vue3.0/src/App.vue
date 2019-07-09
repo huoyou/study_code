@@ -12,6 +12,8 @@
   color: #2c3e50;
   height: 100%;
 }
+body {
+}
 #nav {
   padding: 30px;
   a {
