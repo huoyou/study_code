@@ -1,0 +1,89 @@
+@import "../../../../common/css/break-points";
+.compound-calculator-content{
+  padding: 15px 30px;
+}
+.calc-left,
+.calc-right{
+  width: 50%;
+}
+.calc-left{
+  padding: 10px 30px 25px 0;
+}
+.compound-checkbox{
+  margin-right: 15px;
+}
+.what-is-compount{
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 20px;
+  color: #666;
+  cursor: help;
+  &:hover{
+    color: #ea5902;
+  }
+}
+.calc-right{
+  padding: 10px 0 25px 30px;
+  border-left: 1px solid #e6e6e6;
+}
+.form-group + .form-group{
+  margin-top: 25px;
+}
+.interest-text{
+  font-size: 22px;
+  color: #333;
+}
+.interest-value{
+  padding-top: 10px;
+  padding-left: 30px;
+  word-break: break-all;
+  word-wrap: break-word;
+  font-size: 30px;
+  font-weight: 600;
+  color: #ea5902;
+}
+
+@media (max-width: $lg) {
+  .compound-calculator-content{
+    padding: 0 15px;
+  }
+  .calc-left{
+    padding: 5px 15px 5px 0;
+  }
+  .calc-right{
+    padding: 10px 0 5px 15px;
+    border-left: 1px solid #e6e6e6;
+  }
+  .form-group + .form-group{
+    margin-top: 15px;
+  }
+  .interest-text{
+    font-size: 18px;
+    color: #333;
+  }
+  .interest-value{
+    padding-top: 5px;
+    padding-left: 15px;
+    font-size: 24px;
+  }
+}
+
+@media (max-width: $xs) {
+  .calc-left,
+  .calc-right{
+    width: 100%;
+  }
+  .what-is-compount{
+    font-size: 18px;
+  }
+  .calc-right{
+    padding-left: 0;
+    border-left: none;
+  }
+  .interest-text{
+    font-size: 16px;
+  }
+  .interest-value{
+    font-size: 20px;
+  }
+}

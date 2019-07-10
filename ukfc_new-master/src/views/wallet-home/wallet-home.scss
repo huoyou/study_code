@@ -1,0 +1,65 @@
+@import "../../common/css/break-points";
+
+.wallet-home{
+  padding: 20px 0;
+}
+/*我的收益与全球收益排名 start*/
+.earings-wrap{
+	margin-bottom: 20px;
+}
+.my-earnings-wrap{
+  width: 800px;
+  padding-top: 70px;
+  box-shadow: 0px 0px 10px 0px rgba(153, 157, 173, 0.08);
+  background-color: #fff;
+}
+.income-rank-wrap{
+  width: 380px;
+  padding-top: 70px;
+  margin-left: auto;
+  box-shadow: 0px 0px 10px 0px rgba(153, 157, 173, 0.08);
+  background-color: #fff;
+}
+/*我的收益与全球收益排名 end*/
+
+
+@media (max-width: $xl){
+	/*我的收益与全球收益排名 start*/
+	.my-earnings-wrap{
+	  width: 600px;
+	  padding-top: 50px;
+	}
+	.income-rank-wrap{
+	  width: 335px;
+	  padding-top: 50px;
+	}
+	/*我的收益与全球收益排名 end*/
+}
+
+@media (max-width: $lg){
+	/*我的收益与全球收益排名 start*/
+	.my-earnings-wrap{
+	  width: 100%;
+	  padding-top: 35px;
+		margin-bottom: 20px;
+	}
+	.income-rank-wrap{
+	  width: 100%;
+	  padding-top: 35px;
+		padding-bottom: 30px;
+		margin-left: 0;
+	}
+	/*我的收益与全球收益排名 end*/
+}
+
+@media (max-width: $sm){
+	/*我的收益与全球收益排名 start*/
+		.my-earnings-wrap{
+			padding-top: 20px;
+		}
+		.income-rank-wrap{
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
+	/*我的收益与全球收益排名 end*/
+}

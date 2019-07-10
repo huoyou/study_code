@@ -3,14 +3,13 @@
     <div class="title">
       <input type="text" />
     </div>
-    <div class="box">
+    <div class="box" ref="box">
       <better-scroll
         class="wrapper"
         :data="data"
         :pulldown="pulldown"
         :pullup="pullup"
         :loadingStatusNum="loadingStatusNum"
-        :loadingPosClass="loadingPosClass"
         @downLoadData="loadData"
         @upLoadData="loadData1"
       >
@@ -43,6 +42,7 @@ export default {
   created() {},
   mounted() {
     this.getData();
+    this.$nextTick(() => {});
   },
   methods: {
     getData() {
@@ -64,7 +64,7 @@ export default {
     },
     loadData() {
       console.log("down");
-      this.loadingPosClass = "loading-pos";
+      this.loadingPosClass = "loading-down";
       this.loadingStatusNum = "loading";
       setTimeout(() => {
         this.loadingStatusNum = "downLoadingSuccess";
@@ -76,17 +76,19 @@ export default {
       //   this.data = res.data.concat(this.data)
       // })
     },
-    loadData1() {
-      console.log("up");
-      this.loadingPosClass = "loading-pos1";
-      this.loadingStatusNum = "loading";
-      this.getData();
-      setTimeout(() => {
-        this.loadingStatusNum = "upLoadingFail";
-      }, 1000);
-      setTimeout(() => {
-        this.loadingStatusNum = "removeLoading";
-      }, 2000);
+    loadData1(val) {
+      if (val - this.$refs.box.offsetHeight != 1) {
+        console.log("up");
+        this.loadingPosClass = "loading-up";
+        this.loadingStatusNum = "loading";
+        // this.getData();
+        setTimeout(() => {
+          this.loadingStatusNum = "upLoadingFail";
+        }, 1000);
+        setTimeout(() => {
+          this.loadingStatusNum = "removeLoading";
+        }, 2000);
+      }
     }
   }
 };
@@ -108,7 +110,7 @@ export default {
       bottom: 0; // 底部有footer，没有的话设置为0
       overflow: hidden;
       .content {
-        // height: calc(100vh - 79px);
+        min-height: calc(100vh - 79px);
         li {
           height: 50px;
           line-height: 50px;

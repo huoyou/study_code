@@ -1,0 +1,46 @@
+@import "../../../../common/css/break-points";
+.coin-exchange-form{
+  padding: 15px 30px;
+}
+.coin-volume-wrap{
+  margin-bottom: 8px;
+}
+.coin-volume-input{
+  border-left: none;
+}
+.getted-form-group{
+  margin-bottom: 30px;
+}
+.getted-form-wrap{
+  margin-bottom: 8px;
+}
+.getted-unit{
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  font-size: 18px;
+  color: #ea5902;
+  transform: translateY(-50%);
+}
+
+@media (max-width: $lg) {
+  .coin-exchange-form{
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: $sm) {
+  .coin-volume-wrap{
+    flex-wrap: wrap;
+  }
+  .choose-coin-select2{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .coin-volume-input{
+    border-left: 1px solid #e6e6e6;
+  }
+  .getted-form-group{
+    margin-bottom: 20px;
+  }
+}

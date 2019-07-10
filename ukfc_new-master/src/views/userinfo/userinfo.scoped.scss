@@ -1,0 +1,94 @@
+@import "../../common/css/break-points";
+.userinfo-page{
+  padding-top: 20px;
+}
+.userinfo-container{
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.userinfo-left{
+  float: left;
+  margin-right: 30px;
+}
+.user-avatar,
+.user-avatar-text{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.user-avatar-text{
+  line-height: 100px;
+  font-size: 40px;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  background-color: #ddd;
+}
+.username{
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.view-rate{
+  margin-bottom: 20px;
+}
+.upload-avatar{
+  ::v-deep .el-upload{
+    width: 140px;
+    height: 44px;
+    line-height: 44px;
+    color: #fff;
+    background-color: #ea5902;
+  }
+  ::v-deep .avatar-uploader-icon{
+    display: none;
+  }
+}
+.userinfo-right{
+  float: left;
+}
+.userinfo-view{
+  dt{
+    float: left;
+    margin-right: 10px;
+  }
+  dd{
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+}
+.edit-username-btn{
+  font-weight: 600;
+  color: #666;
+  cursor: pointer;
+  &:hover{
+    color: #ea5902;
+  }
+}
+@media (max-width: $md) {
+  .userinfo-left,
+  .userinfo-right{
+    float: none;
+  }
+  .userinfo-left{
+    margin-right: 0;
+  }
+  .user-avatar,
+  .user-avatar-text{
+    width: 80px;
+    height: 80px;
+  }
+  .user-avatar-text{
+    line-height: 80px;
+    font-size: 36px;
+  }
+  .username{
+    font-size: 18px;
+  }
+  .userinfo-left{
+    margin-bottom: 20px;
+  }
+}

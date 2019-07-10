@@ -1,0 +1,198 @@
+@import "../../../common/css/break-points";
+
+.income-rank {
+  padding: 0 30px;
+}
+
+.caption {
+  margin-bottom: 35px;
+  font-size: 24px;
+  font-weight: normal;
+  color: #666;
+}
+
+
+/*.ranking-list {
+  min-height: 230px;
+}*/
+
+.ranking-item {
+  //display: flex;
+  //justify-content: space-between;
+  //align-items: center;
+  color: #333;
+
+  & + .ranking-item {
+    margin-top: 23px;
+  }
+}
+
+.rank-img {
+  display: inline-block;
+  vertical-align: middle;
+  width: 24px;
+  height: 30px;
+}
+
+.rank-num {
+  display: inline-block;
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  border-radius: 50%;
+  margin-right: 2px;
+  font-style: normal;
+  font-size: 14px;
+  text-align: center;
+  color: #fff;
+  background-color: #d2d2d2;
+}
+
+.country-img {
+  display: inline-block;
+  vertical-align: middle;
+  /*width: 32px;*/
+  max-height: 30px;
+  margin-left: 20px;
+  margin-top: 3px;
+}
+
+.country-name {
+  float: left;
+  display: block;
+  width: 40%;
+  /*padding-top: 2px;*/
+  padding-left: 5px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.amount {
+  /*float: left;*/
+  display: block;
+  overflow: hidden;
+  /*width: 60%;*/
+  padding-left: 5px;
+  text-align: right;
+  font-size: 14px;
+}
+
+//.rank-flag-img {
+//  .country-name,
+//  .amount {
+//    padding-top: 8px;
+//  }
+//}
+.people-worldwide{
+  margin-top: 25px;
+  text-align: left;
+}
+.people-numbers {
+  color: #ea5902;
+}
+
+/*加载骨架 start*/
+.skeleton-div1 {
+  width: 60px;
+  height: 26px;
+  background-color: #f0f0f0;
+}
+.skeleton-div2 {
+  width: 90%;
+  height: 26px;
+  margin-left: 10%;
+  background-color: #f0f0f0;
+}
+/*加载骨架 end*/
+
+@media (max-width: $xl) {
+  .income-rank {
+    padding: 0 20px;
+  }
+  .caption {
+    margin-bottom: 25px;
+    font-size: 22px;
+  }
+  .country-img {
+    margin-left: 15px;
+  }
+  .country-name,
+  .amount {
+    font-size: 15px;
+  }
+
+  /*加载骨架 start*/
+  .skeleton-div1 {
+    height: 24px;
+  }
+  .skeleton-div2 {
+    height: 24px;
+  }
+  /*加载骨架 end*/
+}
+
+@media (max-width: $lg) {
+  .ranking-item > div:first-child {
+    display: flex;
+    width: 25%;
+  }
+  .country-img {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: $sm) {
+  .income-rank {
+    padding: 0 15px;
+  }
+  .caption {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  /*.ranking-list {
+    min-height: 165px;
+  }*/
+  .ranking-item {
+    & + .ranking-item {
+      margin-top: 15px;
+    }
+  }
+  .rank-img {
+    width: 26px*0.8;
+    height: 32px*0.8;
+  }
+  .rank-num {
+    width: 24px*0.8;
+    height: 24px*0.8;
+    line-height: 24px*0.8;
+    font-size: 12px;
+  }
+  .country-img {
+    /*width: 32px*0.8;*/
+    max-height: 26px;
+    margin-top: 0;
+  }
+  .country-name,
+  .amount {
+    font-size: 13px;
+  }
+  //.rank-flag-img {
+  //  .country-name,
+  //  .amount {
+  //    padding-top: 4px;
+  //  }
+  //}
+  .people-worldwide {
+    margin-top: 15px;
+  }
+
+  /*加载骨架 start*/
+  .skeleton-div1 {
+    height: 20px;
+  }
+  .skeleton-div2 {
+    height: 20px;
+  }
+  /*加载骨架 end*/
+}

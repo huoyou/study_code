@@ -1,0 +1,38 @@
+/*修改element ui tabs tab-bar样式 start*/
+body .income-rank-tabs{
+  .el-tabs__nav-wrap.is-bottom{
+    margin-bottom: 0;
+    text-align: center;
+  }
+  .el-tabs__nav-wrap::after{
+    display: none;
+  }
+  .el-tabs__nav-scroll{
+    display: inline-block;
+  }
+  .el-tabs__active-bar.is-bottom{
+    display: none;
+  }
+  .tab-slot-label{
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #dcdcdc;
+    transition: background-color .3s;
+  }
+  .el-tabs__header.is-bottom{
+    margin-top: 20px;
+  }
+  .el-tabs__item{
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px;
+    &.is-active{
+      .tab-slot-label{
+        background-color: #ea5902;
+      }
+    }
+  }
+}
+/*修改element ui tabs tab-bar样式 end*/

@@ -1,0 +1,189 @@
+/**
+工具css 这里不能写与页面布局相关的css代码
+ */
+
+/*快捷 padding、 margin start*/
+@each $animal in 5, 10, 20, 15, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80 {
+  .mt-#{$animal} {
+    margin-top: $animal+px;
+  }
+}
+@each $animal in 5, 10, 20, 15, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80 {
+  .mb-#{$animal} {
+    margin-bottom: $animal+px;
+  }
+}
+@each $animal in 5, 10, 20, 15, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80 {
+  .ml-#{$animal} {
+    margin-left: $animal+px;
+  }
+}
+@each $animal in 5, 10, 20, 15, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80 {
+  .mr-#{$animal} {
+    margin-right: $animal+px;
+  }
+}
+@each $animal in 5, 10, 20, 15, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80 {
+  .pt-#{$animal} {
+    padding-top: $animal+px;
+  }
+}
+@each $animal in 5, 10, 20, 15, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80 {
+  .pb-#{$animal} {
+    padding-bottom: $animal+px;
+  }
+}
+@each $animal in 5, 10, 20, 15, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80 {
+  .pl-#{$animal} {
+    padding-left: $animal+px;
+  }
+}
+@each $animal in 5, 10, 20, 15, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80 {
+  .pr-#{$animal} {
+    padding-right: $animal+px;
+  }
+}
+.no-pt{
+  padding-top: 0!important;
+}
+.no-pb{
+  padding-bottom: 0!important;
+}
+.no-pl{
+  padding-left: 0!important;
+}
+.no-pr{
+  padding-right: 0!important;
+}
+.no-mt{
+  margin-top: 0!important;
+}
+.no-mb{
+  margin-bottom: 0!important;
+}
+.no-ml{
+  margin-left: 0!important;
+}
+.no-mr{
+  margin-right: 0!important;
+}
+/*快捷 padding、 margin end*/
+
+/* 边框处理 start */
+.no-border {
+  padding: 0 !important;
+}
+.no-bt {
+  border-top: none !important;
+}
+.no-bb {
+  border-bottom: none !important;
+}
+.no-bl {
+  border-left: none !important;
+}
+.no-br {
+  border-right: none !important;
+}
+.hr{
+  height: 1px;
+  background-color: #e6e6e6;
+}
+/* 边框处理 end */
+
+/* 快捷字体 start */
+@each $fontSize in 12, 13, 14, 15, 16, 18, 20, 21, 22, 23, 24 {
+  .font-#{$fontSize} {
+    font-size: $fontSize+px;
+  }
+}
+/* 快捷字体 end */
+
+/*文字相关 start*/
+.text-left{
+  text-align: left;
+}
+.text-center{
+  text-align: center;
+}
+.text-right{
+  text-align: right;
+}
+.text-bold{
+  font-weight: bold;
+}
+.color-666{
+  color: #666;
+}
+.color-999{
+  color: #999;
+}
+.color-primary{
+  color: #ea5902;
+}
+.color-blue{
+  color: #3961b9;
+}
+.color-success{
+  color: #34a853;
+}
+.color-333{
+  color: #333;
+}
+.color-f00{
+  color: #f00;
+}
+.cursor-point{
+  cursor: pointer;
+}
+.no-wrap{
+  white-space: nowrap;
+}
+/*文字相关 end*/
+
+/*背景颜色 start*/
+.bg-333{
+  background-color: #333;
+}
+.bg-3d{
+  background-color: #3d3d3d;
+}
+/*背景颜色 end*/
+
+/*布局相关 start*/
+.clearfix{
+  &::before,
+  &::after{
+    display: table;
+    content: ' ';
+    clear: both;
+  }
+}
+.fl{
+  float: left!important;
+}
+.fr{
+  float: right!important;
+}
+.relative{
+  position: relative;
+}
+.absolute{
+  position: absolute;
+}
+.overflow{
+  overflow: hidden;
+}
+body .inline-block{
+  display: inline-block;
+}
+body .block{
+  display: block;
+}
+body .hidden-visible {
+  overflow: visible;
+}
+body .width-100{
+  width: 100%;
+}
+/*布局相关 end*/

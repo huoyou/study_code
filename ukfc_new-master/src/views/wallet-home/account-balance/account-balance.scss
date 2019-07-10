@@ -1,0 +1,76 @@
+@import "../../../common/css/break-points";
+/* 币种选择下拉框 start */
+.account-balance .coin-list-select{
+  .el-input__inner{
+    border-color: #e6e6e6;
+    border-radius: 0;
+    font-size: 16px;
+    color: #666;
+    transition: all .2s;
+    &:hover{
+      border-color: #e6e6e6;
+      box-shadow: 0 0 6px 0 rgba(0,0,0,0.08);
+    }
+    &:focus{
+      border-color: #e6e6e6;
+    }
+  }
+  .el-input.is-focus .el-input__inner{
+    border-color: #e6e6e6;
+    box-shadow: 0 0 8px 0 rgba(0,0,0,0.1);
+  }
+}
+
+body .coin-list-select-popover{
+  border: none;
+  border-radius: 0;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  &.el-popper[x-placement^=bottom]{
+    margin-top: 5px!important;
+  }
+  .el-select-dropdown__list{
+    padding: 0;
+  }
+  .el-select-dropdown__item{
+    height: 45px;
+    line-height: 45px;
+    font-size: 16px;
+    text-align: center;
+    color: #666;
+    transition: color .2s, background-color .2s;
+    &.hover,
+    &:hover{
+      color: #ea5902;
+      background-color: #3d3d3d;
+    }
+  }
+  .popper__arrow{
+    display: none;
+  }
+}
+/* 币种选择下拉框 end */
+
+@media (max-width: $sm) {
+  /* 币种选择下拉框 start */
+  //.coin-list-select{
+  //  .el-input__inner{
+  //    height: 30px;
+  //    line-height: 30px;
+  //    font-size: 14px;
+  //    &::placeholder{
+  //      font-size: 14px;
+  //    }
+  //  }
+  //  .el-input__icon{
+  //    line-height: 30px;
+  //  }
+  //}
+  //body .coin-list-select-popover{
+  //  .el-select-dropdown__item{
+  //    height: 36px;
+  //    line-height: 36px;
+  //    font-size: 14px;
+  //  }
+  //}
+  /* 币种选择下拉框 end */
+}

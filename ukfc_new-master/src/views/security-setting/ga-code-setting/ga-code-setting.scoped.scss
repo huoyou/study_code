@@ -1,0 +1,331 @@
+@import "../../../common/css/break-points";
+.ga-code-setting{
+  padding: 30px;
+}
+.top-alert{
+  padding: 15px 30px;
+  color: #333;
+  background-color: #f5f5f5;
+}
+.step-body{
+  padding-top: 10px;
+}
+
+/*进度指示器 start*/
+.gacode-setting-step-bar{
+  position: relative;
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+.step-item{
+  position: relative;
+  z-index: 5;
+  float: left;
+  width: 33.33%;
+  text-align: center;
+  background-color: #fff;
+  &::after{
+    position: absolute;
+    content: ' ';
+    top: 124px*0.7/2;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    border-top: 1px dashed #e6e6e6;
+  }
+}
+.step-icon{
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 125px*0.7;
+  height: 124px*0.7;
+  margin: 0 auto;
+  background-color: #fff;
+  background-image: url("../../../assets/images/icon2.png");
+  background-size: 435px*0.7 279px*0.7;
+}
+.step-icon1{
+  background-position: 0 0;
+  &.active{
+    background-position: 0 -154px*0.7;
+  }
+}
+.step-icon2{
+  background-position: -155px*0.7 0;
+  &.active{
+    background-position: -155px*0.7 -154px*0.7;
+  }
+}
+.step-icon3{
+  background-position: -311px*0.7 0;
+  &.active{
+    background-position: -310px*0.7 -155px*0.7;
+  }
+}
+.step-text{
+  margin-top: 15px;
+  font-size: 18px;
+  color: #666;
+}
+.step-item.active .step-text{
+  color: #ea5902;
+}
+/*进度指示器 end*/
+
+.step-explain{
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+.step-serial{
+  display: inline-block;
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  margin-right: 15px;
+  font-style: normal;
+  text-align: center;
+  color: #fff;
+  background-color: #c9c9cd;
+}
+
+/*步骤1 start*/
+.download-btn{
+  display: inline-block;
+  margin-bottom: 25px;
+  &+.download-btn{
+    margin-left: 15px;
+  }
+}
+/*步骤1 end*/
+
+/*步骤2 start*/
+.qrcode-box{
+  width: 140px;
+  height: 140px;
+  padding: 10px;
+  box-shadow:0px 1px 4px 0px rgba(176,176,176,0.47);
+  background-color: #fff;
+}
+.step2 .step-body{
+  width: 60%;
+}
+.copy-btn{
+  line-height: 40px;
+  padding: 0 20px;
+  white-space: nowrap;
+  color: #ea5902;
+  cursor: pointer;
+}
+/*步骤2 end*/
+
+/*步骤4 start*/
+.success-img{
+  margin-top: 50px;
+}
+.success-tip-text{
+  margin-top: 15px;
+  font-size: 20px;
+  color: #34a853;
+  text-align: center;
+}
+/*步骤4 end*/
+
+@media (max-width: $lg) {
+  .ga-code-setting{
+    padding: 15px 0;
+  }
+  /*进度指示器 start*/
+  .gacode-setting-step-bar{
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .step-item{
+    &::after{
+      top: 124px*0.55/2;
+    }
+  }
+  .step-icon{
+    width: 125px*0.55;
+    height: 124px*0.55;
+    background-size: 435px*0.55 279px*0.55;
+  }
+  .step-icon1{
+    &.active{
+      background-position: 0 -154px*0.55;
+    }
+  }
+  .step-icon2{
+    background-position: -155px*0.55 0;
+    &.active{
+      background-position: -155px*0.55 -154px*0.55;
+    }
+  }
+  .step-icon3{
+    background-position: -311px*0.55 0;
+    &.active{
+      background-position: -310px*0.55 -155px*0.55;
+    }
+  }
+  .step-text{
+    margin-top: 10px;
+    font-size: 16px;
+    color: #666;
+  }
+  /*进度指示器 end*/
+
+  .step-explain{
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  .step-serial{
+    width: 26px;
+    height: 26px;
+    line-height: 26px;
+  }
+
+  /*步骤2 start*/
+  .qrcode-box{
+    margin-left: 15px;
+  }
+  .step2 .step-body{
+    width: 80%;
+  }
+  /*步骤2 end*/
+
+  /*步骤4 start*/
+  .success-img{
+    width: 80px;
+    margin-top: 50px;
+  }
+  .success-tip-text{
+    margin-top: 15px;
+    font-size: 18px;
+  }
+  /*步骤4 end*/
+}
+@media (max-width: $md) {
+  /*进度指示器 start*/
+  .step-item{
+    &::after{
+      top: 124px*0.45/2;
+    }
+  }
+  .step-icon{
+    width: 125px*0.45;
+    height: 124px*0.45;
+    background-size: 435px*0.45 279px*0.45;
+  }
+  .step-icon1{
+    &.active{
+      background-position: 0 -154px*0.45;
+    }
+  }
+  .step-icon2{
+    background-position: -155px*0.45 0;
+    &.active{
+      background-position: -155px*0.45 -154px*0.45;
+    }
+  }
+  .step-icon3{
+    background-position: -311px*0.45 0;
+    &.active{
+      background-position: -310px*0.45 -155px*0.45;
+    }
+  }
+  .step-text{
+    margin-top: 8px;
+    font-size: 14px;
+  }
+  /*进度指示器 end*/
+
+  .step-explain{
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  .step-serial{
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+  }
+
+  /*步骤2 start*/
+  .step2 .step-body{
+    width: 100%;
+  }
+  /*步骤2 end*/
+}
+@media (max-width: $sm) {
+  .top-alert{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  /*进度指示器 start*/
+  .step-item{
+    &::after{
+      top: 124px*0.3/2;
+    }
+  }
+  .step-icon{
+    width: 125px*0.3;
+    height: 124px*0.3;
+    background-size: 435px*0.3 279px*0.3;
+  }
+  .step-icon1{
+    &.active{
+      background-position: 0 -154px*0.3;
+    }
+  }
+  .step-icon2{
+    background-position: -155px*0.3 0;
+    &.active{
+      background-position: -155px*0.3 -154px*0.3;
+    }
+  }
+  .step-icon3{
+    background-position: -311px*0.3 0;
+    &.active{
+      background-position: -310px*0.3 -155px*0.3;
+    }
+  }
+  .step-text{
+    margin-top: 8px;
+    font-size: 13px;
+  }
+  /*进度指示器 end*/
+
+  .step-explain{
+    margin-bottom: 10px;
+    font-size: 13px;
+  }
+  .step-serial{
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+  }
+
+  .download-btn{
+    display: block;
+    margin-bottom: 15px;
+    margin-top: 25px;
+    &+.download-btn{
+      margin-left: 0;
+      margin-top: 0;
+    }
+  }
+
+  /*步骤4 start*/
+  .success-img{
+    width: 60px;
+    margin-top: 30px;
+  }
+  .success-tip-text{
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  /*步骤4 end*/
+}

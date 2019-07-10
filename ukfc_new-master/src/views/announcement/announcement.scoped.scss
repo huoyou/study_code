@@ -1,0 +1,167 @@
+@import "../../common/css/break-points";
+.announcement-page{
+  padding-top: 20px;
+}
+.announcement-container{
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #fff;
+}
+
+.announcement-list{
+  margin-top: 25px;
+}
+.announcement-item{
+  padding-bottom: 25px;
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 20px;
+}
+.announcement-top{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.announcement-title{
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+}
+.announcement-time{
+  margin-left: 15px;
+  color: #999;
+}
+.announcement-content{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.announcement-item.skeleton{
+  .announcement-title{
+    width: 50%;
+    height: 28px;
+    background-color: #eee;
+  }
+  .announcement-time{
+    width: 120px;
+    height: 22px;
+    background-color: #eee;
+  }
+  .announcement-content{
+    width: 65%;
+    height: 35px;
+    background-color: #eee;
+    a:hover{
+      color: #ea5902;
+    }
+  }
+  .announcement-item-btn{
+    display: inline-block;
+    width: 80px;
+    height: 28px;
+    background-color: #eee;
+    &:first-child{
+      margin-right: 10px;
+    }
+  }
+}
+
+/*查看详情modal start*/
+.announcement-detail-modal-content{
+  padding: 15px 30px;
+  .skeleton{
+    .modal-announcement-title{
+      height: 30px;
+      background-color: #eee;
+    }
+    .modal-announcement-time{
+      width: 160px;
+      height: 24px;
+      margin: 0 auto 15px auto;
+      background-color: #eee;
+    }
+    .modal-announcement-content{
+      height: 200px;
+      margin-bottom: 25px;
+      background-color: #eee;
+    }
+  }
+}
+.modal-announcement-title{
+  margin-bottom: 8px;
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+}
+.modal-announcement-time{
+  margin-bottom: 15px;
+  text-align: center;
+  color: #999;
+}
+/*查看详情modal end*/
+
+@media (max-width: $xl) {
+  .announcement-list{
+    margin-top: 20px;
+  }
+  .announcement-item{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 15px;
+  }
+  .announcement-top{
+    margin-bottom: 8px;
+  }
+  .announcement-title{
+    font-size: 18px;
+  }
+}
+
+@media (max-width: $lg) {
+  .announcement-list{
+    margin-top: 15px;
+  }
+  .announcement-item{
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 10px;
+  }
+  .announcement-top{
+    margin-bottom: 5px;
+  }
+  .announcement-title{
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  .announcement-time{
+    margin-left: auto;
+  }
+
+  /*查看详情modal start*/
+  .announcement-detail-modal-content{
+    padding: 0 15px;
+  }
+  .modal-announcement-title{
+    margin-bottom: 5px;
+    font-size: 18px;
+  }
+  .modal-announcement-time{
+    margin-bottom: 10px;
+  }
+  /*查看详情modal end*/
+}
+
+@media (max-width: $sm) {
+  .announcement-item.skeleton{
+    .announcement-time{
+      width: 90px;
+    }
+    .announcement-content{
+      width: 80%;
+    }
+  }
+}
+

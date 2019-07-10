@@ -1,0 +1,72 @@
+@import "../../common/css/break-points";
+.address-book{
+  padding: 20px 0;
+}
+.address-book-container{
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #fff;
+}
+.top-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 20px;
+}
+.title-text{
+  font-size: 24px;
+  font-weight: normal;
+  color: #333;
+}
+.go-home-link{
+  color: #999;
+}
+.search-panel{
+  padding: 0 30px;
+}
+.add-address-btn{
+  margin-left: 15px;
+}
+.operate-btn{
+  margin-bottom: 8px;
+  margin-left: 0;
+  margin-right: 10px;
+}
+/*数据表格 start*/
+.data-table{
+  padding: 0 30px 1px 30px;
+}
+.coin-img{
+  display: inline-block;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+/*数据表格 end*/
+
+@media (max-width: $lg) {
+  .top-title{
+    padding: 10px 15px;
+  }
+  .title-text{
+    font-size: 20px;
+  }
+  .search-panel{
+    padding: 0 15px;
+  }
+  /*数据表格 start*/
+  .data-table{
+    padding: 0 15px 1px 15px;
+  }
+  .coin-img{
+    display: inline-block;
+    vertical-align: middle;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  /*数据表格 end*/
+}

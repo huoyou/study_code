@@ -1,0 +1,158 @@
+@import "../../../common/css/break-points";
+.transfer-out-form{
+  padding: 15px 30px;
+}
+.form-label{
+  margin-bottom: 15px;
+}
+.error-tip{
+  min-height: 25px;
+  font-size: 16px;
+}
+.confirm-btn{
+  height: 45px;
+  line-height: 45px;
+  min-width: 180px;
+}
+
+.all-transfer{
+  margin-left: auto;
+}
+
+/*转出成功提示 start*/
+.transfer-out-success{
+  padding-top: 85px;
+  color: #333;
+}
+.success-img{
+  width: 97px;
+  height: 97px;
+  margin: 0 auto;
+}
+.success-status-text{
+  margin-top: 15px;
+  text-align: center;
+  font-size: 24px;
+}
+.transfer-out-amount{
+  margin: 20px 0 27px 0;
+  font-size: 40px;
+  font-weight: 600;
+  text-align: center;
+  .amount-unit{
+    margin-left: 10px;
+    font-size: 20px;
+  }
+}
+.ukfc-progress{
+  width: 70%;
+  margin: 0 auto;
+}
+.confirm-num{
+  margin-top: 14px;
+  font-size: 20px;
+  text-align: center;
+}
+.transfer-out-address-wrap{
+  margin-top: 30px;
+  font-size: 20px;
+  text-align: center;
+}
+.transfer-out-remark{
+  margin-top: 10px;
+  margin-bottom: 35px;
+  text-align: center;
+}
+/*转出成功提示 end*/
+
+@media (max-width: $lg) {
+  .transfer-out-form{
+    padding: 10px 15px;
+  }
+  .form-label{
+    margin-bottom: 10px;
+  }
+  .error-tip{
+    min-height: 20px;
+    font-size: 14px;
+  }
+  /*转出成功提示 start*/
+  .transfer-out-success{
+    padding-top: 45px;
+  }
+  .success-img{
+    width: 80px;
+    height: 80px;
+  }
+  .success-status-text{
+    margin-top: 10px;
+    text-align: center;
+    font-size: 20px;
+  }
+  .transfer-out-amount{
+    margin: 15px 0 20px 0;
+    font-size: 30px;
+    .amount-unit{
+      font-size: 18px;
+    }
+  }
+  .confirm-num{
+    margin-top: 10px;
+    font-size: 18px;
+  }
+  .transfer-out-address-wrap{
+    margin-top: 20px;
+    font-size: 18px;
+    text-align: center;
+  }
+  .transfer-out-address{
+    display: block;
+    margin-bottom: 8px;
+  }
+  .transfer-out-remark{
+    margin-top: 10px;
+    margin-bottom: 35px;
+    text-align: center;
+  }
+  /*转出成功提示 end*/
+}
+
+
+@media (max-width: $sm) {
+  /*转出成功提示 start*/
+  .transfer-out-success{
+    padding-top: 25px;
+  }
+  .success-img{
+    width: 60px;
+    height: 60px;
+  }
+  .success-status-text{
+    font-size: 18px;
+  }
+  .transfer-out-amount{
+    margin: 10px 0 10px 0;
+    font-size: 26px;
+    .amount-unit{
+      margin-left: 5px;
+      font-size: 16px;
+    }
+  }
+  .confirm-num{
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  .transfer-out-address-wrap{
+    margin-top: 15px;
+    font-size: 16px;
+    text-align: center;
+  }
+  .transfer-out-address{
+    display: block;
+    margin-bottom: 5px;
+  }
+  .transfer-out-remark{
+    margin-bottom: 25px;
+  }
+  /*转出成功提示 end*/
+}

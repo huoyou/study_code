@@ -1,0 +1,156 @@
+@import "../../common/css/break-points";
+.messages-page{
+  padding-top: 20px;
+}
+.message-container{
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #fff;
+}
+
+.message-list{
+  margin-top: 25px;
+}
+.message-item{
+  padding-bottom: 25px;
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 20px;
+}
+.message-top{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.message-title{
+  font-size: 20px;
+  font-weight: 500;
+  color: #333;
+}
+.message-time{
+  margin-left: 15px;
+  color: #999;
+}
+.message-content{
+  max-height: 72px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  color: #999;
+}
+
+.message-item.skeleton{
+  .message-title{
+    width: 50%;
+    height: 30px;
+    background-color: #eee;
+  }
+  .message-time{
+    width: 120px;
+    height: 24px;
+    background-color: #eee;
+  }
+  .message-content{
+    width: 65%;
+    height: 100px;
+    background-color: #eee;
+  }
+  .message-item-btn{
+    display: inline-block;
+    width: 80px;
+    height: 28px;
+    background-color: #eee;
+    &:first-child{
+      margin-right: 10px;
+    }
+  }
+}
+
+/*查看详情modal start*/
+.message-detail-modal-content{
+  padding: 15px 30px;
+}
+.modal-message-title{
+  margin-bottom: 8px;
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+}
+.modal-message-time{
+  margin-bottom: 15px;
+  text-align: center;
+  color: #999;
+}
+.skeleton{
+  .modal-message-title{
+    height: 30px;
+    background-color: #eee;
+  }
+  .modal-message-time{
+    width: 160px;
+    height: 24px;
+    margin: 0 auto 15px auto;
+    background-color: #eee;
+  }
+  .modal-message-content{
+    height: 200px;
+    margin-bottom: 25px;
+    background-color: #eee;
+  }
+}
+/*查看详情modal end*/
+
+@media (max-width: $xl) {
+  .message-list{
+    margin-top: 20px;
+  }
+  .message-item{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 15px;
+  }
+  .message-top{
+    margin-bottom: 8px;
+  }
+  .message-title{
+    font-size: 18px;
+  }
+}
+
+@media (max-width: $lg) {
+  .message-list{
+    margin-top: 15px;
+  }
+  .message-item{
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e6e6e6;
+    margin-bottom: 10px;
+  }
+  .message-top{
+    margin-bottom: 5px;
+  }
+  .message-title{
+    width: 100%;
+    margin-bottom: 5px;
+    font-size: 16px;
+  }
+  .message-time{
+    margin-left: auto;
+  }
+  .message-content{
+    max-height: 58px;
+  }
+
+  /*查看详情modal start*/
+  .message-detail-modal-content{
+    padding: 0 15px;
+  }
+  .modal-message-title{
+    margin-bottom: 5px;
+    font-size: 18px;
+  }
+  .modal-message-time{
+    margin-bottom: 10px;
+  }
+  /*查看详情modal end*/
+}

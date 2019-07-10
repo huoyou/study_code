@@ -1,0 +1,128 @@
+@import "../../../common/css/break-points";
+
+.account-layout{
+  position: relative;
+  padding: 100px 0;
+  background-color: #13182d;
+  &.img-bg{
+    background: #13182d url("../../../assets/images/account/account-bg.png") no-repeat center 0;
+  }
+}
+.account-bg-wrap{
+  text-align: center;
+  font-size: 0;
+  background-color: #13182d;
+}
+.account-bg{
+  display: inline-block;
+}
+.account-form{
+  min-width: 600px;
+  padding: 15px 0 30px 0;
+  margin-left: auto;
+  background-color: #fff;
+}
+.account-form-head{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 30px 0 30px;
+  margin-bottom: 28px;
+}
+.form-caption{
+  font-size: 36px;
+  color: #666;
+}
+.form-head-link{
+  font-size: 30px;
+  color: #ed7228;
+}
+.account-form-body{
+  padding: 0 30px;
+}
+.open-ukf-protocol{
+  color: #ed7228;
+  opacity: .8;
+  cursor: pointer;
+  transition: opacity .2s;
+  &:hover{
+    opacity: 1;
+  }
+}
+.account-submit-btn{
+  display: block;
+  width: 100%;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 18px;
+  color: #fff;
+  background-image: linear-gradient(155deg,#ff8042 0%,#f56d21 50%,#ea5902 100%),
+                    linear-gradient(#333333,#333333);
+  opacity: 0.85;
+  transition: opacity .2s;
+  &.is-disabled{
+    opacity: .65;
+    background-image: linear-gradient(155deg,#ff8042 0%,#f56d21 50%,#ea5902 100%),
+    linear-gradient(#333333,#333333);
+    &:hover{
+      opacity: .65;
+      background-image: linear-gradient(155deg,#ff8042 0%,#f56d21 50%,#ea5902 100%),
+      linear-gradient(#333333,#333333);
+    }
+  }
+  &:hover{
+    opacity: 1;
+    color: #fff;
+  }
+  &:focus{
+    color: #fff;
+  }
+}
+.origin-btn{
+  color: #666;
+  transition: color .2s;
+  &:hover{
+    color: #ee7b36;
+  }
+}
+
+@media (max-width: $xl) {
+  .account-form{
+    margin-right: auto;
+  }
+}
+@media (max-width: $lg) {
+
+  .account-form{
+    width: 100%;
+    min-width: auto;
+  }
+}
+
+@media (max-width: $sm) {
+  .account-layout{
+    padding: 50px 0;
+  }
+  .account-form{
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  .account-form-head{
+    padding: 0 15px;
+    margin-bottom: 20px;
+  }
+  .form-caption{
+    font-size: 24px;
+  }
+  .form-head-link{
+    font-size: 16px;
+  }
+  .account-form-body{
+    padding: 0 15px;
+  }
+  .form-control{
+
+  }
+}

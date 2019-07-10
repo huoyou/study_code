@@ -1,0 +1,45 @@
+@import "../../../common/css/break-points";
+
+.header-not-login {
+  .language-toggle {
+    margin-left: 21px;
+    &::after {
+      left: -21px;
+    }
+  }
+  .about-us-link {
+    position: relative;
+    display: block;
+    padding: 0 20px;
+    font-size: 20px;
+    color: rgba(255, 255, 255, .8);
+    transition: color .2s;
+    &:hover {
+      color: #fff;
+    }
+    &.active {
+      color: #ea5902;
+    }
+  }
+}
+
+@media (min-width: $lg) {
+  .header-not-login .container .row{
+    height: 100px;
+  }
+}
+
+@media (max-width: $xl) {
+  .header-not-login {
+    .about-us-link {
+      font-size: 16px;
+    }
+  }
+}
+@media (max-width: $md) {
+  .header-not-login {
+    .about-us-link {
+      font-size: 14px;
+    }
+  }
+}

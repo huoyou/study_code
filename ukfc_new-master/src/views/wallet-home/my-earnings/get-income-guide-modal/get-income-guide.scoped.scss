@@ -1,0 +1,16 @@
+.alert-wrap{
+  padding: 15px 30px 5px 30px;
+}
+.alert-text{
+  padding: 18px 15px;
+  color: #333;
+  background-color: #f5f5f5;
+}
+.tabs-content{
+  padding: 25px 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+.get-income-guide-content ::v-deep .el-tabs__header{
+  padding-top: 0;
+}

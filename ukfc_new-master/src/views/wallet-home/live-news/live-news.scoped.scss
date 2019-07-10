@@ -1,0 +1,154 @@
+@import "../../../common/css/break-points";
+.news-box{
+  padding: 15px 0;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 10px 0px rgba(153, 157, 173, 0.08);
+  background-color: #fff;
+}
+.live-news,
+.my-messages{
+  float: left;
+  width: 50%;
+  padding-right: 30px;
+}
+.hr{
+  display: none;
+}
+.live-news{
+  padding-left: 40px;
+}
+.news-icon{
+  float: left;
+  margin-right: 20px;
+}
+.news-list-wrap{
+  height: 24px;
+  margin-top: 3px;
+  overflow: hidden;
+}
+.news-item{
+  display: flex;
+}
+.news-title{
+  padding-right: 15px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #666;
+  transition: color .3s;
+  &:hover{
+    color: #ea5902;
+  }
+  &.no-hover:hover{
+    color: #666;
+  }
+}
+.news-country-img{
+  vertical-align: middle;
+  height: 24px;
+  margin-right: 5px;
+}
+.news-time{
+  margin-left: auto;
+  white-space: nowrap;
+  color: #a8a8a8;
+}
+.my-messages{
+  position: relative;
+  padding-left: 40px;
+  &::before{
+    position: absolute;
+    content: '/';
+    top: 3px;
+    left: 0;
+    font-size: 16px;
+    color: #666;
+  }
+}
+
+.news-item.skeleton{
+  .news-title{
+    display: block;
+    width: 60%;
+    height: 20px;
+    background-color: #eee;
+  }
+  .news-time{
+    display: block;
+    width: 70px;
+    background-color: #eee;
+  }
+}
+
+@media (max-width: $xl) {
+  .news-icon{
+    margin-right: 15px;
+  }
+}
+
+@media (max-width: $lg) {
+  .live-news,
+  .my-messages{
+    float: none;
+    width: 100%;
+    padding: 0 30px;
+  }
+  .hr{
+    display: block;
+    margin: 10px 30px 8px 30px;
+  }
+  .news-icon{
+    width: 30px*0.8;
+    height: 30px*0.8;
+  }
+  .live-news{
+    .news-list-wrap{
+      margin-top: 0;
+    }
+
+  }
+  .my-messages{
+    &::before{
+      display: none;
+    }
+    .news-list-wrap{
+      margin-top: 0;
+    }
+  }
+}
+
+@media (max-width: $sm) {
+  .news-box{
+    padding: 15px;
+    margin: 0 0px 20px 0px;
+  }
+  .live-news,
+  .my-messages{
+    float: none;
+    width: 100%;
+    padding: 0;
+  }
+  .hr{
+    display: block;
+    margin: 10px 0 8px 0;
+  }
+  .news-icon{
+    width: 30px*0.7;
+    height: 30px*0.7;
+    margin-right: 8px;
+  }
+  .news-time{
+    font-size: 12px;
+  }
+}
+@media (max-width: $xs) {
+  .news-icon{
+    margin-top: 2px;
+    width: 30px*0.55;
+    height: 30px*0.55;
+    //margin-right: 5px;
+  }
+  .hr{
+    margin-top: 8px;
+  }
+}

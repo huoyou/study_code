@@ -1,0 +1,418 @@
+@import "../../common/css/break-points";
+/*顶部banner start*/
+.top-banner{
+  position: relative;
+  text-align: center;
+  .top-banner-container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    .banner-text-wrap{
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      transform: translateY(-50%);
+    }
+    .banner-text1,
+    .banner-text2{
+      font-size: 68px;
+      text-align: center;
+    }
+    .banner-text2{
+      margin-top: 25px;
+      margin-bottom: 60px;
+      font-weight: 400;
+    }
+    .supervise{
+      font-size: 24px;
+      text-align: center;
+    }
+  }
+}
+/*顶部banner end*/
+
+/*关于我们介绍 start*/
+.about-us-introduce{
+  padding: 100px 0;
+  background-color: #fff;
+}
+.about-us-introduce-container{
+  padding-left: 0;
+  padding-right: 0;
+}
+.introduce-block+.introduce-block{
+  margin-top: 100px;
+}
+.introduce-block-left,
+.introduce-block-right{
+  width: 47%;
+}
+.introduce-block-left{
+  float: left;
+}
+.introduce-block-right{
+  float: right;
+}
+.introduce-caption{
+  margin-bottom: 35px;
+  font-size: 36px;
+  font-weight: 600;
+  color: #333;
+}
+/*关于我们介绍 end*/
+
+/*使命 start*/
+.mission-block{
+  position: relative;
+  height: 400px;
+  background: url("../../assets/images/about-us/mission.png") no-repeat center center;
+}
+.mission-container{
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  padding: 0 15px;
+  color: #fff;
+  text-align: center;
+  transform: translateY(-50%);
+}
+.mission-text{
+  margin-bottom: 65px;
+  font-size: 36px;
+  font-weight: 400;
+}
+.mission-content{
+  line-height: 1.8;
+}
+/*使命 end*/
+
+/*价值观 start*/
+.value-concept{
+  padding: 100px 0;
+  background-color: #fff;
+}
+.value-concept-container{
+  padding-left: 0;
+  padding-right: 0;
+}
+.value-concept-values{
+  position: relative;
+  padding: 0 20%;
+  margin-bottom: 35px;
+  text-align: center;
+  ol{
+    margin-top: 10%;
+    li{
+      font-size: 18px;
+      color: #333;
+      &+li{
+        margin-top: 12px;
+      }
+    }
+  }
+}
+.value-concept-text-en{
+  font-size: 26px;
+}
+.value-concept-text{
+  font-size: 60px;
+  letter-spacing: 16px;
+}
+.value-concept-explain{
+  margin-top: 35px;
+  color: #999;
+  text-align: center;
+}
+/*价值观 end*/
+
+@media (max-width: 1401px) {
+  /*顶部banner start*/
+  .top-banner{
+    .top-banner-container{
+      .banner-text1,
+      .banner-text2{
+        font-size: 60px;
+      }
+      .banner-text2{
+        margin-top: 25px;
+        margin-bottom: 50px;
+      }
+      .supervise{
+        font-size: 22px;
+        text-align: center;
+      }
+    }
+  }
+  /*顶部banner end*/
+}
+
+@media (max-width: $xl) {
+  /*顶部banner start*/
+  .top-banner{
+    .top-banner-container{
+      .banner-text1,
+      .banner-text2{
+        font-size: 50px;
+      }
+      .banner-text2{
+        margin-top: 15px;
+        margin-bottom: 40px;
+      }
+      .supervise{
+        font-size: 18px;
+        text-align: center;
+      }
+    }
+  }
+  /*顶部banner end*/
+
+  /*使命 start*/
+  .mission-block{
+    height: 300px;
+  }
+  .mission-text{
+    margin-bottom: 55px;
+    font-size: 36px;
+  }
+  /*使命 end*/
+}
+
+@media (max-width: $lg) {
+  /*顶部banner start*/
+  .top-banner{
+    .top-banner-container{
+      .banner-text1,
+      .banner-text2{
+        font-size: 44px;
+      }
+      .banner-text2{
+        margin-top: 10px;
+        margin-bottom: 30px;
+      }
+      .supervise{
+        font-size: 18px;
+        text-align: center;
+      }
+    }
+  }
+  /*顶部banner end*/
+
+  /*关于我们介绍 start*/
+  .about-us-introduce{
+    padding: 70px 0;
+  }
+  .introduce-block+.introduce-block{
+    margin-top: 70px;
+  }
+  .introduce-caption{
+    margin-bottom: 25px;
+    font-size: 30px;
+  }
+  /*关于我们介绍 end*/
+
+  /*使命 start*/
+  .mission-block{
+    height: 240px;
+  }
+  .mission-text{
+    margin-bottom: 40px;
+    font-size: 30px;
+  }
+  /*使命 end*/
+
+  /*价值观 start*/
+  .value-concept{
+    padding: 70px 0;
+  }
+  .value-concept-values{
+    padding: 0 10%;
+  }
+  .value-concept-text-en{
+    font-size: 24px;
+  }
+  .value-concept-text{
+    font-size: 50px;
+    letter-spacing: 12px;
+  }
+  /*价值观 end*/
+}
+
+@media (max-width: $md) {
+  /*顶部banner start*/
+  .top-banner{
+    .top-banner-container{
+      .banner-text1,
+      .banner-text2{
+        font-size: 38px;
+      }
+      .banner-text2{
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+      .supervise{
+        font-size: 16px;
+        text-align: center;
+      }
+    }
+  }
+  /*顶部banner end*/
+
+  /*关于我们介绍 start*/
+  .about-us-introduce{
+    padding: 40px 0;
+    background-color: #fff;
+  }
+  .about-us-introduce-container{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .introduce-block+.introduce-block{
+    margin-top: 30px;
+  }
+  .introduce-block-left,
+  .introduce-block-right{
+    width: 100%;
+  }
+  .introduce-block-left{
+    float: none;
+  }
+  .introduce-block-right{
+    float: none;
+  }
+  .coin-shares-introduce-block{
+    .introduce-block-left{
+      margin-bottom: 20px;
+    }
+  }
+  .ukf-group-introduce-block{
+    .introduce-block-right{
+      margin-top: 15px;
+    }
+  }
+  .introduce-caption{
+    margin-bottom: 15px;
+    font-size: 26px;
+  }
+  /*关于我们介绍 end*/
+
+  /*使命 start*/
+  .mission-block{
+    height: 200px;
+  }
+  .mission-text{
+    margin-bottom: 20px;
+    font-size: 26px;
+  }
+  /*使命 end*/
+
+  /*价值观 start*/
+  .value-concept{
+    padding: 50px 0;
+  }
+  .value-concept-container{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .value-concept-values{
+    position: relative;
+    padding: 0 0;
+    margin-bottom: 35px;
+    text-align: center;
+    ol{
+      margin-top: 0;
+      float: none!important;
+      &:nth-child(1){
+        margin-bottom: 20px;
+      }
+      &:nth-child(3){
+        margin-top: 20px;
+      }
+      li{
+        font-size: 16px;
+        &+li{
+          margin-top: 10px;
+        }
+      }
+    }
+    .circle-img{
+      width: 180px;
+    }
+  }
+  .value-concept-text-en{
+    font-size: 20px;
+  }
+  .value-concept-text{
+    font-size: 40px;
+    letter-spacing: 10px;
+  }
+  .value-concept-explain{
+    margin-top: 20px;
+  }
+  /*价值观 end*/
+}
+
+@media (max-width: $sm) {
+  /*顶部banner start*/
+  .top-banner{
+    .top-banner-container{
+      .banner-text1,
+      .banner-text2{
+        font-size: 24px;
+      }
+      .banner-text2{
+        margin-top: 5px;
+        margin-bottom: 10px;
+      }
+      .supervise{
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+  }
+  /*顶部banner end*/
+
+  /*关于我们介绍 start*/
+  .about-us-introduce{
+    padding: 25px 0;
+    background-color: #fff;
+  }
+  .introduce-block+.introduce-block{
+    margin-top: 15px;
+  }
+  .coin-shares-introduce-block{
+    .introduce-block-left{
+      margin-bottom: 10px;
+    }
+  }
+  .ukf-group-introduce-block{
+    .introduce-block-right{
+      margin-top: 10px;
+    }
+  }
+  .introduce-caption{
+    margin-bottom: 10px;
+    font-size: 22px;
+  }
+  /*关于我们介绍 end*/
+}
+
+@media (max-width: $xs) {
+  /*顶部banner start*/
+  .top-banner{
+    .top-banner-container{
+      .banner-text1,
+      .banner-text2{
+        font-size: 18px;
+      }
+      .banner-text2{
+        margin-bottom: 5px;
+      }
+    }
+  }
+  /*顶部banner end*/
+}

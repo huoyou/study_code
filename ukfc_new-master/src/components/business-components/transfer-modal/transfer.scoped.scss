@@ -1,0 +1,189 @@
+@import "../../../common/css/break-points";
+/*选择币种 start*/
+.choose-modal-content{
+  padding: 20px 3% 10px 3%;
+}
+.coin-item{
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 22%;
+  padding: 30px 0 25px 0;
+  margin: 0 1.5% 20px 1.5%;
+  border: 1px solid #e6e6e6;
+  cursor: pointer;
+  transition: box-shadow .2s;
+  &:hover{
+    box-shadow: 0 0 8px 0 rgba(0,0,0,0.1);
+  }
+}
+.clear-list-margin{
+  margin: 0 -1.5%;
+}
+.coin-img{
+  max-width: 80px;
+}
+.coin-name{
+  width: 100%;
+  padding: 0 5px;
+  margin-top: 15px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+/*选择币种 end*/
+
+/*转入地址 start*/
+.transfer-address-content{
+  padding: 20px 30px;
+}
+.transfer-address-caption{
+  text-align: center;
+  font-size: 20px;
+  font-weight: normal;
+  color: #666;
+}
+.qrcode-wrap{
+  padding: 40px 0;
+}
+.qrcode-box{
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  background-color: #f0f0f0;
+}
+.address-wrap{
+  margin-bottom: 20px;
+}
+.adderss-text,
+.copy-btn{
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 20px;
+}
+.adderss-text{
+  word-wrap: break-word;
+  word-break: break-all;
+  color: #333;
+}
+.copy-btn{
+  margin-left: 20px;
+  color: #ea5902;
+  cursor: pointer;
+}
+.attention{
+  padding-top: 20px;
+}
+.tip-text{
+  margin: 10px 0 35px 0;
+}
+.confirm-btn{
+  width: 180px;
+  height: 45px;
+  line-height: 45px;
+  font-size: 16px;
+}
+/*转入地址 end*/
+
+@media (max-width: $lg){
+  /*选择币种 start*/
+  .choose-modal-content{
+    padding: 10px 5.2% 0 5.2%;
+  }
+  .coin-item{
+    width: 28%;
+    margin: 0 2.6% 20px 2.6%;
+  }
+  .clear-list-margin{
+    margin: 0 -2.6%;
+  }
+  .coin-img{
+    max-width: 60px;
+  }
+  .coin-name{
+    font-size: 20px;
+  }
+  /*选择币种 end*/
+
+  /*转入地址 start*/
+  .transfer-address-content{
+    padding: 10px 15px;
+  }
+  .transfer-address-caption{
+    font-size: 18px;
+  }
+  .qrcode-wrap{
+    padding: 30px 0;
+  }
+  .qrcode-box{
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #f0f0f0;
+  }
+  .address-wrap{
+    margin-bottom: 10px;
+  }
+  .adderss-text,
+  .copy-btn{
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+  }
+  .copy-btn{
+    margin-top: 8px;
+  }
+  .attention{
+    padding-top: 10px;
+  }
+  .tip-text{
+    margin: 5px 0 25px 0;
+  }
+  /*转入地址 end*/
+}
+
+@media (max-width: $xs){
+  /*选择币种 start*/
+  .choose-modal-content{
+    padding: 10px 5% 0 5%;
+  }
+  .coin-item{
+    width: 40%;
+    margin: 0 5% 20px 5%;
+  }
+  .clear-list-margin{
+    margin: 0 -5%;
+  }
+  .coin-img{
+    max-width: 50px;
+  }
+  .coin-name{
+    font-size: 18px;
+  }
+  /*选择币种 end*/
+
+  /*转入地址 start*/
+  .transfer-address-content{
+    padding: 10px 15px;
+  }
+  .transfer-address-caption{
+    font-size: 16px;
+  }
+  .qrcode-wrap{
+    padding: 25px 0;
+  }
+ /* .qrcode-box{
+    width: 160px;
+    height: 160px;
+  }*/
+  .address-wrap{
+    margin-bottom: 10px;
+  }
+  .adderss-text,
+  .copy-btn{
+    font-size: 16px;
+  }
+  /*转入地址 end*/
+}

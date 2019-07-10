@@ -1,0 +1,115 @@
+@import "../../../common/css/break-points";
+
+.incomes {
+  padding-top: 15px;
+  ::v-deep .el-tabs__header{
+    padding-top: 0;
+  }
+  ::v-deep .el-tabs__nav-scroll,
+  ::v-deep .el-tab-pane{
+    padding: 0;
+  }
+}
+
+/*.incomes-container {
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #fff;
+}*/
+
+.amount-total {
+  padding-top: 5px;
+  font-size: 48px;
+  font-weight: bold;
+  color: #666;
+
+  .monetary-unit {
+    font-size: 18px;
+  }
+}
+
+/*搜索面板 start*/
+.search-panel {
+  margin-top: 5px;
+}
+.search-input-width{
+  width: 350px;
+  margin-right: 15px;
+  margin-bottom: 20px;
+}
+.search-input-wrap {
+  position: relative;
+  .form-control {
+    padding-left: 50px;
+  }
+  .el-icon-search {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    font-size: 20px;
+    color: #c8c8c8;
+    transform: translateY(-50%);
+  }
+}
+.search-btn-wrap{
+  margin-bottom: 20px;
+}
+/*搜索面板 end*/
+
+@media (max-width: $lg) {
+  .amount-total {
+    padding-top: 10px;
+    font-size: 38px;
+
+    .monetary-unit {
+      font-size: 16px;
+    }
+  }
+  /*搜索面板 start*/
+  .search-panel {
+    margin-top: 10px;
+  }
+  .search-input-width{
+    width: 47%;
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+  /*搜索面板 end*/
+}
+
+@media (max-width: $md) {
+  .amount-total {
+    font-size: 28px;
+
+    .monetary-unit {
+      font-size: 14px;
+    }
+  }
+  /*搜索面板 start*/
+  .search-input-wrap {
+    .form-control {
+      padding-left: 30px;
+    }
+    .el-icon-search {
+      position: absolute;
+      top: 50%;
+      left: 10px;
+      font-size: 16px;
+      color: #c8c8c8;
+      transform: translateY(-50%);
+    }
+  }
+  /*搜索面板 end*/
+}
+
+@media (max-width: $sm) {
+  .amount-total {
+    font-size: 20px;
+  }
+
+  /*搜索面板 start*/
+  .search-input-width {
+    width: 100%;
+  }
+  /*搜索面板 end*/
+}

@@ -1,0 +1,15 @@
+@import "reset";
+@import "bootstrap4-grid";
+@import "bootstrap4-modal";
+@import "tool";
+@import "flex";
+@import "form";
+@import "element-ui";
+
+/* header组件 css，因为 UHeader.vue、HeaderNotLogin.vue组件需要共同引用uheader.scss，
+因此将header的css放到index.scss中引入 */
+@import "../../components/business-components/header/uheader";
+// 引入自定义bootstrap modal弹窗css，因为它有两个弹窗组件使用到了，因此也将它放大index.scss中引入
+@import "./component-css/boot-modal";
+
+@import "common";

@@ -1,0 +1,134 @@
+@import "../../common/css/break-points";
+.feedback{
+  padding: 20px 0;
+}
+.feedback-container{
+  padding: 0;
+}
+
+.contact-input{
+  width: 50%;
+}
+
+/*.message-list{
+  padding: 0 48px 45px 48px;
+}*/
+.message-item{
+  padding: 25px 0;
+  border-bottom: 1px solid #e6e6e6;
+  &:last-child{
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  &>.message-list{
+    padding: 0;
+    margin: 0 30px 0 110px;
+  }
+}
+.user-avatar-img,
+.user-avatar-box,
+.user-avatar-text{
+  float: left;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-right: 30px;
+  overflow: hidden;
+}
+.user-avatar-box,
+.user-avatar-text{
+  line-height: 80px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+  background-color: #ea5902;
+}
+.user-avatar-text{
+  background-color: #ccc;
+}
+.message-content{
+  padding-top: 5px;
+  margin-bottom: 5px;
+  word-break: break-word;
+  word-wrap: break-word;
+  font-size: 20px;
+}
+.message-bottom{
+  color: #999;
+}
+.no-data,
+.loading-data{
+  padding: 110px 0;
+  text-align: center;
+  color: #999;
+}
+
+@media (max-width: $lg) {
+  .message-item{
+    padding: 15px 0;
+    &>.message-list{
+      margin-right: 15px;
+      margin-left: 75px;
+    }
+  }
+  .user-avatar-img,
+  .user-avatar-box,
+  .user-avatar-text{
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+  }
+  .user-avatar-box,
+  .user-avatar-text{
+    line-height: 60px;
+    font-size: 18px;
+  }
+  .message-content{
+    padding-top: 0;
+    font-size: 18px;
+  }
+  .message-bottom{
+    span{
+      display: block;
+      margin-right: 0;
+    }
+  }
+  .no-data,
+  .loading-data{
+    padding: 90px 0;
+  }
+}
+
+@media (max-width: $sm) {
+  .contact-input{
+    width: 100%;
+  }
+  .message-item{
+    &>.message-list{
+      margin-left: 55px;
+    }
+  }
+  .user-avatar-img,
+  .user-avatar-box,
+  .user-avatar-text{
+    width: 40px;
+    height: 40px;
+  }
+  .user-avatar-box,
+  .user-avatar-text{
+    line-height: 40px;
+    font-size: 14px;
+  }
+  .message-content{
+    padding-top: 0;
+    font-size: 16px;
+  }
+  .message-bottom{
+    font-size: 12px;
+  }
+  .no-data,
+  .loading-data{
+    padding: 90px 0;
+  }
+}

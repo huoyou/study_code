@@ -59,6 +59,10 @@ export default {
       type: Boolean,
       default: false
     },
+    scrollY: {
+      type: Boolean,
+      default: true
+    },
     /**
      * 是否派发滚动事件
      */
@@ -129,10 +133,10 @@ export default {
       type: String,
       default: ""
     },
-    loadingPosClass: {
-      type: String,
-      default: "pulldown-tip"
-    },
+    // loadingPosClass: {
+    //   type: String,
+    //   default: "pulldown-tip"
+    // },
     wrapperHeight: {
       type: String,
       default: ""
@@ -152,7 +156,8 @@ export default {
       loadingStatus: {
         showIcon: false,
         status: ""
-      }
+      },
+      loadingPosClass: ''
     };
   },
   mounted() {
@@ -174,6 +179,7 @@ export default {
         probeType: this.probeType,
         click: this.click, //默认会阻止浏览器的原生 click 事件。当设置为 true，better-scroll 会派发一个 click 事件
         scrollX: this.scrollX, //当设置为 true 的时候，可以开启纵向滚动
+        scrollY: this.scrollY,
         mouseWheel: {
           // pc端同样能滑动
           speed: 0.1,
@@ -184,6 +190,8 @@ export default {
         }
         // useTransition: false,
       });
+      // this.scroll.hasVerticalScroll = true;
+      // this.scroll.scrollerHeight = 1300;
       console.log('this.scroll',this.scroll)
       // 是否派发滚动事件
       if (this.listenScroll || this.pulldown || this.pullup) {
@@ -211,7 +219,7 @@ export default {
             // 上拉动作
             if (this.scroll.y <= this.scroll.maxScrollY + 50) {
               this.pullupTip = {
-                text: "上拉加载",
+                text: "加载更多",
                 rotate: "icon-rotate"
               };
             } else {
@@ -229,7 +237,8 @@ export default {
         this.scroll.on("scrollEnd", () => {
           // 滚动到底部
           if (this.scroll.y <= this.scroll.maxScrollY + 50) {
-            this.$emit("upLoadData");
+            this.loadingPosClass = "loading-up";
+            this.$emit("upLoadData",this.scroll.scrollerHeight);
           }
         });
       }
@@ -246,6 +255,7 @@ export default {
             //     rotate: "" // icon-rotate
             //   };
             // }, 600);
+            this.loadingPosClass = "loading-down";
             this.$emit("downLoadData");
           }
         });
@@ -311,6 +321,10 @@ export default {
           this.loadingStatus.showIcon = false;
           this.loadingStatus.status = "加载失败";
           break;
+        case "upLoadingNoMore":
+          this.loadingStatus.showIcon = false;
+          this.loadingStatus.status = "已全部加载";
+          break;
         case "removeLoading":
           this.loadingStatus.showIcon = false;
           this.loadingStatus.status = "";
@@ -330,7 +344,7 @@ export default {
   .content-bg {
     background-color: #fff;
   }
-  .loading-pos {
+  .loading-down {
     position: absolute;
     left: 0;
     top: 0;
@@ -340,7 +354,7 @@ export default {
     text-align: center;
     z-index: 2000;
   }
-  .loading-pos1 {
+  .loading-up {
     position: absolute;
     left: 0;
     bottom: 0;
@@ -359,7 +373,7 @@ export default {
     color: #fcfcfc;
     text-align: center;
     z-index: 2000;
-    background-color: rgba(7, 17, 27, 0.7);
+    // background-color: rgba(7, 17, 27, 0.7);
   }
   .pullup-tip {
     position: absolute;
@@ -371,10 +385,10 @@ export default {
     text-align: center;
     z-index: 2000;
   }
-  .loading-pos {
+  .loading-up {
     background-color: rgba(7, 17, 27, 0.7);
   }
-  .loading-pos1 {
+  .loading-down {
     background-color: rgba(7, 17, 27, 0.7);
   }
   .pulldown-tip {

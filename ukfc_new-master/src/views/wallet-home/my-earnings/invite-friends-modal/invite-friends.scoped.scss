@@ -1,0 +1,170 @@
+@import "../../../../common/css/break-points";
+/*我的资料 start*/
+.my-info{
+  padding: 25px 30px 40px 30px;
+}
+.my-avatar{
+  float: left;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 30px;
+  overflow: hidden;
+}
+.my-username{
+  padding-top: 15px;
+  margin-bottom: 15px;
+  font-size: 24px;
+  font-weight: normal;
+  color: #333;
+}
+.my-invite-code{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  text-align: right;
+  color: #666;
+}
+.invite-code-value{
+  margin-top: 22px;
+  line-height: 1;
+  font-size: 34px;
+}
+/*我的资料 end*/
+
+.content-bottom{
+  padding: 0 30px;
+}
+.qrcode-wrap{
+  padding: 100px 0 95px 0;
+}
+.qrcode-box{
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  background-color: #f0f0f0;
+}
+.text{
+  font-size: 20px;
+  margin-bottom: 35px;
+  text-align: center;
+  color: #666;
+}
+.bottom-btn{
+  margin-bottom: 20px;
+  &+.bottom-btn{
+    margin-left: 20px;
+  }
+}
+.save-img-btn{
+  line-height: 1.2;
+  min-width: 180px;
+  border-radius: 23px;
+}
+
+
+@media (max-width: $lg) {
+  /*我的资料 start*/
+  .my-info{
+    padding: 0 15px 15px;
+  }
+  .my-avatar{
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+  }
+  .my-username{
+    padding-top: 5px;
+    margin-bottom: 5px;
+    font-size: 20px;
+  }
+  .my-invite-code{
+    position: static;
+    margin-top: 5px;
+    text-align: left;
+  }
+  .invite-code-label{
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 15px;
+  }
+  .invite-code-value{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 0;
+    line-height: 1;
+    font-size: 20px;
+  }
+  /*我的资料 end*/
+
+  .content-bottom{
+    padding: 0 15px;
+  }
+  .qrcode-wrap{
+    padding: 70px 0 65px 0;
+  }
+  .qrcode-box{
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background-color: #f0f0f0;
+  }
+  .text{
+    font-size: 16px;
+  }
+  .bottom-btn{
+    margin-bottom: 20px;
+    &+.bottom-btn{
+      margin-left: 20px;
+    }
+  }
+  .save-img-btn{
+    font-size: 16px;
+  }
+}
+
+@media (max-width: $sm) {
+  /*我的资料 start*/
+  .my-avatar{
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+  }
+  .my-username{
+    padding-top: 0;
+    font-size: 16px;
+  }
+  .my-invite-code{
+    position: static;
+    margin-top: 5px;
+    text-align: left;
+  }
+  .invite-code-label{
+    margin-right: 10px;
+  }
+  .invite-code-value{
+    margin-top: 0;
+    line-height: 1;
+    font-size: 18px;
+  }
+  /*我的资料 end*/
+
+
+  .qrcode-wrap{
+    padding: 40px 0 35px 0;
+  }
+  .qrcode-box{
+    width: 160px;
+    height: 160px;
+  }
+  .text{
+    font-size: 14px;
+  }
+  .bottom-btn{
+    width: 100%;
+    margin-bottom: 20px;
+    &+.bottom-btn{
+      margin-left: 0;
+    }
+  }
+}

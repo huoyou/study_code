@@ -1,0 +1,87 @@
+@import "../../common/css/break-points";
+.article-detail-page{
+  padding: 20px 0;
+}
+.article-detail-container{
+  padding-top: 70px;
+  padding-left: 0;
+  padding-right: 0;
+  background-color: #fff;
+}
+.article-title{
+  margin-bottom: 15px;
+  font-size: 36px;
+  color: #333;
+  text-align: center;
+  .el-button{
+    vertical-align: middle;
+  }
+}
+.article-author{
+  margin-bottom: 10px;
+  text-align: center;
+  color: #999;
+  span + span{
+    margin-left: 40px;
+  }
+}
+.article-time{
+  margin-bottom: 30px;
+  color: #999;
+  text-align: center;
+}
+.article-content{
+	min-height: 40vh;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  color: #333;
+	&.skeleton{
+		background-color: #f2f2f2;
+	}
+}
+
+@media (max-width: $lg) {
+  .article-detail-container{
+    padding-top: 40px;
+  }
+  .article-title{
+    margin-bottom: 10px;
+    font-size: 30px;
+  }
+  .article-author{
+    margin-bottom: 10px;
+    span + span{
+      margin-left: 30px;
+    }
+  }
+  .article-time{
+    margin-bottom: 20px;
+  }
+  .article-content{
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: $md) {
+  .article-detail-container{
+    padding-top: 20px;
+  }
+  .article-title{
+    margin-bottom: 5px;
+    font-size: 26px;
+  }
+  .article-author{
+    margin-bottom: 5px;
+    span + span{
+      margin-left: 20px;
+    }
+  }
+  .article-time{
+    margin-bottom: 15px;
+  }
+  .article-content{
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+}

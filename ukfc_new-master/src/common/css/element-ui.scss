@@ -1,0 +1,359 @@
+/**
+  修改 element ui 样式
+ */
+@import "break-points";
+
+/*修改 element-ui 下拉框 样式 start*/
+body .ukfc-select{
+  &.block{
+    display: block;
+  }
+  .el-input__inner{
+    height: 45px;
+    line-height: 45px;
+    border-color: #e6e6e6;
+    border-radius: 0;
+    font-size: 16px;
+    color: #666;
+    transition: all .2s;
+    &:hover{
+      border-color: #e6e6e6;
+      box-shadow: 0 0 6px 0 rgba(0,0,0,0.08);
+    }
+    &:focus{
+      border-color: #e6e6e6;
+    }
+  }
+  .el-input.is-focus .el-input__inner{
+    border-color: #e6e6e6;
+    box-shadow: 0 0 8px 0 rgba(0,0,0,0.1);
+  }
+}
+
+body .ukfc-select-popover{
+  border: none;
+  border-radius: 0;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  &.el-popper[x-placement^=bottom]{
+    margin-top: 5px!important;
+  }
+  .el-select-dropdown__list{
+    padding: 0;
+  }
+  .el-select-dropdown__item{
+    height: 45px;
+    line-height: 45px;
+    font-size: 16px;
+    text-align: center;
+    color: #666;
+    transition: color .2s, background-color .2s;
+    &.hover,
+    &:hover{
+      color: #ea5902;
+      background-color: #3d3d3d;
+    }
+  }
+  .popper__arrow{
+    display: none;
+  }
+}
+/*修改 element-ui 下拉框 样式 end*/
+
+/*修改 element-ui 日期选择 样式 start*/
+body .ukfc-date-editor{
+  .el-input__inner{
+    height: 45px;
+    line-height: 45px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-color: #e6e6e6;
+    border-radius: 0;
+    font-size: 16px;
+    color: #666;
+    &:hover{
+      border-color: #e6e6e6;
+      box-shadow: 0 0 6px 0 rgba(0,0,0,0.08);
+    }
+    &:focus{
+      box-shadow: 0 0 8px 0 rgba(0,0,0,0.1);
+    }
+  }
+  .el-input__prefix,
+  .el-input__suffix{
+    display: none;
+  }
+}
+/*修改 element-ui 日期选择 样式 end*/
+
+/*修改 element-ui tabs 样式 start*/
+body .ukfc-tabs{
+  .el-tabs__header{
+    padding-top: 30px;
+    margin-bottom: 0;
+  }
+  .el-tabs__nav-wrap{
+    &::after{
+      height: 1px;
+      background-color: #e6e6e6;
+    }
+  }
+  .el-tabs__nav-scroll{
+    padding: 0 40px;
+  }
+  .el-tabs__active-bar{
+    background-color: #ea5902;
+  }
+  .el-tabs__item{
+    padding: 22px 15px;
+    height: auto;
+    line-height: 1;
+    font-size: 16px;
+    color: #999;
+    &:hover{
+      color: #ea5902;
+    }
+    &.is-active{
+      font-size: 24px;
+      color: #ea5902;
+    }
+  }
+  .el-tab-pane{
+    padding: 0 40px;
+  }
+}
+/*修改 element-ui tabs 样式 end*/
+
+/*修改 element-ui table 样式 start*/
+body .ukfc-table{
+  border-right: 1px solid #dcdcdc;
+  table{
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  &::before{
+    display: none;
+  }
+  th, td{
+    padding: 10px 0;
+    text-align: center;
+    font-size: 16px;
+    color: #333;
+  }
+  &.text-left{
+    th, td{
+      text-align: left;
+    }
+  }
+  &.text-right{
+    th, td{
+      text-align: right;
+    }
+  }
+  th.is-leaf,
+  td{
+    border: 1px solid #dcdcdc;
+  }
+  th.is-leaf{
+    border-bottom: none;
+    font-weight: normal;
+    background-color: #e6e6e6;
+  }
+  .el-table__empty-block{
+    height: 200px;
+    border: 1px solid #dcdcdc;
+    border-right: none;
+    font-size: 16px;
+  }
+}
+/*修改 element-ui table 样式 end*/
+
+/*修改 element-ui 分页 样式 start*/
+body .ukfc-pagination{
+  padding: 0;
+  &.is-background{
+    .btn-prev,
+    .el-pager li,
+    .btn-next{
+      font-weight: normal;
+      color: #b4b4b4;
+      border: 1px solid #c8c8c8;
+      border-radius: 0;
+      background-color: #fff;
+      transition: color .2s, border-color .2s;
+      &:hover{
+        color: #ea5902;
+        border-color: #ea5902;
+      }
+      &:not(.disabled).active{
+        border-color: #ea5902;
+      }
+    }
+    .btn-prev,
+    .btn-next{
+      &:disabled{
+        &:hover{
+          border-color: #c8c8c8;
+        }
+      }
+    }
+    .btn-next{
+      margin-right: 0;
+    }
+  }
+}
+/*修改 element-ui 分页 样式 end*/
+
+/*修改 element-ui 进度条 样式 start*/
+body .ukfc-progress{
+  .el-progress-bar__outer{
+    background-color: #c8c8c8;
+  }
+  &.is-success .el-progress-bar__inner{
+    background-color: #34a853;
+  }
+}
+/*修改 element-ui 进度条 样式 end*/
+
+/*修改 element-ui 评分 样式 start*/
+body .ukfc-el-rate{
+  .el-rate__icon{
+    font-size: 20px;
+    margin-right: 3px;
+  }
+}
+/*修改 element-ui 评分 样式 end*/
+
+/*修改 element-ui 多行文本框 样式 start*/
+body .ukfc-textarea{
+  .el-textarea__inner{
+    border-color: #e6e6e6;
+    border-radius: 0;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, "宋体", sans-serif;
+    color: #666;
+    &:hover{
+      box-shadow: 0 0 6px 0 rgba(0,0,0,0.08);
+    }
+    &:focus{
+      box-shadow: 0 0 8px 0 rgba(0,0,0,0.1);
+    }
+  }
+}
+/*修改 element-ui 多行文本框 样式 end*/
+
+@media (min-width: $lg) {
+  /*修改 element-ui 分页 样式 start*/
+  body .ukfc-pagination{
+    &.is-background{
+      .btn-prev,
+      .el-pager li,
+      .btn-next{
+        min-width: 45px;
+        height: 45px;
+        line-height: 45px;
+        font-size: 16px;
+      }
+    }
+  }
+  /*修改 element-ui 分页 样式 end*/
+  /*修改 element-ui checkbox 样式 start*/
+  body .ukfc-checkbox{
+    &.el-checkbox{
+      margin-right: 15px;
+      font-size: 16px;
+    }
+    .el-checkbox__inner{
+      width: 18px;
+      height: 18px;
+      &::after{
+        width: 5px;
+        height: 9px;
+        left: 5px;
+      }
+    }
+    .el-checkbox__label{
+      padding-left: 15px;
+      font-size: 16px;
+    }
+  }
+  /*修改 element-ui checkbox 样式 end*/
+}
+
+@media (max-width: $lg) {
+  /*修改 element-ui 下拉框 样式 start*/
+  body .ukfc-select{
+    .el-input__inner{
+      height: 40px;
+      line-height: 40px;
+      font-size: 14px;
+    }
+  }
+  body .ukfc-select-popover{
+    .el-select-dropdown__item{
+      height: 40px;
+      line-height: 40px;
+      font-size: 14px;
+    }
+  }
+  /*修改 element-ui 下拉框 样式 end*/
+
+  /*修改 element-ui 日期选择 样式 start*/
+  body .ukfc-date-editor{
+    .el-input__inner{
+      height: 40px;
+      line-height: 40px;
+      font-size: 14px;
+    }
+  }
+  /*修改 element-ui 日期选择 样式 end*/
+
+  /*修改 element-ui button 样式 start*/
+  body .el-button{
+    font-size: 14px;
+  }
+  /*修改 element-ui button 样式 end*/
+
+  /*修改 element-ui table 样式 start*/
+  body .ukfc-table{
+    th, td{
+      padding: 8px 0;
+      font-size: 14px;
+    }
+    .el-table__empty-block{
+      font-size: 14px;
+    }
+  }
+  /*修改 element-ui table 样式 end*/
+
+  /*修改 element-ui 多行文本框 样式 start*/
+  body .ukfc-textarea{
+    .el-textarea__inner{
+      font-size: 14px;
+    }
+  }
+  /*修改 element-ui 多行文本框 样式 end*/
+}
+
+@media (max-width: $md) {
+  /*修改 element-ui tabs 样式 start*/
+  body .ukfc-tabs{
+    .el-tabs__header{
+      padding-top: 15px;
+    }
+    .el-tabs__nav-scroll{
+      padding: 0 15px;
+    }
+    .el-tabs__item{
+      padding: 15px 15px;
+      font-size: 14px;
+      color: #999;
+      &.is-active{
+        font-size: 16px;
+      }
+    }
+    .el-tab-pane{
+      padding: 0 15px;
+    }
+  }
+  /*修改 element-ui tabs 样式 end*/
+}

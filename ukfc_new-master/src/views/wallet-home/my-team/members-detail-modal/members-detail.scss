@@ -1,0 +1,17 @@
+@import "../../../../common/css/break-points";
+body .his-members-popover{
+  margin-top: -30px!important;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.21);
+}
+
+@media (max-width: $lg) {
+  body .his-members-popover{
+    margin-top: -25px!important;
+  }
+}
+
+@media (max-width: $xs) {
+  body .his-members-popover{
+    margin-top: -15px!important;
+  }
+}

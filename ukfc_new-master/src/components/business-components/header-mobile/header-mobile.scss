@@ -1,0 +1,96 @@
+.header-mobile{
+  position: fixed;
+  top: 0;
+  right: -320px;
+  width: 290px;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow: 0 12px 15px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  background-color: #fff;
+  transition: right .3s;
+  &.header-show{
+    right: 0;
+  }
+  .el-button.mb-15{
+    margin-bottom: 15px;
+  }
+  .user-info{
+    padding: 10px 15px 0 15px;
+  }
+  .user-avatar,
+  .user-avatar-text{
+    float: left;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+  .user-avatar-text{
+    line-height: 45px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #bbb;
+  }
+  .username{
+    /*line-height: 50px;*/
+    padding-top: 5px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #ea5902;
+    word-break: break-all;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+  .security-setting-btn{
+    width: 60%;
+  }
+  .lang-trigger{
+    display: inline-block;
+    height: 36px;
+    line-height: 34px;
+    padding: 0 20px;
+    border: 1px solid #dcdfe6;
+    cursor: pointer;
+    transition: border-color .2s, color .2s;
+    &:hover{
+      color: #ea5902;
+      border-color: #ea5902;
+    }
+  }
+  .country-img{
+    height: 30px;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+
+  /*导航 start*/
+  .nav-item{
+    border-bottom: 1px solid #e6e6e6;
+  }
+  .nav-link,
+  .nav-title{
+    display: block;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #ea5902;
+    &.active{
+      font-weight: 600;
+    }
+  }
+  .nav-title{
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  .sub-nav{
+    .nav-link{
+      padding: 5px 15px 5px 30px;
+      font-weight: 400;
+      color: #666;
+    }
+  }
+  /*导航 end*/
+}
