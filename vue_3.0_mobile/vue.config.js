@@ -1,13 +1,27 @@
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const isProduction = process.env.NODE_ENV === 'production';
 const path = require('path')
 const resolve = dir => {
     return path.join(__dirname, dir)
 }
+const cdn = {
+    css: [],
+    js: [
+        'https://xxx-cdn-path/vue.runtime.min.js',
+        'https://xxx-cdn-path/vue-router.min.js',
+        'https://xxx-cdn-path/vuex.min.js',
+        'https://xxx-cdn-path/axios.min.js',
+    ]
+}
 module.exports = {
     publicPath: './',
     outputDir: 'dist', // 打包输出路径
-    productionSourceMap: false, // 上线产品不生成source map
     chainWebpack: config => {
+        // 引入babel-polyfill
+        config
+            .entry('index')
+            .add('babel-polyfill')
+            .end();
         // 配置别名
         config.resolve.alias
             .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
@@ -22,17 +36,23 @@ module.exports = {
                 bypassOnDebug: true
             })
             .end()
+        // 移除 prefetch 插件
+        config.plugins.delete('preload');
+        config.plugins.delete('prefetch');
     },
-    configureWebpack(config) {
+    configureWebpack: config => {
         if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'sit' || process.env.NODE_ENV === 'sit_green') {
             // 去除console.log
             let removeConsole = new UglifyJSPlugin({
                 uglifyOptions: {
                     compress: {
+                        warnings: false,
+                        drop_debugger: true,
                         drop_console: true,
                         pure_funcs: ['console.log']
                     }
                 },
+                sourceMap: false,
                 parallel: os.cpus().length * 2
             });
             // 打包web文件夹 ---------- 已放到zipFile.js中去打包
@@ -50,11 +70,22 @@ module.exports = {
                     ]
                 }
             });
-
+            config.externals = {
+                'vue': 'Vue',
+                'vuex': 'Vuex',
+                'vue-router': 'VueRouter',
+                'axios': 'axios'
+            }
             config.plugins.push(removeConsole);
             config.plugins.push(fileManager);
+        } else {
+            // 为开发环境修改配置...
         }
     },
+    // 上线产品不生成source map
+    productionSourceMap: false,
+    //是否为 Babel 或 TypeScript 使用 thread-loader。该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
+    parallel: require('os').cpus().length > 1,
     //前端代理
     devServer: {
         open: true, // 自动打开浏览器
