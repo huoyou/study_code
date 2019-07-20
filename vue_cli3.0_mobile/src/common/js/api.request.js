@@ -1,5 +1,5 @@
-import HttpRequest from '@/libs/axios'
-import { baseUrl } from '@/config'
+import HttpRequest from '@/common/js/axios'
+import config from '@/config'
 
-const axios = new HttpRequest(baseUrl)
+const axios = new HttpRequest(config.apiUrl)
 export default axios

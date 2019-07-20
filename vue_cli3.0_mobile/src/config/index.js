@@ -1,4 +1,4 @@
-import apiUrl from './baseUrl'
+import baseUrl from './baseUrl'
 export default {
   /**
    * @description token在Cookie中存储的天数，默认1天
@@ -11,9 +11,9 @@ export default {
    */
   useI18n: false,
 
-  homeName: 'home',
+  homePage: 'home',
   /**
    * @description api请求基础路径
    */
-  baseUrl: apiUrl
+  apiUrl: baseUrl
 }

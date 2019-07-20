@@ -1,4 +1,4 @@
-import axios from '@/libs/api.request'
+import axios from '@/common/js/api.request'
 
 /**
  * 查询用户信息

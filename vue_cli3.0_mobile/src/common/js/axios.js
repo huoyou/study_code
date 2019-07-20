@@ -1,8 +1,9 @@
 import axios from 'axios'
-import { getStore } from '@/libs/util'
+import { getStore } from '@/common/js/util'
+import config from '@/config'
 // import { Spin } from 'iview'
 class HttpRequest {
-  constructor (baseUrl = baseURL) {
+  constructor (baseUrl = config.apiUrl) {
     this.baseUrl = baseUrl
     this.queue = {}
   }

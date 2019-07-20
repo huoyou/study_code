@@ -6,5 +6,8 @@ export default {
     },
     [types.SET_AGE](state, age) {
         state.age = age;
+    },
+    [types.SET_HAS_GET_INFO](state, hasGetInfo) {
+        state.hasGetInfo = hasGetInfo;
     }
 };  

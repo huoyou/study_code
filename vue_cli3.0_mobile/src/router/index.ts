@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 import routes from './rouer-components';
 import store from '@/store';
+import config from '@/config'
 import { setStore, getStore } from '@/common/js/util'
 
 Vue.use(Router);
@@ -9,7 +10,6 @@ let router = new Router({
   mode: 'hash',
   routes
 });
-
 const LOGIN_PAGE_NAME = 'login';
 
 router.beforeEach((to, from, next) => {
@@ -20,25 +20,42 @@ router.beforeEach((to, from, next) => {
   } else {
     document.title = '';
   }
+  // 加载用户信息
+  // store.dispatch('getUserInfo').then(user => {
+  //   console.log('user',user)
+  //   // next({ ...to })
+  // }).catch(() => {
+  //   setStore('token', '')
+  //   next({ name: LOGIN_PAGE_NAME })
+  // })
   if (!token && to.name !== LOGIN_PAGE_NAME) {
     // 未登录且要跳转的页面不是登录页
+    console.log('未登录且要跳转的页面不是登录页')
     next({
       name: LOGIN_PAGE_NAME // 跳转到登录页
     })
   } else if (!token && to.name === LOGIN_PAGE_NAME) {
     // 未登陆且要跳转的页面是登录页
     next() // 跳转
+    store.dispatch('getUserInfo').then(user => {
+     console.log('user',user)
+    }).catch(() => {
+      setStore('token', '')
+      next({ name: LOGIN_PAGE_NAME })
+    })
+    console.log('未登陆且要跳转的页面是登录页')
   } else if (token && to.name === LOGIN_PAGE_NAME) {
     // 已登录且要跳转的页面是登录页
+    console.log('已登录且要跳转的页面是登录页')
     next({
-      name: 'home' // 跳转到home页
+      name: config.homePage // 跳转到home页
     })
   } else {
     // 加载用户信息
     store.dispatch('getUserInfo').then(user => {
       next({ ...to })
     }).catch(() => {
-      setStore('token','')
+      setStore('token', '')
       next({ name: LOGIN_PAGE_NAME })
     })
   }
