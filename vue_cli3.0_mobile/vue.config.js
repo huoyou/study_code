@@ -5,6 +5,7 @@ var FStream = require('fs');
 const path = require('path');
 const merge = require('webpack-merge');                        // ts用
 const tsImportPluginFactory = require('ts-import-plugin');     // ts用
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const resolve = dir => {
     return path.join(__dirname, dir)
@@ -39,6 +40,7 @@ module.exports = {
             .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
             .set('_c', resolve('src/components'))
             .set('_assets', resolve('src/assets'))
+            .set('_common', resolve('src/common'))
         // 压缩图片
         config.module
             .rule('images')
@@ -117,6 +119,8 @@ module.exports = {
                     ]
                 }
             });
+            // 打包分析
+            let BundleAnalyzer = new BundleAnalyzerPlugin({})
             // config.externals = {
             //     'vue': 'Vue',
             //     'vuex': 'Vuex',
@@ -125,8 +129,19 @@ module.exports = {
             // }
             config.plugins.push(removeConsole);
             config.plugins.push(fileManager);
+            config.plugins.push(BundleAnalyzer);
         } else {
             // 为开发环境修改配置...
+        }
+    },
+    css: {
+        loaderOptions: {
+            sass: {
+                data: `
+                @import "@/common/css/mixin.scss";
+                @import "@/common/css/_var.scss";
+                `
+            }
         }
     },
     // 上线产品不生成source map

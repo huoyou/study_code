@@ -340,22 +340,3 @@ export const isWifi = () => {
     }
 };
 
-/**
- * 首字母大写
- * @param str
- * @returns {string}
- */
-export const fistLetterUpper = (str) => {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-};
-
-/**
- * 过滤非法字符串
- */
-export const illegalFilter = (str) => {
-    let regEn = /[`~!@#$%^&*()_+<>?:"{},.\/;'[\]]/im;
-    let regCn = /[·！#￥（——）：；“”‘、，|《。》？、【】[\]]/im;
-
-    if (regEn.test(str) || regCn.test(str)) return false;
-    return true;
-};

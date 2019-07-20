@@ -4,8 +4,11 @@ import './plugins/index'
 import router from './router/index'
 import i18n from './common/lang/i18n.js';
 import store from './store/index.js'
-import 'amfe-flexible'
 import FastClick from 'fastclick'
+// @ts-ignore
+import filters  from '_common/js/filters'
+import 'amfe-flexible'
+
 
 Vue.config.productionTip = false;
 
@@ -18,6 +21,11 @@ FastClick.prototype.onTouchEnd = function (event:any) {
     return false;
   }
 }
+
+// 全局过滤器
+Object.keys(filters).forEach(filterName => {
+  Vue.filter(filterName, filters[filterName])
+})
 
 new Vue({
   router,
