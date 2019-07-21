@@ -1,19 +1,19 @@
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CompressionPlugin = require('compression-webpack-plugin');
 const os = require('os');
 var FStream = require('fs');
 const path = require('path');
 const merge = require('webpack-merge');                        // ts用
 const tsImportPluginFactory = require('ts-import-plugin');     // ts用
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const resolve = dir => {
     return path.join(__dirname, dir)
 };
 
 const isProduction = process.env.NODE_ENV === 'production';
-const useCdn = false;
-const outputDirName = 'dist';
+const configSet = 'dist';
 const cdn = {
     css: [],
     js: [
@@ -27,7 +27,7 @@ const cdn = {
 
 module.exports = {
     publicPath: './',
-    outputDir: outputDirName, // 打包输出路径
+    outputDir: configSet, // 打包输出路径
     lintOnSave: false, // eslint-loader 是否在保存的时候检查
     chainWebpack: config => {
         // 引入babel-polyfill
@@ -112,24 +112,30 @@ module.exports = {
                     ],*/
                     archive: [
                         {
-                            source: outputDirName,
-                            destination: `${outputDirName}.zip`,
+                            source: configSet,
+                            destination: `${configSet}.zip`,
                             format: 'zip',
                         }
                     ]
                 }
             });
+            // zip压缩
+            let Compression = new CompressionPlugin({
+                filename: '[path].gz[query]',
+                algorithm: 'gzip',
+                test: new RegExp('\\.(' + ['js', 'css'].join('|') + ')$'),
+                threshold: 8192,
+                minRatio: 0.8,
+            });
             // 打包分析
-            let BundleAnalyzer = new BundleAnalyzerPlugin({})
+            let BundleAnalyzer = new BundleAnalyzerPlugin();
             // config.externals = {
             //     'vue': 'Vue',
             //     'vuex': 'Vuex',
             //     'vue-router': 'VueRouter',
             //     'axios': 'axios'
             // }
-            config.plugins.push(removeConsole);
-            config.plugins.push(fileManager);
-            config.plugins.push(BundleAnalyzer);
+            config.plugins = [...config.plugins, removeConsole, fileManager, Compression, BundleAnalyzer];
         } else {
             // 为开发环境修改配置...
         }

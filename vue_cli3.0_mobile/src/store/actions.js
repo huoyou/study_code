@@ -1,3 +1,4 @@
+// @ts-ignore
 import * as types from './mutation-type.js';
 import { login, logout, queryUser } from '@/api/user'
 

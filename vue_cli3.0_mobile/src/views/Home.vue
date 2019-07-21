@@ -21,7 +21,6 @@
       return {};
     },
     mounted() {
-      console.log(22222);
     },
     methods: {}
   })

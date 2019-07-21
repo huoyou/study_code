@@ -1,5 +1,15 @@
-import axios from '@/common/js/api.request'
+import axios from '.'
 
+//上传图片
+export const uploadFile = params => {
+  const res = axios.request({
+    method: 'post',
+    url: '/upload',
+    data: params,
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+  return res
+}
 /**
  * 查询用户信息
  */
