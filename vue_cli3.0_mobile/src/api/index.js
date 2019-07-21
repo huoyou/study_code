@@ -1,14 +1,15 @@
 import axios from 'axios'
 import router from '@/router'
-import { getStore,removeStore } from '@/common/js/util'
+import { getStore, removeStore } from '@/common/js/util'
 import config from '@/config'
 
 const service = axios.create({
   // 设置超时时间
   timeout: 6000,
-  baseURL: config.apiUrl
+  baseURL: config.apiUrl,
 })
 service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+// const defaultHeaders = {'Content-Type': 'application/x-www-form-urlencoded'};
 /**
  * 请求前拦截
  * 用于处理需要在请求前的操作
@@ -48,9 +49,9 @@ service.interceptors.response.use(response => {
   }
 }, error => {
   // 请求响应后关闭加载框
-//   if (loading) {
-//     loading.close()
-//   }
+  //   if (loading) {
+  //     loading.close()
+  //   }
   // 断网 或者 请求超时 状态
   if (!error.response) {
     // 请求超时状态
@@ -102,5 +103,39 @@ service.interceptors.response.use(response => {
   return Promise.reject(error);
 })
 
-export default service
+// export default service
+// 定义对外Get、Post、File请求
+export default {
+  get(url, param = {}, headers = {}) {
+    return service.get(url, {
+      params: param,
+      headers,
+    })
+  },
+  post(url, param = null, headers = {}) {
+    return service.post(url, param, {
+      headers,
+    })
+  },
+  put(url, param = null, headers = {}) {
+    return service.put(url, param, {
+      headers,
+    })
+  },
+  file(url, param = null, headers = {}) {
+    return service.post(url, param, {
+      headers: Object.assign({
+        'Content-Type': 'multipart/form-data'
+      }, headers)
+    })
+  },
+  delete(url, param = null, headers = {}) {
+    return service.delete(url, {
+      param,
+      headers: Object.assign({
+        'Content-Type': 'multipart/form-data'
+      }, headers)
+    })
+  }
+}
 

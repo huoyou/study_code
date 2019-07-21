@@ -2,6 +2,8 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CompressionPlugin = require('compression-webpack-plugin');
+const vConsolePlugin = require('vconsole-webpack-plugin');
+
 const os = require('os');
 var FStream = require('fs');
 const path = require('path');
@@ -13,21 +15,24 @@ const resolve = dir => {
 };
 
 const isProduction = process.env.NODE_ENV === 'production';
-const configSet = 'dist';
+const outputName = 'dist';
 const cdn = {
-    css: [],
+    css: [
+        //   'https://unpkg.com/element-ui/lib/theme-chalk/index.css' // element-ui css
+    ],
     js: [
-        'https://xxx-cdn-path/vue.runtime.min.js',
-        'https://xxx-cdn-path/vue-router.min.js',
-        'https://xxx-cdn-path/vuex.min.js',
-        'https://xxx-cdn-path/axios.min.js',
+        'https://cdn.staticfile.org/vue/2.5.22/vue.min.js',
+        'https://cdn.staticfile.org/vue-router/3.0.2/vue-router.min.js',
+        'https://cdn.staticfile.org/vuex/3.1.0/vuex.min.js',
+        'https://cdn.staticfile.org/axios/0.19.0-beta.1/axios.min.js',
+        //   'https://unpkg.com/element-ui/lib/index.js' // element-ui js
     ]
 }
-
+const useCdn = false;
 
 module.exports = {
     publicPath: './',
-    outputDir: configSet, // 打包输出路径
+    outputDir: outputName, // 打包输出路径
     lintOnSave: false, // eslint-loader 是否在保存的时候检查
     chainWebpack: config => {
         // 引入babel-polyfill
@@ -41,15 +46,7 @@ module.exports = {
             .set('_c', resolve('src/components'))
             .set('_assets', resolve('src/assets'))
             .set('_common', resolve('src/common'))
-        // 压缩图片
-        config.module
-            .rule('images')
-            .use('image-webpack-loader')
-            .loader('image-webpack-loader')
-            .options({
-                bypassOnDebug: true
-            })
-            .end()
+
         // TS-Loader配置
         config.module
             .rule('ts')
@@ -73,23 +70,41 @@ module.exports = {
                 return options
             })
         // 生产环境配置
-        // if (isProduction) {
-        //     // 删除预加载,移除 prefetch 插件
-        //     config.plugins.delete('preload');
-        //     config.plugins.delete('prefetch');
-        //     // 压缩代码
-        //     config.optimization.minimize(true);
-        //     // 分割代码
-        //     config.optimization.splitChunks({
-        //         chunks: 'all'
-        //     })
-        //     // 生产环境注入cdn
-        //     config.plugin('html')
-        //         .tap(args => {
-        //             args[0].cdn = cdn;
-        //             return args;
-        //         });
-        // }
+        if (isProduction) {
+            // 压缩图片
+            config.module
+                .rule('images')
+                .use('image-webpack-loader')
+                .loader('image-webpack-loader')
+                .options({
+                    bypassOnDebug: true
+                })
+                .end()
+            // 删除预加载,移除 prefetch 插件
+            // config.plugins.delete('preload');
+            // config.plugins.delete('prefetch');
+            // 压缩代码
+            config.optimization.minimize(true);  
+            // 分割代码
+            config.optimization.splitChunks({
+                chunks: 'all'
+            })
+
+            // 生产环境注入cdn
+            var externals = {
+                'vue': 'Vue',
+                'axios': 'axios',
+                'vue-router': 'VueRouter',
+                'vuex': 'Vuex'
+            }
+            config.externals(externals)
+            config.plugin('html')
+                .tap(args => {
+                    args[0].cdn = cdn
+                    return args
+                })
+        }
+
     },
     configureWebpack: config => {
         if (isProduction) {
@@ -112,8 +127,8 @@ module.exports = {
                     ],*/
                     archive: [
                         {
-                            source: configSet,
-                            destination: `${configSet}.zip`,
+                            source: outputName,
+                            destination: `${outputName}.zip`,
                             format: 'zip',
                         }
                     ]
@@ -129,15 +144,22 @@ module.exports = {
             });
             // 打包分析
             let BundleAnalyzer = new BundleAnalyzerPlugin();
-            // config.externals = {
-            //     'vue': 'Vue',
-            //     'vuex': 'Vuex',
-            //     'vue-router': 'VueRouter',
-            //     'axios': 'axios'
-            // }
-            config.plugins = [...config.plugins, removeConsole, fileManager, Compression, BundleAnalyzer];
+
+            if (process.env.IS_ANALYZE) {
+                config.plugins = [...config.plugins, removeConsole, fileManager, Compression, BundleAnalyzer];
+            } else {
+                config.plugins = [...config.plugins, removeConsole, fileManager, Compression];
+            }
         } else {
             // 为开发环境修改配置...
+            let pluginsDev = [
+                //移动端模拟开发者工具
+                new vConsolePlugin({
+                    filter: [], // 需要过滤的入口文件
+                    enable: true
+                }),
+            ];
+            config.plugins = [...config.plugins, ...pluginsDev];
         }
     },
     css: {

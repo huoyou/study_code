@@ -8,11 +8,5 @@ const requirePlugin = require.context(
   /.+\.js$/
 )
 requirePlugin.keys().forEach(fileName => {
-  if (isProduction) {
-    if (fileName !== './vconsole.js') {
-      requirePlugin(fileName);
-    }
-  } else {
-    requirePlugin(fileName);
-  }
+  requirePlugin(fileName);
 })
