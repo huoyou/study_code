@@ -14,6 +14,7 @@ const requireComponent = require.context(
 requireComponent.keys().forEach(fileName => {
   // 获取组件配置
   const componentConfig = requireComponent(fileName)
+  console.log('componentConfig',componentConfig)
 
   // 获取组件的 PascalCase 命名
   const componentName = upperFirst(
@@ -25,6 +26,7 @@ requireComponent.keys().forEach(fileName => {
         .replace(/\.\w+$/, '')
     )
   )
+  console.log('componentName',componentName)
 
   // 全局注册组件
   Vue.component(

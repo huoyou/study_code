@@ -8,7 +8,8 @@
     "lint": "vue-cli-service lint",
     "analyze": "vue-cli-service build --mode analyze",
     "newC": "node ./scripts/generateComponent",
-    "newV": "node ./scripts/generateView"
+    "newV": "node ./scripts/generateView",
+    "deploy-to-test-env": "./my-auto-deploy.sh  build  prod ||  start  my-auto-deploy.sh  build  prod ; ( echo '上传命令已经完成' ) "
   },
   "dependencies": {
     "amfe-flexible": "^2.2.1",

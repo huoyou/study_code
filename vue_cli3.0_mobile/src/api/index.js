@@ -99,11 +99,13 @@ service.interceptors.response.use(response => {
       break
     // 其他错误，直接抛出错误提示
     default:
+      break
   }
   return Promise.reject(error);
 })
 
 // export default service
+
 // 定义对外Get、Post、File请求
 export default {
   get(url, param = {}, headers = {}) {

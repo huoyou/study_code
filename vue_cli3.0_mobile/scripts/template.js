@@ -7,7 +7,16 @@ module.exports = {
   </template>
   <script>
   export default {
-    name: "${compoenntName}"
+    name: "${compoenntName}",
+    props: {},
+    data() {
+      return {};
+    },
+    created () {
+    },
+    mounted() {
+    },
+    methods: {}
   }
   </script>
   <style lang="scss" scoped>

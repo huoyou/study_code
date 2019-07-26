@@ -84,7 +84,7 @@ module.exports = {
             // config.plugins.delete('preload');
             // config.plugins.delete('prefetch');
             // 压缩代码
-            config.optimization.minimize(true);  
+            config.optimization.minimize(true);
             // 分割代码
             config.optimization.splitChunks({
                 chunks: 'all'
@@ -107,7 +107,13 @@ module.exports = {
 
     },
     configureWebpack: config => {
+        config.plugins[1].definitions['process.env'].VUE_APP_VERSION = new Date().getTime()
+        console.log("当前版本",config.plugins[1].definitions['process.env'].VUE_APP_VERSION)
         if (isProduction) {
+            FStream.writeFile("public/version.js", config.plugins[1].definitions['process.env'].VUE_APP_VERSION, function (err) {
+                if (err) throw err;
+                console.log("版本信息写入成功!");
+              });
             // 去除console.log
             let removeConsole = new UglifyJSPlugin({
                 uglifyOptions: {
@@ -122,9 +128,12 @@ module.exports = {
             // 打包web文件夹 ---------- 已放到zipFile.js中去打包
             let fileManager = new FileManagerPlugin({
                 onEnd: {
-                    /*copy: [
-                      { source: 'public/version.js', destination: 'web' },
-                    ],*/
+                    delete: [   //首先需要删除项目根目录下的dist.zip
+                        './*.zip',
+                    ],
+                    copy: [
+                      { source: 'public/version.js', destination: outputName },
+                    ],
                     archive: [
                         {
                             source: outputName,

@@ -7,6 +7,12 @@
     <div class="aaa">{{13177914213 | $formatPhone('start',8)}}</div>
     <div class="img1"></div>
     <div class="img2"></div>
+    <div class="img11"></div>
+    <div class="img12"></div>
+    <div class="img3"></div>
+    <div class="img4"></div>
+    <div class="img5"></div>
+    <div class="img6"></div>
     <test-com></test-com>
   </div>
 </template>
@@ -19,8 +25,11 @@
     components: {
       HelloWorld
     },
+    props: {},
     data() {
       return {};
+    },
+    created () {
     },
     mounted() {
     },
@@ -46,6 +55,36 @@
       width: 100px;
       height: 100px;
       background: url('~_assets/images/sprites/circleyes.png') no-repeat;
+    }
+    .img11 {
+      width: 200px;
+      height: 200px;
+      background: url('~_assets/images/sprites/success.png') no-repeat;
+    }
+     .img12 {
+      width: 100px;
+      height: 100px;
+      background: url('~_assets/images/sprites/circleyes.png') no-repeat;
+    }
+     .img6 {
+      width: 100px;
+      height: 100px;
+      background: url('~_assets/images/sprites/log1.png') no-repeat;
+    }
+     .img3 {
+      width: 100px;
+      height: 100px;
+      background: url('~_assets/images/sprites/login.jpg') no-repeat;
+    }
+     .img4 {
+      width: 100px;
+      height: 100px;
+      background: url('~_assets/images/sprites/login-bg.jpg') no-repeat;
+    }
+     .img5 {
+      width: 100px;
+      height: 100px;
+      background: url('~_assets/images/sprites/login-bg1.jpg') no-repeat;
     }
   }
 </style>
