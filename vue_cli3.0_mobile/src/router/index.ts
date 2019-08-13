@@ -12,7 +12,7 @@ let router = new Router({
 });
 const LOGIN_PAGE_NAME = 'login';
 
-router.beforeEach((to, from, next) => {
+/*router.beforeEach((to, from, next) => {
   // iView.LoadingBar.start();
   const token = getStore('token');
   if (to.meta.title) {
@@ -59,7 +59,7 @@ router.beforeEach((to, from, next) => {
       next({ name: LOGIN_PAGE_NAME })
     })
   }
-})
+})*/
 
 
 router.afterEach(to => {

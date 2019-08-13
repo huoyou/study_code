@@ -41,7 +41,7 @@
     "image-webpack-loader": "^5.0.0",
     "node-sass": "^4.9.0",
     "os": "^0.1.1",
-    "postcss-px2rem": "^0.3.0",
+    "postcss-pxtorem": "^4.0.1",
     "postcss-sprites": "^4.2.1",
     "sass-loader": "^7.1.0",
     "ts-import-plugin": "^1.5.5",

@@ -2,7 +2,7 @@
   <div class="home">
     <img class="img"
          alt="Vue logo"
-         src="../assets/logo.png">
+         src="../assets/logo.png" @click="$router.push({path: 'test'})">
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
     <div class="aaa">{{13177914213 | $formatPhone('start',8)}}</div>
     <div class="img1"></div>
@@ -33,34 +33,22 @@
     // TIP—————————————————————————————————————— props ,在类中的实现——————————————————————————————————————
 
     // TIP————————————————————————————————————Data，在类中的实现（@Model相关的除外）——————————————————————
-    public msg: string = 'hello'
-    public name:string = 'home'
     // TIP——————————————————————————————————————computed，在类中的实现——————————————————————————————————————
-    private get reversedMessage (): string[] {
-      return this.message.split('').reverse().join('')
-    }
     // TIP——————————————————————————————————————Vuex，在类中的实现——————————————————————————————————————
-    @State((state: IRootState) => state . booking. currentStep) step!: number
-    @Getter( 'person/name') name!: name
+    // @State((state: IRootState) => state . booking. currentStep) step!: number
+    // @Getter( 'person/name') name!: name
     // TIP——————————————————————————————————————Method，在类中的实现——————————————————————————————————————
-    say_name(): void {
-      console.log(this.name)
-    }
     // TIP——————————————————————————————————————Vue生命周期，在类中的实现——————————————————————————————————
     public created(): void {
       this.initFunc();
     };
-
     public mounted(): void {
       // this.$notify.warning('等待后台更改接口路径名字')
     };
-
     public activated(): void {
     };
-
     public updated(): void {
     };
-
     public destroyed(): void {
     };
   }

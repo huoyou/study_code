@@ -1,7 +1,8 @@
 module.exports = {
   plugins: {
-    autoprefixer: {},
-    
+    'autoprefixer': {
+      browsers: ['Android >= 4.0', 'iOS >= 7']
+    },
     'postcss-sprites': {
       basePath: './dist',
       spritePath: './dist/img/sprites',
@@ -42,8 +43,15 @@ module.exports = {
     //   mediaQuery: false,
     //   propList: ['*']
     // },
-    "postcss-px2rem": {
-      "remUnit": 37.5
-    },
+    // "postcss-px2rem": {
+    //   "remUnit": 37.5
+    // },
+    "postcss-pxtorem": {
+      rootValue:         37.5,                              // 值：设计图宽度/20  （目标是将屏幕转化为20rem）
+      propList:          ['*'],
+      // 该项仅在使用 Circle 组件时需要
+      // 原因参见 https://github.com/youzan/vant/issues/1948
+      selectorBlackList: ['van-circle__layer'] // 忽略转换正则匹配项
+    }
   }
 }

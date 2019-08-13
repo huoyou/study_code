@@ -1,18 +1,17 @@
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin'); // js压缩
 const FileManagerPlugin = require('filemanager-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const CompressionPlugin = require('compression-webpack-plugin');
-const vConsolePlugin = require('vconsole-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 打包分析
+const CompressionPlugin = require('compression-webpack-plugin');  // gzip压缩
+const vConsolePlugin = require('vconsole-webpack-plugin'); // 移动端vconsole
 
 const os = require('os');
-var FStream = require('fs');
+const FStream = require('fs');
 const path = require('path');
+const resolve = (dir) => path.join(__dirname, dir);
+const productionGzipExtensions = /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i;
+
 const merge = require('webpack-merge');                        // ts用
 const tsImportPluginFactory = require('ts-import-plugin');     // ts用
-
-const resolve = dir => {
-    return path.join(__dirname, dir)
-};
 
 const isProduction = process.env.NODE_ENV === 'production';
 const outputName = 'dist';
@@ -32,9 +31,12 @@ const useCdn = false;
 
 module.exports = {
     publicPath: './',
+    parallel: false,
     outputDir: outputName, // 打包输出路径
     lintOnSave: false, // eslint-loader 是否在保存的时候检查
     chainWebpack: config => {
+        // 修复HMR
+        config.resolve.symlinks(true);
         // 引入babel-polyfill
         config
             .entry('index')
@@ -46,26 +48,26 @@ module.exports = {
             .set('_c', resolve('src/components'))
             .set('_assets', resolve('src/assets'))
             .set('_common', resolve('src/common'))
-
         // TS-Loader配置
         config.module
-            .rule('ts')
-            .use('ts-loader')
+            .rule("ts")
+            .use("ts-loader")
+            .loader('ts-loader')
             .tap(options => {
                 options = merge(options, {
                     transpileOnly: true,
                     getCustomTransformers: () => ({
                         before: [
                             tsImportPluginFactory({
-                                libraryName: 'vant',
-                                libraryDirectory: 'es',
-                                style: true
-                            })
-                        ]
+                                libraryName: "vant",
+                                libraryDirectory: "es",
+                                style: true,
+                            }),
+                        ],
                     }),
                     compilerOptions: {
-                        module: 'es2015'
-                    }
+                        module: "es2015",
+                    },
                 })
                 return options
             })
@@ -108,12 +110,12 @@ module.exports = {
     },
     configureWebpack: config => {
         config.plugins[1].definitions['process.env'].VUE_APP_VERSION = new Date().getTime()
-        console.log("当前版本",config.plugins[1].definitions['process.env'].VUE_APP_VERSION)
+        console.log("当前版本", config.plugins[1].definitions['process.env'].VUE_APP_VERSION)
         if (isProduction) {
             FStream.writeFile("public/version.js", config.plugins[1].definitions['process.env'].VUE_APP_VERSION, function (err) {
                 if (err) throw err;
                 console.log("版本信息写入成功!");
-              });
+            });
             // 去除console.log
             let removeConsole = new UglifyJSPlugin({
                 uglifyOptions: {
@@ -132,7 +134,7 @@ module.exports = {
                         './*.zip',
                     ],
                     copy: [
-                      { source: 'public/version.js', destination: outputName },
+                        {source: 'public/version.js', destination: outputName},
                     ],
                     archive: [
                         {
@@ -144,10 +146,10 @@ module.exports = {
                 }
             });
             // zip压缩
-            let Compression = new CompressionPlugin({
+            let compression = new CompressionPlugin({
                 filename: '[path].gz[query]',
                 algorithm: 'gzip',
-                test: new RegExp('\\.(' + ['js', 'css'].join('|') + ')$'),
+                test: productionGzipExtensions,
                 threshold: 8192,
                 minRatio: 0.8,
             });
@@ -155,36 +157,41 @@ module.exports = {
             let BundleAnalyzer = new BundleAnalyzerPlugin();
 
             if (process.env.IS_ANALYZE) {
-                config.plugins = [...config.plugins, removeConsole, fileManager, Compression, BundleAnalyzer];
+                config.plugins = [...config.plugins, fileManager, compression, BundleAnalyzer];
             } else {
-                config.plugins = [...config.plugins, removeConsole, fileManager, Compression];
+                config.plugins = [...config.plugins, fileManager, compression];
             }
         } else {
             // 为开发环境修改配置...
-            let pluginsDev = [
-                //移动端模拟开发者工具
-                new vConsolePlugin({
-                    filter: [], // 需要过滤的入口文件
-                    enable: true
-                }),
-            ];
-            config.plugins = [...config.plugins, ...pluginsDev];
+            //移动端模拟开发者工具
+            let vConsole = new vConsolePlugin({
+                filter: [], // 需要过滤的入口文件
+                enable: true
+            });
+            config.plugins = [...config.plugins, vConsole];
         }
     },
     css: {
+        modules: false,
+        extract: isProduction,
+        // 为css后缀添加hash
+        // extract: {
+        // filename: 'css/[name].[hash:8].css',
+        // chunkFilename: 'css/[name].[hash:8].css'
+        //}，
+        sourceMap: false,
         loaderOptions: {
             sass: {
                 data: `
                 @import "@/common/css/mixin.scss";
                 @import "@/common/css/_var.scss";
                 `
-            }
+            },
         }
     },
     // 上线产品不生成source map
     productionSourceMap: false,
     //是否为 Babel 或 TypeScript 使用 thread-loader。该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
-    parallel: os.cpus().length > 1,
     //前端代理
     devServer: {
         open: false, // 自动打开浏览器
