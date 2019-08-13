@@ -2,18 +2,26 @@
   <div class="home">
     <img class="img"
          alt="Vue logo"
-         src="../assets/logo.png" @click="$router.push({path: 'test'})">
+         src="../assets/logo.png" >
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
     <div class="aaa">{{13177914213 | $formatPhone('start',8)}}</div>
-    <div class="img1"></div>
-    <div class="img2"></div>
-    <div class="img11"></div>
-    <div class="img12"></div>
-    <div class="img3"></div>
-    <div class="img4"></div>
-    <div class="img5"></div>
-    <div class="img6"></div>
-    <test-com></test-com>
+    <van-button type="default" @click="$router.push({path: 'test'})">跳转至test</van-button>
+    <van-button type="primary" @click="$router.push({path: 'about'})">跳转至about</van-button>
+
+    <div style="margin-top: 20px">
+      <button type="info" @click="changeLanguage('1')" class="btn">简体中文</button>
+      <button type="info" @click="changeLanguage('2')" class="btn">繁体中文</button>
+      <button type="info" @click="changeLanguage('3')" class="btn">英文</button>
+    </div>
+    <div style="margin-top: 20px;padding: 20px;font-size: 16px">显示内容,多语言切换: <span style="font-weight: 700;color: blue;">{{$t('common.language')}}</span></div>
+<!--    <div class="img1"></div>-->
+<!--    <div class="img2"></div>-->
+<!--    <div class="img11"></div>-->
+<!--    <div class="img12"></div>-->
+<!--    <div class="img3"></div>-->
+<!--    <div class="img4"></div>-->
+<!--    <div class="img5"></div>-->
+<!--    <div class="img6"></div>-->
   </div>
 </template>
 
@@ -38,6 +46,19 @@
     // @State((state: IRootState) => state . booking. currentStep) step!: number
     // @Getter( 'person/name') name!: name
     // TIP——————————————————————————————————————Method，在类中的实现——————————————————————————————————————
+    public changeLanguage(val) {
+      switch (val) {
+        case '1':
+          this.$i18n.locale = 'zh-CN'
+          break;
+        case '2':
+          this.$i18n.locale = 'zh-TW'
+          break;
+        case '3':
+          this.$i18n.locale = 'zh-US'
+          break;
+      }
+    }
     // TIP——————————————————————————————————————Vue生命周期，在类中的实现——————————————————————————————————
     public created(): void {
       this.initFunc();
@@ -56,6 +77,12 @@
 </script>
 <style lang="scss" scoped>
   .home {
+    .btn {
+      margin-left: 30px;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
     .img {
       @include wh(300px,300px);
       // @include ct();

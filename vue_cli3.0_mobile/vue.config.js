@@ -92,25 +92,28 @@ module.exports = {
                 chunks: 'all'
             })
 
-            // 生产环境注入cdn
-            var externals = {
-                'vue': 'Vue',
-                'axios': 'axios',
-                'vue-router': 'VueRouter',
-                'vuex': 'Vuex'
-            }
-            config.externals(externals)
-            config.plugin('html')
-                .tap(args => {
-                    args[0].cdn = cdn
-                    return args
-                })
+                // 生产环境注入cdn
+                var externals = {
+                    'vue': 'Vue',
+                    'axios': 'axios',
+                    'vue-router': 'VueRouter',
+                    'vuex': 'Vuex'
+                }
+                config.externals(externals)
+                config.plugin('html')
+                    .tap(args => {
+                        args[0].cdn = cdn
+                        return args
+                    })
         }
-
     },
     configureWebpack: config => {
-        config.plugins[1].definitions['process.env'].VUE_APP_VERSION = new Date().getTime()
-        console.log("当前版本", config.plugins[1].definitions['process.env'].VUE_APP_VERSION)
+        config.plugins[1].definitions['process.env'].VUE_APP_VERSION = new Date().getTime();
+        console.log("当前版本", config.plugins[1].definitions['process.env'].VUE_APP_VERSION);
+        let vConsole = new vConsolePlugin({   //移动端模拟开发者工具
+            filter: [], // 需要过滤的入口文件
+            enable: true
+        });
         if (isProduction) {
             FStream.writeFile("public/version.js", config.plugins[1].definitions['process.env'].VUE_APP_VERSION, function (err) {
                 if (err) throw err;
@@ -155,19 +158,13 @@ module.exports = {
             });
             // 打包分析
             let BundleAnalyzer = new BundleAnalyzerPlugin();
-
             if (process.env.IS_ANALYZE) {
-                config.plugins = [...config.plugins, fileManager, compression, BundleAnalyzer];
+                config.plugins = [...config.plugins, fileManager,removeConsole, compression, BundleAnalyzer];
             } else {
-                config.plugins = [...config.plugins, fileManager, compression];
+                config.plugins = [...config.plugins, fileManager,removeConsole, compression];
             }
         } else {
             // 为开发环境修改配置...
-            //移动端模拟开发者工具
-            let vConsole = new vConsolePlugin({
-                filter: [], // 需要过滤的入口文件
-                enable: true
-            });
             config.plugins = [...config.plugins, vConsole];
         }
     },
@@ -189,10 +186,7 @@ module.exports = {
             },
         }
     },
-    // 上线产品不生成source map
     productionSourceMap: false,
-    //是否为 Babel 或 TypeScript 使用 thread-loader。该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。
-    //前端代理
     devServer: {
         open: false, // 自动打开浏览器
         //host: '0.0.0.0',

@@ -8,10 +8,10 @@ import FastClick from 'fastclick'
 // @ts-ignore
 import filters  from '_common/js/filters'
 import 'amfe-flexible'
-// import 'vant/lib/index.css';
+// import 'vant/lib/index.css';  // 引入vant全部样式,vue.config.js中按需引入失效.
 
 // 导入vant组件
-import initVantComponent from './plugins/vant';
+import initVantComponent from './vantComponent';
 initVantComponent();
 
 

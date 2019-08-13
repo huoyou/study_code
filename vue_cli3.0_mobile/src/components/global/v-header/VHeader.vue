@@ -1,11 +1,11 @@
 <template>
-    <div class="NewTest">
-      NewTest组件
+    <div class="header">
+      Header组件
     </div>
   </template>
   <script>
   export default {
-    name: "NewTest",
+    name: "Header",
     props: {},
     data() {
       return {};
@@ -18,7 +18,11 @@
   }
   </script>
   <style lang="scss" scoped>
-  .NewTest {
+  .header {
+      height: 44px;
+      line-height: 44px;
+      text-align: center;
+      background-color: #eee;
+      font-size: 16px;
   }
   </style>
-  

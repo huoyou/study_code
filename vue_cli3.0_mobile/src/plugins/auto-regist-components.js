@@ -1,5 +1,5 @@
-/*
-* 自动注册引入组件
+/**
+ * 自动注册引入global下全局组件
  */
 import Vue from 'vue'
 import upperFirst from 'lodash/upperFirst'

@@ -5,7 +5,7 @@
     -ms-transition: all $time ease-in-out;
     transition: all $time ease-in-out;
 }
-// 宣传动画调用
+// 旋转动画调用
 @mixin xz($deg:360){
     transform:rotate($deg+deg);
     -webkit-transform:rotate($deg+deg);
